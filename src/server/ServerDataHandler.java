@@ -2,23 +2,22 @@ package server;
 
 import java.util.ArrayList;
 
-import global.Card;
 import global.Enemy;
 import global.EnemyAction;
 import global.Message;
 import global.Player;
 
 public class ServerDataHandler {
-	
+
 	public static int ENEMY_ACTION_DELAY = 2;
 	public ArrayList<Player> players;
 	public ArrayList<Enemy> enemies;
-	
+
 	private EnemyHandler enemyHandler;
-	
+
 	private boolean playersCanPlayCard;
 	private ConnectionHandler connHandler;
-	
+
 	public ServerDataHandler() {
 		players = new ArrayList<Player>();
 		enemies = new ArrayList<Enemy>();
@@ -27,13 +26,28 @@ public class ServerDataHandler {
 	}
 
 	public Player createPlayer(ClientHandler clientHandler, Object data) {
-		Player player = new Player(this);
-		player.setClientHandler(clientHandler);
-		players.add(player);
-		sendMessageToAll(new Message("players", players));
-		return player;
+		boolean nameTaken = false;
+		for(Player p: players) {
+			if(p.getName().equals(data)) {
+				nameTaken = true;
+			}
+		}
+		if(!nameTaken) {
+			Player player = new Player();
+			player.setName((String) data);
+			player.setClientHandler(clientHandler);
+			players.add(player);
+			sendMessageToAll(new Message("players", players));
+			return player;
+		}
+		return null;
 	}
-	
+
+	public void removePlayer(Player player) {
+		players.remove(player);
+		sendMessageToAll(new Message("players", players));
+	}
+
 	public void readyPlayerToEndTurn(Player player) {
 		player.setReadyToEndTurn(!player.getReadyToEndTurn());
 		boolean notAllReady = false;
@@ -47,7 +61,7 @@ public class ServerDataHandler {
 			takeEnemyTurn();
 		}
 	}
-	
+
 	public void readyPlayerToStartGame(Player player) {
 		player.setReadyToStartGame(!player.getReadyToStartGame());
 		boolean notAllReady = false;
@@ -61,9 +75,11 @@ public class ServerDataHandler {
 			}
 			//start game
 			sendMessageToAll(new Message("startgame", null));
+		}else {
+			sendMessageToAll(new Message("players", players));
 		}
 	}
-	
+
 	public void readyPlayerToStartFight(Player player) {
 		player.setReadyToStartGame(!player.getReadyToStartFight());
 		boolean notAllReady = false;
@@ -81,20 +97,20 @@ public class ServerDataHandler {
 			sendMessageToAll(new Message());
 		}
 	}
-	
+
 	public Message playCard(Object obj, Player play) {
 		if(obj instanceof Integer && playersCanPlayCard) {
 			return play.playCard((Integer) obj);
 		}
 		return new Message("pcfail", null);
 	}
-	
+
 	public void sendMessageToAll(Message message) {
 		for(Player p: players) {
 			p.sendMessage(message);
 		}
 	}
-	
+
 	public void takeEnemyTurn() {
 		for(Player p: players) {
 			p.postTurnSE();
@@ -118,12 +134,13 @@ public class ServerDataHandler {
 		playersCanPlayCard = true;
 		for(Player p: players) {
 			p.preTurnSE();
+			p.resetEnergy();
 		}
 	}
-	
+
 	public boolean playersCanPlayCard() {
 		return playersCanPlayCard;
 	}
-	
-	
+
+
 }

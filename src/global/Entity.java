@@ -1,10 +1,11 @@
 package global;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import server.EntityListener;
 
-public class Entity {
+public class Entity implements Serializable{
 	
 	protected int block;
 	protected int maxHealth;

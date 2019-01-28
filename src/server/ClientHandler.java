@@ -25,8 +25,8 @@ public class ClientHandler {
 		client = clientSocket;
 		done = false;
 		try {
-			ois = new ObjectInputStream(client.getInputStream());
 			oos = new ObjectOutputStream(client.getOutputStream());
+			ois = new ObjectInputStream(client.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,8 +38,12 @@ public class ClientHandler {
 						handleIncoming(ois.readObject());
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
+						dataHandler.removePlayer(player);
+						done = true;
 					} catch (IOException e) {
 						e.printStackTrace();
+						dataHandler.removePlayer(player);
+						done = true;
 					}
 				}
 			}
@@ -53,6 +57,9 @@ public class ClientHandler {
 			Message message = (Message) obj;
 			if(message.textEquals("pjoin")) {
 				player = dataHandler.createPlayer(this, message.data);
+				if(player == null) {
+					send(new Message("Name Taken", null));
+				}
 			}else if(message.textEquals("prend")) {
 				dataHandler.readyPlayerToEndTurn(player);
 			}else if(message.textEquals("prfight")) {
@@ -72,6 +79,7 @@ public class ClientHandler {
 		try {
 			oos.writeObject(mess);
 			oos.flush();
+			oos.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

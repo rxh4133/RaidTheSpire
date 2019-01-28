@@ -1,6 +1,8 @@
 package global;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable{
 	public int cost;
 	private final int ID;
 	private Card(int id) {

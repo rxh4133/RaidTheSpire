@@ -25,6 +25,7 @@ public class ConnectionHandler implements Runnable {
 	@Override
 	public void run() {
 		try {
+			System.out.println("Listening for connections");
 			server = new ServerSocket(SERVER_PORT);
 			while(!done) {
 				Socket client = server.accept();

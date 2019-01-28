@@ -3,15 +3,13 @@ package global;
 import java.util.ArrayList;
 
 import server.ClientHandler;
-import server.ServerDataHandler;
 
 public class Player extends Entity{
-	
-	private ServerDataHandler dataHandler;
-	
+	private static final long serialVersionUID = 1L;
+
 	private ArrayList<Card> cards;
 	
-	private ClientHandler client;
+	private transient ClientHandler client;
 	private boolean readyToEndTurn;
 	private boolean readyToStartGame;
 	private boolean readyToStartFight;
@@ -19,10 +17,23 @@ public class Player extends Entity{
 	private int maxEnergy;
 	private int curEnergy;
 	
+	private String name;
 	
-	public Player(ServerDataHandler sdh) {
-		dataHandler = sdh;
+	
+	public Player() {
 		cards = new ArrayList<Card>();
+	}
+	
+	public void setName(String n) {
+		name = n;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void resetEnergy() {
+		curEnergy = maxEnergy;
 	}
 	
 	public Message playCard(int index) {
@@ -67,5 +78,13 @@ public class Player extends Entity{
 		client.send(m);
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Player && ((Player) obj).name.equals(name);
+	}
 }
