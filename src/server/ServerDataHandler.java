@@ -99,8 +99,9 @@ public class ServerDataHandler {
 	}
 
 	public Message playCard(Object obj, Player play) {
-		if(obj instanceof Integer && playersCanPlayCard) {
-			return play.playCard((Integer) obj);
+		if(obj instanceof Integer[] && playersCanPlayCard) {
+			Integer[] cardData = (Integer[]) obj;
+			return play.playCard(cardData[0], cardData[1]);
 		}
 		return new Message("pcfail", null);
 	}
@@ -141,6 +142,5 @@ public class ServerDataHandler {
 	public boolean playersCanPlayCard() {
 		return playersCanPlayCard;
 	}
-
 
 }

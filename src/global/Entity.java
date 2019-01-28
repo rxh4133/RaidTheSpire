@@ -7,6 +7,7 @@ import server.EntityListener;
 
 public class Entity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	protected int block;
 	protected int maxHealth;
 	protected int curHealth;
@@ -15,12 +16,14 @@ public class Entity implements Serializable{
 	protected ArrayList<EntityListener> damSubs;
 	protected ArrayList<EntityListener> attDamSubs;
 	protected ArrayList<EntityListener> deathSubs;
+	protected ArrayList<EntityListener> blockGainSubs;
 	
 	public Entity() {
 		effects = new ArrayList<StatusEffect>();
 		damSubs = new ArrayList<EntityListener>();
 		attDamSubs = new ArrayList<EntityListener>();
 		damSubs = new ArrayList<EntityListener>();
+		blockGainSubs = new ArrayList<EntityListener>();
 	}
 
 	public void preTurnSE() {
@@ -70,5 +73,12 @@ public class Entity implements Serializable{
 				el.notify(this, "diedtoattdamage", "diedtoattdamage");
 			}
 		}
+	}
+	
+	public void gainBlock(int block) {
+		for(EntityListener el: blockGainSubs) {
+			el.notify(this, "blockGained", block);
+		}
+		this.block += block;
 	}
 }

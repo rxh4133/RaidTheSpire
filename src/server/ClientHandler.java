@@ -67,9 +67,7 @@ public class ClientHandler {
 			}else if(message.textEquals("prgame")) {
 				dataHandler.readyPlayerToStartGame(player);
 			}else if(message.textEquals("pcard")) {
-				if(!dataHandler.playersCanPlayCard()) {
-					send(new Message("pcardfail", null));
-				}
+				dataHandler.playCard(message.data, player);
 			}
 		}
 		

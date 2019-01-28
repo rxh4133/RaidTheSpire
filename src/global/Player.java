@@ -1,13 +1,18 @@
 package global;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import server.ClientHandler;
 
 public class Player extends Entity{
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Card> cards;
+	private ArrayList<Card> hand;
+	private ArrayList<Card> draw;
+	private ArrayList<Card> exhausted;
+	private ArrayList<Card> discard;
+	private ArrayList<Card> deck;
 	
 	private transient ClientHandler client;
 	private boolean readyToEndTurn;
@@ -18,6 +23,8 @@ public class Player extends Entity{
 	private int curEnergy;
 	
 	private String name;
+	
+	public PlayerClass playerClass;
 	
 	
 	public Player() {
@@ -36,10 +43,54 @@ public class Player extends Entity{
 		curEnergy = maxEnergy;
 	}
 	
-	public Message playCard(int index) {
-		Card card = cards.get(index);
+	public int getStrength() {
+		for(StatusEffect se: effects) {
+			if(se.name.equals("STRENGTH")) {
+				return se.value;
+			}
+		}
+		return 0;
+	}
+	
+	public int getDex() {
+		for(StatusEffect se: effects) {
+			if(se.name.equals("DEXTERITY")) {
+				return se.value;
+			}
+		}
+		return 0;
+	}
+	
+	public void shuffleCardsFromDiscard() {
+		for(int i = 0; i < discard.size(); i++) {
+			draw.add(discard.get(i));
+			discard.remove(i);
+		}
+		Collections.shuffle(draw);
+	}
+	
+	public void shuffleCardsFromDeck() {
+		for(int i = 0; i < discard.size(); i++) {
+			draw.add(deck.get(i).copyCard());
+		}
+		Collections.shuffle(draw);
+	}
+	
+	public void drawCards(int toDraw) {
+		 for(int i = 0; i < toDraw; i++) {
+			 if(draw.size() == 0) {
+				 shuffleCardsFromDiscard();
+			 }
+			 Card c = draw.get(0);
+			 draw.remove(0);
+			 hand.add(c);
+		 }
+	}
+	
+	public Message playCard(int index, int target) {
+		Card card = hand.get(index);
 		if(card != null && card.cost <= curEnergy) {
-			card.play();
+			card.play(this, target);
 			curEnergy -= card.cost;
 			return new Message("pcok", null);
 		}

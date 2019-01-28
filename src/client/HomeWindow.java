@@ -7,10 +7,12 @@ import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import global.PlayerClass;
 import server.ServerDataHandler;
 
 public class HomeWindow extends JPanel{
@@ -23,6 +25,9 @@ public class HomeWindow extends JPanel{
 	private JLabel ipLabel;
 	private JButton connectButton;
 	private JTextField hostField;
+	
+	private JLabel classLabel;
+	private JComboBox<PlayerClass> classComboBox;
 	
 	private JTextField nameField;
 	
@@ -56,13 +61,18 @@ public class HomeWindow extends JPanel{
 		
 		nameField = new JTextField();
 		
-		this.setLayout(new GridLayout(3,2));
+		classLabel = new JLabel("Select your class!");
+		classComboBox = new JComboBox<PlayerClass>(PlayerClass.values());
+		
+		this.setLayout(new GridLayout(4,2));
 		this.add(new JLabel("Your Name: "));
 		this.add(nameField);
 		this.add(hostButton);
 		this.add(ipLabel);
 		this.add(connectButton);
 		this.add(hostField);
+		this.add(classLabel);
+		this.add(classComboBox);
 	}
 	
 }
