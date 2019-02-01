@@ -12,7 +12,7 @@ public class RewardManager {
 	}
 	
 	public ArrayList<Card> getOneCardReward(PlayerClass pc){
-		
+		return null;
 	}
 	
 	

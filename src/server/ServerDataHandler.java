@@ -117,9 +117,9 @@ public class ServerDataHandler implements EntityListener {
 			p.setDeck(carder.getStartingDeck(p.playerClass));
 			if(p.playerClass.equals(PlayerClass.RETRIBUTOR)) {
 				p.addMaxHealth(60);
-			}else if(p.playerClass.equals(PlayerClass.PALADIN)) {
+			}else if(p.playerClass.equals(PlayerClass.REVENANT)) {
 				p.addMaxHealth(80);
-			}else if(p.playerClass.equals(PlayerClass.CLOCKWORK)) {
+			}else if(p.playerClass.equals(PlayerClass.RESIPISCENT)) {
 				p.addMaxHealth(50);
 			}
 			p.setMaxEnergy(3);
