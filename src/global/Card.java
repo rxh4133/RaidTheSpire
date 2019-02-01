@@ -31,4 +31,8 @@ public class Card implements Serializable{
 		return new Card(defaultCost, name, rarity, cpcb);
 	}
 	
+	public String toString() {
+		return cost + " " + name;
+	}
+	
 }

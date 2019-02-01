@@ -1,36 +1,70 @@
 package client;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import global.Enemy;
 import global.Player;
 
-public class FightWindow extends JPanel{
+public class FightWindow extends JPanel {
 	private static final long serialVersionUID = 1L;
+	
+	private ClientDataHandler dataHandler;
 	
 	private JPanel playerPanel;
 	private JTextArea playerTextArea;
 	private JPanel enemyPanel;
 	private JTextArea enemyTextArea;
+	private JTextField targetField;
+	private JTextField cardIndexField;
+	private JButton playCardButton;
+	private JButton endTurnButton;
 
-	public FightWindow() {
-		this.setLayout(new GridLayout(1,2));
+	public FightWindow(ClientDataHandler cdh) {
+		dataHandler = cdh;
+		
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new GridLayout(1,2));
 		playerPanel = new JPanel();
 		enemyPanel = new JPanel();
 		
 		playerTextArea = new JTextArea();
 		enemyTextArea = new JTextArea();
 		
-		playerPanel.add(playerTextArea);
-		enemyPanel.add(enemyTextArea);
+		playerPanel.add(playerTextArea, BorderLayout.CENTER);
+		enemyPanel.add(enemyTextArea, BorderLayout.CENTER);
 		
-		this.add(playerPanel);
-		this.add(enemyPanel);
+		infoPanel.add(playerPanel);
+		infoPanel.add(enemyPanel);
 		
+		this.add(infoPanel, BorderLayout.CENTER);
+		
+		cardIndexField = new JTextField(4);
+		targetField = new JTextField(4);
+		playCardButton = new JButton("Play Card");
+		playCardButton.addActionListener(new PlayCardListener());
+		endTurnButton = new JButton("End Turn");
+		endTurnButton.addActionListener(new EndTurnListener());
+		
+		JPanel playPanel = new JPanel();
+		playPanel.setLayout(new FlowLayout());
+		playPanel.add(new JLabel("CardIndexToPlay: "));
+		playPanel.add(cardIndexField);
+		playPanel.add(new JLabel("TargetIndex: "));
+		playPanel.add(targetField);
+		playPanel.add(playCardButton);
+		playPanel.add(endTurnButton);
+		this.add(playPanel, BorderLayout.SOUTH);
 	}
 	
 	public void setPlayers(ArrayList<Player> players) {
@@ -46,4 +80,20 @@ public class FightWindow extends JPanel{
 			enemyTextArea.append(e.toString() + "\n");
 		}
 	}
+	
+	private class PlayCardListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			dataHandler.playCard(Integer.parseInt(cardIndexField.getText()), Integer.parseInt(targetField.getText()));
+		}
+	}
+	
+	private class EndTurnListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			dataHandler.endTurn();
+		}
+	}
+
 }

@@ -16,4 +16,8 @@ public class StatusEffect implements Serializable{
 	public void postTurn(Entity e) {
 		
 	}
+	
+	public String toString() {
+		return name + " " + value;
+	}
 }

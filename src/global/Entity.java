@@ -30,6 +30,7 @@ public class Entity implements Serializable{
 		preTurnSubs = new ArrayList<EntityListener>();
 		postTurnSubs = new ArrayList<EntityListener>();
 		fightStartSubs = new ArrayList<EntityListener>();
+		deathSubs = new ArrayList<EntityListener>();
 	}
 
 	public void preTurn() {
@@ -87,6 +88,14 @@ public class Entity implements Serializable{
 		}
 	}
 	
+	public void addMaxHealth(int health) {
+		maxHealth += health;
+		curHealth += health;
+		if(maxHealth <= 0) {
+			takeTrueDamage(curHealth);
+		}
+	}
+	
 	public void gainBlock(int block) {
 		for(EntityListener el: blockGainSubs) {
 			el.notify(this, "blockGained", block);
@@ -98,5 +107,13 @@ public class Entity implements Serializable{
 		for(EntityListener el: fightStartSubs) {
 			el.notify(this, "fightstart", "fightstart");
 		}
+	}
+	
+	public void addDeathSub(EntityListener el) {
+		deathSubs.add(el);
+	}
+	
+	public boolean isDead() {
+		return curHealth <= 0;
 	}
 }

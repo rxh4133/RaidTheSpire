@@ -6,11 +6,12 @@ import global.CardManager;
 import global.Enemy;
 import global.EnemyAction;
 import global.EnemyManager;
+import global.Entity;
 import global.Message;
 import global.Player;
 import global.PlayerClass;
 
-public class ServerDataHandler {
+public class ServerDataHandler implements EntityListener {
 
 	public static int ENEMY_ACTION_DELAY = 2;
 	public ArrayList<Player> players;
@@ -70,6 +71,7 @@ public class ServerDataHandler {
 			}
 			takeEnemyTurn();
 		}
+		sendMessageToAll(new Message("players", players));
 	}
 
 	public void readyPlayerToStartGame(Player player) {
@@ -113,27 +115,48 @@ public class ServerDataHandler {
 	public void startGame() {
 		for(Player p: players) {
 			p.setDeck(carder.getStartingDeck(p.playerClass));
+			if(p.playerClass.equals(PlayerClass.RETRIBUTOR)) {
+				p.addMaxHealth(60);
+			}else if(p.playerClass.equals(PlayerClass.PALADIN)) {
+				p.addMaxHealth(80);
+			}else if(p.playerClass.equals(PlayerClass.CLOCKWORK)) {
+				p.addMaxHealth(50);
+			}
+			p.setMaxEnergy(3);
 		}
 	}
 	
 	public void startFight(int fightNum) {
+		playersCanPlayCard = true;
 		enemies = enemyManager.getEnemiesForFight(fightNum);
 		for(Player p: players) {
 			p.removeHandAndDiscard();
 			p.shuffleCardsFromDeck();
+			p.drawCards(5);
 			p.fightStartSubs();
+			p.resetEnergy();
 		}
 		sendMessageToAll(new Message("startFight", null));
 		sendMessageToAll(new Message("players", players));
-		sendMessageToAll(new Message("enemies", enemies));
+		sendMessageToAll(new Message("enemies", getDisplayEnemies()));
+	}
+	
+	public ArrayList<Enemy> getDisplayEnemies(){
+		ArrayList<Enemy> disEns = new ArrayList<Enemy>();
+		for(Enemy e: enemies) {
+			disEns.add(e.copyForDisplay());
+		}
+		return disEns;
 	}
 
 	public Message playCard(Object obj, Player play) {
+		System.out.println("wait tho here");
 		if(obj instanceof Integer[] && playersCanPlayCard) {
+			System.out.println("Trying to play card in server");
 			Integer[] cardData = (Integer[]) obj;
 			Message result = play.playCard(cardData[0], cardData[1]);
 			sendMessageToAll(new Message("players", players));
-			sendMessageToAll(new Message("enemies", enemies));
+			sendMessageToAll(new Message("enemies", getDisplayEnemies()));
 			return result;
 		}
 		return new Message("pcfail", null);
@@ -154,8 +177,9 @@ public class ServerDataHandler {
 			e.preTurn();
 		}
 		for(Enemy e: enemies) {
-			EnemyAction ea = e.takeAction();
-			sendMessageToAll(new Message("eaction", ea));
+			e.takeAction().doAction();
+			sendMessageToAll(new Message("players", players));
+			//sendMessageToAll(new Message("eaction", ea));
 			try {
 				Thread.sleep(ENEMY_ACTION_DELAY * 1000);
 			} catch (Exception ex) {
@@ -169,12 +193,30 @@ public class ServerDataHandler {
 		for(Player p: players) {
 			p.preTurn();
 			p.resetEnergy();
-			p.drawCards(2);
+			p.endTurnDiscard();
+			p.drawCards(5);
 		}
 	}
 
 	public boolean playersCanPlayCard() {
 		return playersCanPlayCard;
+	}
+
+	@Override
+	public void notify(Entity entity, String message, Object data) {
+		if(entity instanceof Enemy) {
+			if(message.equals("diedtoattdamage") || message.equals("diedtotruedamage") || message.equals("diedtodamage")) {
+				boolean allDead = true;
+				for(Enemy e: enemies) {
+					if(!e.isDead()) {
+						allDead = false;
+					}
+				}
+				if(allDead) {
+					//TODO end fight
+				}
+			}
+		}
 	}
 
 }

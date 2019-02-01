@@ -22,7 +22,7 @@ public class ClientWindow {
 		clientDataHandler = new ClientDataHandler(this);
 		lobbyWindow = new LobbyWindow(clientDataHandler);
 		homeWindow = new HomeWindow(clientDataHandler);
-		fightWindow = new FightWindow();
+		fightWindow = new FightWindow(clientDataHandler);
 
 		initFrame();
 	}

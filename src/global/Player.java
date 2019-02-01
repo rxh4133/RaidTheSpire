@@ -47,6 +47,10 @@ public class Player extends Entity{
 	public void resetEnergy() {
 		curEnergy = maxEnergy;
 	}
+	
+	public void setMaxEnergy(int max) {
+		maxEnergy = max;
+	}
 
 	public int getStrength() {
 		for(StatusEffect se: effects) {
@@ -119,12 +123,19 @@ public class Player extends Entity{
 			}
 		}
 	}
+	
+	public void endTurnDiscard() {
+		discard.addAll(hand);
+		hand.removeAll(hand);
+	}
 
 	public Message playCard(int index, int target) {
 		Card card = hand.get(index);
 		if(card != null && card.cost <= curEnergy) {
 			card.play(this, target);
 			curEnergy -= card.cost;
+			numberToDiscard++;
+			discardCard(new int[] {index});
 			return new Message("pcok", null);
 		}
 		return new Message("pkfail", null);
@@ -164,7 +175,12 @@ public class Player extends Entity{
 
 	@Override
 	public String toString() {
-		return "Player: " + name + "\n\tHealth: (" + block + "B) " + curHealth + "/" + maxHealth + "\n\tCards:" + "\n\t\t" + hand;
+		return "Player: ("+ curEnergy + "/" + maxEnergy + " E) " + name + "\n\t"
+				+ "Health: (" + block + " B) " + curHealth + "/" + maxHealth + "\n\t"
+						+ "Cards: " + hand + "\n\t"
+						+ "Status: " + effects + "\n\t"
+						+ "Done: " + readyToEndTurn;
+		
 	}
 
 	@Override

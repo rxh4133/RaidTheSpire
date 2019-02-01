@@ -60,6 +60,14 @@ public class ClientDataHandler {
 		}
 	}
 	
+	public void endTurn() {
+		serverListener.sendMessage(new Message("prend", null));
+	}
+	
+	public void playCard(int index, int target) {
+		serverListener.sendMessage(new Message("pcard", new Integer[] {index, target}));
+	}
+	
 	public void updateEnemies(Object obj) {
 		@SuppressWarnings("unchecked")
 		ArrayList<Enemy> enemies = (ArrayList<Enemy>) obj;

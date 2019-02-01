@@ -7,6 +7,7 @@ import server.ServerDataHandler;
 
 public class EnemyManager implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private transient ServerDataHandler dataHandler;
 	private transient ArrayList<Enemy> myOnlyFight;
 	
@@ -17,14 +18,19 @@ public class EnemyManager implements Serializable{
 			private static final long serialVersionUID = 1L;
 			public EnemyAction takeAction() {
 				return new EnemyAction() {
+					private static final long serialVersionUID = 1L;
+
 					public void doAction() {
 						for(Player p: dataHandler.players) {
+							System.out.println("doin it");
 							p.takeAttackDamage(10);
 						}
 					}
 				};
 			}
 		};
+		e.addMaxHealth(300);
+		e.addDeathSub(dataHandler);
 		myOnlyFight.add(e);
 	}
 	
