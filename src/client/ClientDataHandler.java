@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import global.Message;
 import global.Player;
+import global.PlayerClass;
 
 public class ClientDataHandler {
 	
 	public ClientWindow window;
 	public ServerListener serverListener;
 	public String playerName;
+	public PlayerClass playerClass;
 	
 	public ClientDataHandler(ClientWindow window) {
 		this.window = window;
@@ -22,13 +24,14 @@ public class ClientDataHandler {
 	}
 
 	
-	public void connect(String address, String pname) {
+	public void connect(String address, String pname, Object playerClass) {
 		serverListener.connect(address);
 		playerName = pname;
+		this.playerClass = (PlayerClass) playerClass;
 	}
 	
 	public void connected() {
-		serverListener.sendMessage(new Message("pjoin", playerName));
+		serverListener.sendMessage(new Message("pjoin", new Object[]{playerName, playerClass}));
 		window.switchToLobby();
 	}
 	

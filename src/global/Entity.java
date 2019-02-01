@@ -17,6 +17,9 @@ public class Entity implements Serializable{
 	protected ArrayList<EntityListener> attDamSubs;
 	protected ArrayList<EntityListener> deathSubs;
 	protected ArrayList<EntityListener> blockGainSubs;
+	protected ArrayList<EntityListener> preTurnSubs;
+	protected ArrayList<EntityListener> postTurnSubs;
+	protected ArrayList<EntityListener> fightStartSubs;
 	
 	public Entity() {
 		effects = new ArrayList<StatusEffect>();
@@ -24,17 +27,26 @@ public class Entity implements Serializable{
 		attDamSubs = new ArrayList<EntityListener>();
 		damSubs = new ArrayList<EntityListener>();
 		blockGainSubs = new ArrayList<EntityListener>();
+		preTurnSubs = new ArrayList<EntityListener>();
+		postTurnSubs = new ArrayList<EntityListener>();
+		fightStartSubs = new ArrayList<EntityListener>();
 	}
 
-	public void preTurnSE() {
+	public void preTurn() {
 		for(StatusEffect se: effects) {
 			se.preTurn(this);
 		}
+		for(EntityListener el: preTurnSubs) {
+			el.notify(this, "preturn", this);
+		}
 	}
 	
-	public void postTurnSE() {
+	public void postTurn() {
 		for(StatusEffect se: effects) {
 			se.postTurn(this);
+		}
+		for(EntityListener el: postTurnSubs) {
+			el.notify(this, "postturn", this);
 		}
 	}
 	
@@ -46,7 +58,7 @@ public class Entity implements Serializable{
 		curHealth -= damage;
 		if(curHealth <= 0) {
 			for(EntityListener el: deathSubs) {
-				el.notify(this, "diedtotruedamage", "diedtotruedamage");
+				el.notify(this, "diedtotruedamage", damage);
 			}
 		}
 	}
@@ -58,7 +70,7 @@ public class Entity implements Serializable{
 		curHealth -= damage;
 		if(curHealth <= 0) {
 			for(EntityListener el: deathSubs) {
-				el.notify(this, "diedtodamage", "diedtodamage");
+				el.notify(this, "diedtodamage", damage);
 			}
 		}
 	}
@@ -70,7 +82,7 @@ public class Entity implements Serializable{
 		curHealth -= damage;
 		if(curHealth <= 0) {
 			for(EntityListener el: deathSubs) {
-				el.notify(this, "diedtoattdamage", "diedtoattdamage");
+				el.notify(this, "diedtoattdamage", damage);
 			}
 		}
 	}
@@ -80,5 +92,11 @@ public class Entity implements Serializable{
 			el.notify(this, "blockGained", block);
 		}
 		this.block += block;
+	}
+	
+	public void fightStartSubs() {
+		for(EntityListener el: fightStartSubs) {
+			el.notify(this, "fightstart", "fightstart");
+		}
 	}
 }

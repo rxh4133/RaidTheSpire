@@ -2,10 +2,13 @@ package server;
 
 import java.util.ArrayList;
 
+import global.CardManager;
 import global.Enemy;
 import global.EnemyAction;
+import global.EnemyManager;
 import global.Message;
 import global.Player;
+import global.PlayerClass;
 
 public class ServerDataHandler {
 
@@ -13,28 +16,34 @@ public class ServerDataHandler {
 	public ArrayList<Player> players;
 	public ArrayList<Enemy> enemies;
 
-	private EnemyHandler enemyHandler;
+	private EnemyManager enemyManager;
 
 	private boolean playersCanPlayCard;
 	private ConnectionHandler connHandler;
+	
+	private CardManager carder;
+	
+	private int fightTracker;
 
 	public ServerDataHandler() {
 		players = new ArrayList<Player>();
 		enemies = new ArrayList<Enemy>();
 		connHandler = new ConnectionHandler(this);
+		carder = new CardManager(this);
 		new Thread(connHandler).start();
 	}
 
 	public Player createPlayer(ClientHandler clientHandler, Object data) {
 		boolean nameTaken = false;
 		for(Player p: players) {
-			if(p.getName().equals(data)) {
+			if(p.getName().equals(((Object[]) data)[0])) {
 				nameTaken = true;
 			}
 		}
 		if(!nameTaken) {
 			Player player = new Player();
-			player.setName((String) data);
+			player.setName((String) ((Object[]) data)[1]);
+			player.playerClass = (PlayerClass) (((Object[]) data)[0]);
 			player.setClientHandler(clientHandler);
 			players.add(player);
 			sendMessageToAll(new Message("players", players));
@@ -74,7 +83,9 @@ public class ServerDataHandler {
 				players.get(i).setReadyToStartGame(false);
 			}
 			//start game
-			sendMessageToAll(new Message("startgame", null));
+			startGame();
+			startFight(0);
+			sendMessageToAll(new Message("players", players));
 		}else {
 			sendMessageToAll(new Message("players", players));
 		}
@@ -93,8 +104,24 @@ public class ServerDataHandler {
 			for(Player p: players) {
 				p.setReadyToEndTurn(false);
 			}
-			enemies = enemyHandler.getEnemies();
+			fightTracker++;
+			startFight(fightTracker);
 			sendMessageToAll(new Message());
+		}
+	}
+	
+	public void startGame() {
+		for(Player p: players) {
+			p.setDeck(carder.getStartingDeck(p.playerClass));
+		}
+	}
+	
+	public void startFight(int fightNum) {
+		enemies = enemyManager.getEnemiesForFight(fightNum);
+		for(Player p: players) {
+			p.removeHandAndDiscard();
+			p.shuffleCardsFromDeck();
+			p.fightStartSubs();
 		}
 	}
 
@@ -114,11 +141,11 @@ public class ServerDataHandler {
 
 	public void takeEnemyTurn() {
 		for(Player p: players) {
-			p.postTurnSE();
+			p.postTurn();
 		}
 		playersCanPlayCard = false;
 		for(Enemy e: enemies) {
-			e.preTurnSE();
+			e.preTurn();
 		}
 		for(Enemy e: enemies) {
 			EnemyAction ea = e.takeAction();
@@ -130,12 +157,13 @@ public class ServerDataHandler {
 			}
 		}
 		for(Enemy e: enemies) {
-			e.postTurnSE();
+			e.postTurn();
 		}
 		playersCanPlayCard = true;
 		for(Player p: players) {
-			p.preTurnSE();
+			p.preTurn();
 			p.resetEnergy();
+			p.drawCards(2);
 		}
 	}
 

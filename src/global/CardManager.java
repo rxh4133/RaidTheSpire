@@ -44,6 +44,13 @@ public class CardManager {
 		return retCards.get(retCards.indexOf(new Card(0, name, 0, null))).copyCard();
 	}
 	
+	public ArrayList<Card> getStartingDeck(PlayerClass pc){
+		if(pc.equals(PlayerClass.RETRIBUTOR)) {
+			return getRetStartingDeck();
+		}
+		return null;
+	}
+	
 	public ArrayList<Card> getRetStartingDeck(){
 		ArrayList<Card> starterDeck = new ArrayList<Card>();
 		for(int i = 0; i < 5; i++) {

@@ -54,7 +54,7 @@ public class HomeWindow extends JPanel{
 		connectButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dataHandler.connect(hostField.getText(), nameField.getText());
+				dataHandler.connect(hostField.getText(), nameField.getText(), classComboBox.getSelectedItem());
 			}
 		});
 		hostField = new JTextField(60);
