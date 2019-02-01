@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import global.Enemy;
 import global.Player;
 
 public class ClientWindow {
@@ -15,9 +16,14 @@ public class ClientWindow {
 	
 	private HomeWindow homeWindow;
 	private LobbyWindow lobbyWindow;
+	private FightWindow fightWindow;
 	
 	public ClientWindow() {
 		clientDataHandler = new ClientDataHandler(this);
+		lobbyWindow = new LobbyWindow(clientDataHandler);
+		homeWindow = new HomeWindow(clientDataHandler);
+		fightWindow = new FightWindow();
+
 		initFrame();
 	}
 	
@@ -26,14 +32,12 @@ public class ClientWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 450);
 		frame.setTitle("Raid The Spire");
-		homeWindow = new HomeWindow(clientDataHandler);
 		frame.add(homeWindow, BorderLayout.CENTER);
 		frame.setVisible(true);
 	}
 	
 	public void switchToLobby() {
 		frame.remove(homeWindow);
-		lobbyWindow = new LobbyWindow(clientDataHandler);
 		frame.add(lobbyWindow, BorderLayout.CENTER);
 		frame.revalidate();
 	}
@@ -44,12 +48,26 @@ public class ClientWindow {
 		frame.revalidate();
 	}
 	
+	public void switchToFight() {
+		frame.remove(lobbyWindow);
+		frame.add(fightWindow);
+		frame.revalidate();
+	}
+	
 	public void updateLobbyPlayers(ArrayList<Player> players) {
 		lobbyWindow.setPlayers(players);
 	}
 	
+	public void updateFightPlayers(ArrayList<Player> players) {
+		fightWindow.setPlayers(players);
+	}
+	
+	public void updateEnemies(ArrayList<Enemy> enemies) {
+		fightWindow.setEnemies(enemies);
+	}
+	
 	@Override
 	public String toString() {
-		return "I ain't got nothin to print yet";
+		return "This is a client window";
 	}
 }

@@ -56,6 +56,7 @@ public class LobbyWindow extends JPanel{
 			playersPanel.add(new PlayerPanel(p));
 		}
 		playersPanel.revalidate();
+		playersPanel.repaint();
 	}
 	
 	private class PlayerPanel extends JPanel {

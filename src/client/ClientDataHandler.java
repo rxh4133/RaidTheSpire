@@ -2,6 +2,7 @@ package client;
 
 import java.util.ArrayList;
 
+import global.Enemy;
 import global.Message;
 import global.Player;
 import global.PlayerClass;
@@ -13,6 +14,12 @@ public class ClientDataHandler {
 	public String playerName;
 	public PlayerClass playerClass;
 	
+	public static final int LOBBY = 0;
+	public static final int FIGHT = 1;
+	
+	
+	private int state;
+	
 	public ClientDataHandler(ClientWindow window) {
 		this.window = window;
 		serverListener = new ServerListener(this);
@@ -22,7 +29,12 @@ public class ClientDataHandler {
 		serverListener = new ServerListener(this);
 		window.switchToHome();
 	}
-
+	
+	public void goToFight() {
+		state = FIGHT;
+		window.switchToFight();
+		
+	}
 	
 	public void connect(String address, String pname, Object playerClass) {
 		serverListener.connect(address);
@@ -32,15 +44,26 @@ public class ClientDataHandler {
 	
 	public void connected() {
 		serverListener.sendMessage(new Message("pjoin", new Object[]{playerName, playerClass}));
+		state = LOBBY;
 		window.switchToLobby();
 	}
 	
-	public void updateLobbyPlayers(Object obj) {
+	public void updatePlayers(Object obj) {
 		if(obj instanceof ArrayList<?>) {
+			System.out.println(obj);
 			@SuppressWarnings("unchecked")
 			ArrayList<Player> players = (ArrayList<Player>) obj;
-			window.updateLobbyPlayers(players);
+			switch(state) {
+			case LOBBY: window.updateLobbyPlayers(players); break;
+			case FIGHT: window.updateFightPlayers(players); break;
+			}
 		}
+	}
+	
+	public void updateEnemies(Object obj) {
+		@SuppressWarnings("unchecked")
+		ArrayList<Enemy> enemies = (ArrayList<Enemy>) obj;
+		window.updateEnemies(enemies);
 	}
 	
 	public void readyToStartGame() {

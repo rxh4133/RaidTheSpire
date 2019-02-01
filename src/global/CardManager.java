@@ -11,6 +11,8 @@ public class CardManager {
 	
 	public CardManager(ServerDataHandler sdh) {
 		this.sdh = sdh;
+		retCards = new ArrayList<Card>();
+		generateCards();
 	}
 	
 	public void generateCards() {

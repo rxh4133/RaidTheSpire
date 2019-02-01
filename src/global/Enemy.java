@@ -1,11 +1,10 @@
 package global;
 
-import java.util.ArrayList;
-
 public class Enemy extends Entity{
-	
+	private static final long serialVersionUID = 1L;
+
 	public Enemy() {
-		effects = new ArrayList<StatusEffect>();
+		super();
 	}
 	
 	public EnemyAction takeAction() {

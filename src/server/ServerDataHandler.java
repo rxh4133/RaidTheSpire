@@ -30,6 +30,7 @@ public class ServerDataHandler {
 		enemies = new ArrayList<Enemy>();
 		connHandler = new ConnectionHandler(this);
 		carder = new CardManager(this);
+		enemyManager = new EnemyManager(this);
 		new Thread(connHandler).start();
 	}
 
@@ -42,8 +43,8 @@ public class ServerDataHandler {
 		}
 		if(!nameTaken) {
 			Player player = new Player();
-			player.setName((String) ((Object[]) data)[1]);
-			player.playerClass = (PlayerClass) (((Object[]) data)[0]);
+			player.setName((String) ((Object[]) data)[0]);
+			player.playerClass = (PlayerClass) (((Object[]) data)[1]);
 			player.setClientHandler(clientHandler);
 			players.add(player);
 			sendMessageToAll(new Message("players", players));
@@ -85,7 +86,6 @@ public class ServerDataHandler {
 			//start game
 			startGame();
 			startFight(0);
-			sendMessageToAll(new Message("players", players));
 		}else {
 			sendMessageToAll(new Message("players", players));
 		}
@@ -123,12 +123,18 @@ public class ServerDataHandler {
 			p.shuffleCardsFromDeck();
 			p.fightStartSubs();
 		}
+		sendMessageToAll(new Message("startFight", null));
+		sendMessageToAll(new Message("players", players));
+		sendMessageToAll(new Message("enemies", enemies));
 	}
 
 	public Message playCard(Object obj, Player play) {
 		if(obj instanceof Integer[] && playersCanPlayCard) {
 			Integer[] cardData = (Integer[]) obj;
-			return play.playCard(cardData[0], cardData[1]);
+			Message result = play.playCard(cardData[0], cardData[1]);
+			sendMessageToAll(new Message("players", players));
+			sendMessageToAll(new Message("enemies", enemies));
+			return result;
 		}
 		return new Message("pcfail", null);
 	}

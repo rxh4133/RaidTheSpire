@@ -39,7 +39,7 @@ public class HomeWindow extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				ServerDataHandler sdh = new ServerDataHandler();
 				System.out.println("Server started: " + sdh);
-				dataHandler.connect("localhost", nameField.getText());
+				dataHandler.connect("localhost", nameField.getText(), classComboBox.getSelectedItem());
 				System.out.println("fug");
 			}
 		});

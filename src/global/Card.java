@@ -10,12 +10,13 @@ public class Card implements Serializable{
 	public String name;
 	public int rarity;
 	
-	private CardPlayCallBack cpcb;
+	private transient CardPlayCallBack cpcb;
 
 	public Card(int defCost, String name, int rarity, CardPlayCallBack cpcb) {
 		this.cpcb = cpcb;
 		defaultCost = defCost;
 		cost = defCost;
+		this.name = name;
 	}
 	
 	public void play(Player player, int target) {

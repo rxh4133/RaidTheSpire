@@ -1,20 +1,34 @@
 package global;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import server.ServerDataHandler;
 
-public class EnemyManager {
+public class EnemyManager implements Serializable{
 	
-	private ServerDataHandler dataHandler;
-	private ArrayList<Enemy> myOnlyFight;
+	private transient ServerDataHandler dataHandler;
+	private transient ArrayList<Enemy> myOnlyFight;
 	
 	public EnemyManager(ServerDataHandler sdh) {
 		dataHandler = sdh;
+		myOnlyFight = new ArrayList<Enemy>();
+		Enemy e = new Enemy() {
+			private static final long serialVersionUID = 1L;
+			public EnemyAction takeAction() {
+				return new EnemyAction() {
+					public void doAction() {
+						for(Player p: dataHandler.players) {
+							p.takeAttackDamage(10);
+						}
+					}
+				};
+			}
+		};
+		myOnlyFight.add(e);
 	}
 	
 	public ArrayList<Enemy> getEnemiesForFight(int fightnum){
-		myOnlyFight = new ArrayList<Enemy>();
 		return myOnlyFight;
 	}
 }

@@ -5,10 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import global.Message;
-import global.Player;
 
 public class ServerListener implements Runnable{
 	
@@ -54,9 +52,13 @@ public class ServerListener implements Runnable{
 			if(message.textEquals("CONN")) {
 				dataHandler.connected();
 			}else if(message.textEquals("players")) {
-				dataHandler.updateLobbyPlayers(message.data);
+				dataHandler.updatePlayers(message.data);
 			}else if(message.textEquals("Name Taken")) {
 				dataHandler.goToHome();
+			}else if(message.textEquals("startFight")) {
+				dataHandler.goToFight();
+			}else if(message.textEquals("enemies")) {
+				dataHandler.updateEnemies(message.data);
 			}
 		}
 	}

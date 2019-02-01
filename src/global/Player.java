@@ -31,6 +31,9 @@ public class Player extends Entity{
 
 	public Player() {
 		hand = new ArrayList<Card>();
+		discard = new ArrayList<Card>();
+		draw = new ArrayList<Card>();
+		exhausted = new ArrayList<Card>();
 	}
 
 	public void setName(String n) {
@@ -102,6 +105,11 @@ public class Player extends Entity{
 	public void prepDiscard(int numberToDiscard) {
 		this.numberToDiscard += numberToDiscard;
 	}
+	
+	public void exhaustFromHand(int index) {
+		exhausted.add(hand.get(index));
+		hand.remove(index);
+	}
 
 	public void discardCard(int[] handIndexes) {
 		for(int handIndex: handIndexes) {
@@ -156,7 +164,7 @@ public class Player extends Entity{
 
 	@Override
 	public String toString() {
-		return name;
+		return "Player: " + name + "\n\tHealth: (" + block + "B) " + curHealth + "/" + maxHealth + "\n\tCards:" + "\n\t\t" + hand;
 	}
 
 	@Override
