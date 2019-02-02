@@ -29,6 +29,8 @@ public class Player extends Entity{
 	public PlayerClass playerClass;
 
 	public Reward lastReward;
+	
+	private ArrayList<Relic> relics;
 
 
 	public Player() {
@@ -36,6 +38,7 @@ public class Player extends Entity{
 		discard = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
 		exhausted = new ArrayList<Card>();
+		relics = new ArrayList<Relic>();
 	}
 
 	public void setName(String n) {
@@ -44,6 +47,10 @@ public class Player extends Entity{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void addRelic(Relic relic) {
+		relics.add(relic);
 	}
 
 	public void resetEnergy() {
@@ -56,7 +63,7 @@ public class Player extends Entity{
 
 	public int getStrength() {
 		for(StatusEffect se: effects) {
-			if(se.name.equals("STRENGTH")) {
+			if(se.name.equals("Strength")) {
 				return se.value;
 			}
 		}
@@ -65,7 +72,7 @@ public class Player extends Entity{
 
 	public int getDex() {
 		for(StatusEffect se: effects) {
-			if(se.name.equals("DEXTERITY")) {
+			if(se.name.equals("Dexterity")) {
 				return se.value;
 			}
 		}

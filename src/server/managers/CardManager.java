@@ -1,16 +1,10 @@
 package server.managers;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import global.Card;
-import global.CardPlayCallBack;
-import global.Enemy;
-import global.Entity;
-import global.Player;
 import global.PlayerClass;
-import global.StatusEffect;
 import global.cards.Defend;
 import global.cards.Strike;
 import global.cards.retributor.DualStrike;
@@ -18,7 +12,7 @@ import global.cards.retributor.HatredsBite;
 import global.cards.retributor.MountingHate;
 import server.ServerDataHandler;
 
-public class CardManager implements Serializable{
+public class CardManager{
 
 	private transient ServerDataHandler sdh;
 	private transient ArrayList<Card> retCards;

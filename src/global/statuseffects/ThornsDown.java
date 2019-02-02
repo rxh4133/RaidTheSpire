@@ -6,8 +6,8 @@ import global.StatusEffect;
 public class ThornsDown extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
-	public ThornsDown(String n, int v) {
-		super(n, v);
+	public ThornsDown(int v) {
+		super("Thorns Down", v);
 	}
 	
 	public void preTurn(Entity entity) {

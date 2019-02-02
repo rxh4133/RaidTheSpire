@@ -17,8 +17,8 @@ public class Relic implements Serializable, EntityListener{
 		dataHandler = sdh;
 	}
 
-	public void onAdd() {
-		
+	public Relic onAdd() {
+		return null;
 	}
 	
 	public String toString() {

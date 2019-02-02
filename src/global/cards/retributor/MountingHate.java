@@ -13,11 +13,11 @@ public class MountingHate extends Card {
 	}
 
 	public void play(Player play, int target) {
-		play.addSE(new ThornsGen("Thorns Gen", 2));
+		play.addSE(new ThornsGen(2));
 	}
 
 	public void playUpgraded(Player play, int target) {
-		play.addSE(new ThornsGen("Thorns Gen", 3));
+		play.addSE(new ThornsGen(3));
 	}
 	
 	public Card copyCard() {
