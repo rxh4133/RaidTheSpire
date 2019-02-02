@@ -1,6 +1,8 @@
 package global;
 
-public class RewardChoice {
+import java.io.Serializable;
+
+public class RewardChoice implements Serializable{
 	public int choice1Index;
 	public int choice2Index;
 	public int choice3Index;

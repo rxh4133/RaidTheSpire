@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import global.Enemy;
 import global.Player;
+import global.Reward;
 
 public class ClientWindow {
 	
@@ -17,12 +18,14 @@ public class ClientWindow {
 	private HomeWindow homeWindow;
 	private LobbyWindow lobbyWindow;
 	private FightWindow fightWindow;
+	private RewardWindow rewardWindow;
 	
 	public ClientWindow() {
 		clientDataHandler = new ClientDataHandler(this);
 		lobbyWindow = new LobbyWindow(clientDataHandler);
 		homeWindow = new HomeWindow(clientDataHandler);
 		fightWindow = new FightWindow(clientDataHandler);
+		rewardWindow = new RewardWindow(clientDataHandler);
 
 		initFrame();
 	}
@@ -50,8 +53,22 @@ public class ClientWindow {
 	
 	public void switchToFight() {
 		frame.remove(lobbyWindow);
+		frame.remove(rewardWindow);
+		frame.revalidate();
 		frame.add(fightWindow);
 		frame.revalidate();
+		frame.repaint();
+	}
+	
+	public void switchToReward() {
+		frame.remove(fightWindow);
+		frame.add(rewardWindow);
+		frame.revalidate();
+		frame.repaint();
+	}
+	
+	public void displayReward(Reward reward) {
+		rewardWindow.showReward(reward);
 	}
 	
 	public void updateLobbyPlayers(ArrayList<Player> players) {

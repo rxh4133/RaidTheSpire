@@ -28,6 +28,8 @@ public class Player extends Entity{
 
 	public PlayerClass playerClass;
 
+	public Reward lastReward;
+
 
 	public Player() {
 		hand = new ArrayList<Card>();
@@ -47,7 +49,7 @@ public class Player extends Entity{
 	public void resetEnergy() {
 		curEnergy = maxEnergy;
 	}
-	
+
 	public void setMaxEnergy(int max) {
 		maxEnergy = max;
 	}
@@ -69,19 +71,24 @@ public class Player extends Entity{
 		}
 		return 0;
 	}
-	
+
+	public void addCardToDeck(Card card) {
+		deck.add(card);
+	}
+
 	public void setDeck(ArrayList<Card> cards) {
 		deck = cards;
 	}
 
 	public void shuffleCardsFromDiscard() {
-		for(int i = 0; i < discard.size(); i++) {
-			draw.add(discard.get(i));
-			discard.remove(i);
+		int numToShuffle = discard.size();
+		for(int i = 0; i < numToShuffle; i++) {
+			draw.add(discard.get(0));
+			discard.remove(0);
 		}
 		Collections.shuffle(draw);
 	}
-	
+
 	public void removeHandAndDiscard() {
 		hand.removeAll(hand);
 		discard.removeAll(discard);
@@ -109,7 +116,7 @@ public class Player extends Entity{
 	public void prepDiscard(int numberToDiscard) {
 		this.numberToDiscard += numberToDiscard;
 	}
-	
+
 	public void exhaustFromHand(int index) {
 		exhausted.add(hand.get(index));
 		hand.remove(index);
@@ -118,25 +125,28 @@ public class Player extends Entity{
 	public void discardCard(int[] handIndexes) {
 		for(int handIndex: handIndexes) {
 			if(hand.size() > handIndex && numberToDiscard > 0) {
+				discard.add(hand.get(handIndex));
 				hand.remove(handIndex);
 				numberToDiscard--;
 			}
 		}
 	}
-	
+
 	public void endTurnDiscard() {
 		discard.addAll(hand);
 		hand.removeAll(hand);
 	}
 
 	public Message playCard(int index, int target) {
-		Card card = hand.get(index);
-		if(card != null && card.cost <= curEnergy) {
-			card.play(this, target);
-			curEnergy -= card.cost;
-			numberToDiscard++;
-			discardCard(new int[] {index});
-			return new Message("pcok", null);
+		if(index < hand.size()) {
+			Card card = hand.get(index);
+			if(card != null && card.cost <= curEnergy) {
+				card.play(this, target);
+				curEnergy -= card.cost;
+				numberToDiscard++;
+				discardCard(new int[] {index});
+				return new Message("pcok", null);
+			}
 		}
 		return new Message("pkfail", null);
 	}
@@ -177,10 +187,10 @@ public class Player extends Entity{
 	public String toString() {
 		return "Player: ("+ curEnergy + "/" + maxEnergy + " E) " + name + "\n\t"
 				+ "Health: (" + block + " B) " + curHealth + "/" + maxHealth + "\n\t"
-						+ "Cards: " + hand + "\n\t"
-						+ "Status: " + effects + "\n\t"
-						+ "Done: " + readyToEndTurn;
-		
+				+ "Cards: " + hand + "\n\t"
+				+ "Status: " + effects + "\n\t"
+				+ "Done: " + readyToEndTurn;
+
 	}
 
 	@Override

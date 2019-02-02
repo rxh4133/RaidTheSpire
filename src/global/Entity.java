@@ -32,6 +32,10 @@ public class Entity implements Serializable{
 		fightStartSubs = new ArrayList<EntityListener>();
 		deathSubs = new ArrayList<EntityListener>();
 	}
+	
+	public void healToFull() {
+		curHealth = maxHealth;
+	}
 
 	public void preTurn() {
 		for(StatusEffect se: effects) {
@@ -53,6 +57,32 @@ public class Entity implements Serializable{
 	
 	public void removeSE(StatusEffect se) {
 		effects.remove(se);
+	}
+	
+	public void reduceSE(StatusEffect se, int reduce) {
+		StatusEffect al = effects.get(effects.indexOf(se));
+		if(al != null) {
+			al.value -= reduce;
+			if(al.value <= 0) {
+				removeSE(se);
+			}
+		}
+	}
+	
+	public StatusEffect getSE(String seName) {
+		return effects.get(effects.indexOf(new StatusEffect(seName, 0)));
+	}
+	
+	public void addSE(StatusEffect se) {
+		if(effects.contains(se)) {
+			effects.get(effects.indexOf(se)).value += se.value;
+		}else {
+			effects.add(se);
+		}
+	}
+	
+	public void removeAllBlock() {
+		block = 0;
 	}
 	
 	public void takeTrueDamage(int damage) {
@@ -77,8 +107,17 @@ public class Entity implements Serializable{
 	}
 	
 	public void takeAttackDamage(int damage) {
-		for(EntityListener el: attDamSubs) {
-			el.notify(this, "attdamagetaken", damage);
+		if(block > 0) {
+			damage = damage - block;
+			if(damage < 0) {
+				block = Math.abs(damage);
+				damage = 0;
+			}
+		}
+		if(damage > 0) {
+			for(EntityListener el: attDamSubs) {
+				el.notify(this, "attdamagetaken", damage);
+			}
 		}
 		curHealth -= damage;
 		if(curHealth <= 0) {

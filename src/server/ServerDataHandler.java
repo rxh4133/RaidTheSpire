@@ -2,14 +2,18 @@ package server;
 
 import java.util.ArrayList;
 
+import global.Card;
 import global.CardManager;
 import global.Enemy;
-import global.EnemyAction;
 import global.EnemyManager;
 import global.Entity;
 import global.Message;
 import global.Player;
 import global.PlayerClass;
+import global.RelicManager;
+import global.Reward;
+import global.RewardChoice;
+import global.RewardManager;
 
 public class ServerDataHandler implements EntityListener {
 
@@ -17,12 +21,14 @@ public class ServerDataHandler implements EntityListener {
 	public ArrayList<Player> players;
 	public ArrayList<Enemy> enemies;
 
+	private RewardManager rewardManager;
+	private RelicManager relicManager;
 	private EnemyManager enemyManager;
 
 	private boolean playersCanPlayCard;
 	private ConnectionHandler connHandler;
 	
-	private CardManager carder;
+	private CardManager cardManager;
 	
 	private int fightTracker;
 
@@ -30,8 +36,10 @@ public class ServerDataHandler implements EntityListener {
 		players = new ArrayList<Player>();
 		enemies = new ArrayList<Enemy>();
 		connHandler = new ConnectionHandler(this);
-		carder = new CardManager(this);
+		cardManager = new CardManager(this);
 		enemyManager = new EnemyManager(this);
+		relicManager = new RelicManager();
+		rewardManager = new RewardManager(cardManager, relicManager);
 		new Thread(connHandler).start();
 	}
 
@@ -94,7 +102,7 @@ public class ServerDataHandler implements EntityListener {
 	}
 
 	public void readyPlayerToStartFight(Player player) {
-		player.setReadyToStartGame(!player.getReadyToStartFight());
+		player.setReadyToStartFight(!player.getReadyToStartFight());
 		boolean notAllReady = false;
 		for(Player p: players) {
 			notAllReady = notAllReady || !p.getReadyToStartFight();
@@ -108,13 +116,12 @@ public class ServerDataHandler implements EntityListener {
 			}
 			fightTracker++;
 			startFight(fightTracker);
-			sendMessageToAll(new Message());
 		}
 	}
 	
 	public void startGame() {
 		for(Player p: players) {
-			p.setDeck(carder.getStartingDeck(p.playerClass));
+			p.setDeck(cardManager.getStartingDeck(p.playerClass));
 			if(p.playerClass.equals(PlayerClass.RETRIBUTOR)) {
 				p.addMaxHealth(60);
 			}else if(p.playerClass.equals(PlayerClass.REVENANT)) {
@@ -129,6 +136,9 @@ public class ServerDataHandler implements EntityListener {
 	public void startFight(int fightNum) {
 		playersCanPlayCard = true;
 		enemies = enemyManager.getEnemiesForFight(fightNum);
+		for(Enemy e: enemies) {
+			e.healToFull();
+		}
 		for(Player p: players) {
 			p.removeHandAndDiscard();
 			p.shuffleCardsFromDeck();
@@ -150,9 +160,7 @@ public class ServerDataHandler implements EntityListener {
 	}
 
 	public Message playCard(Object obj, Player play) {
-		System.out.println("wait tho here");
 		if(obj instanceof Integer[] && playersCanPlayCard) {
-			System.out.println("Trying to play card in server");
 			Integer[] cardData = (Integer[]) obj;
 			Message result = play.playCard(cardData[0], cardData[1]);
 			sendMessageToAll(new Message("players", players));
@@ -174,6 +182,9 @@ public class ServerDataHandler implements EntityListener {
 		}
 		playersCanPlayCard = false;
 		for(Enemy e: enemies) {
+			e.removeAllBlock();
+		}
+		for(Enemy e: enemies) {
 			e.preTurn();
 		}
 		for(Enemy e: enemies) {
@@ -191,10 +202,30 @@ public class ServerDataHandler implements EntityListener {
 		}
 		playersCanPlayCard = true;
 		for(Player p: players) {
+			p.removeAllBlock();
+		}
+		for(Player p: players) {
 			p.preTurn();
 			p.resetEnergy();
 			p.endTurnDiscard();
 			p.drawCards(5);
+		}
+	}
+	
+	public void handleRewardChoice(Object data, Player player) {
+		RewardChoice rewardChoice = (RewardChoice) data;
+		Reward reward = player.lastReward;
+		addCard(rewardChoice.choice1Index, reward.cardReward1, player);
+		addCard(rewardChoice.choice2Index, reward.cardReward2, player);
+		addCard(rewardChoice.choice3Index, reward.cardReward3, player);
+		addCard(rewardChoice.choice4Index, reward.cardReward4, player);
+		addCard(rewardChoice.choice5Index, reward.cardReward5, player);
+		//TODO handle relics
+	}
+	
+	public void addCard(int selection, ArrayList<Card> cards, Player player) {
+		if(selection >= 0 && selection <= 3) {
+			player.addCardToDeck(cards.get(selection));
 		}
 	}
 
@@ -213,7 +244,11 @@ public class ServerDataHandler implements EntityListener {
 					}
 				}
 				if(allDead) {
-					//TODO end fight
+					for(Player p: players) {
+						Reward r = rewardManager.getReward(p.playerClass);
+						p.lastReward = r;
+						p.sendMessage(new Message("choosereward", r));
+					}
 				}
 			}
 		}

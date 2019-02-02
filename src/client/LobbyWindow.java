@@ -49,7 +49,6 @@ public class LobbyWindow extends JPanel{
 	}
 	
 	public void setPlayers(ArrayList<Player> players) {
-		System.out.println("setting players " + players.size());
 		playersPanel.removeAll();
 		playersPanel.revalidate();
 		for(Player p: players) {

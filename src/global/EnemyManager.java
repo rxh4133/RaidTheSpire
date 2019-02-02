@@ -22,14 +22,13 @@ public class EnemyManager implements Serializable{
 
 					public void doAction() {
 						for(Player p: dataHandler.players) {
-							System.out.println("doin it");
 							p.takeAttackDamage(10);
 						}
 					}
 				};
 			}
 		};
-		e.addMaxHealth(300);
+		e.addMaxHealth(30);
 		e.addDeathSub(dataHandler);
 		myOnlyFight.add(e);
 	}

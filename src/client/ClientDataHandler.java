@@ -6,6 +6,8 @@ import global.Enemy;
 import global.Message;
 import global.Player;
 import global.PlayerClass;
+import global.Reward;
+import global.RewardChoice;
 
 public class ClientDataHandler {
 	
@@ -50,7 +52,6 @@ public class ClientDataHandler {
 	
 	public void updatePlayers(Object obj) {
 		if(obj instanceof ArrayList<?>) {
-			System.out.println(obj);
 			@SuppressWarnings("unchecked")
 			ArrayList<Player> players = (ArrayList<Player>) obj;
 			switch(state) {
@@ -58,6 +59,16 @@ public class ClientDataHandler {
 			case FIGHT: window.updateFightPlayers(players); break;
 			}
 		}
+	}
+	
+	public void submitChoice(RewardChoice rc) {
+		serverListener.sendMessage(new Message("rewardchoice", rc));
+		serverListener.sendMessage(new Message("prfight", null));
+	}
+	
+	public void displayReward(Object reward) {
+		window.switchToReward();
+		window.displayReward((Reward) reward);
 	}
 	
 	public void endTurn() {

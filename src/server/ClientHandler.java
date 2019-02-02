@@ -69,6 +69,8 @@ public class ClientHandler {
 				dataHandler.readyPlayerToStartGame(player);
 			}else if(message.textEquals("pcard")) {
 				dataHandler.playCard(message.data, player);
+			}else if(message.textEquals("rewardchoice")) {
+				dataHandler.handleRewardChoice(message.data, player);
 			}
 		}
 		

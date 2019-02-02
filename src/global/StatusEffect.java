@@ -8,6 +8,11 @@ public class StatusEffect implements Serializable{
 	
 	public String name;
 	public int value;
+	
+	public StatusEffect(String n, int v) {
+		name = n;
+		value = v;
+	}
 
 	public void preTurn(Entity e) {
 		
@@ -15,6 +20,10 @@ public class StatusEffect implements Serializable{
 	
 	public void postTurn(Entity e) {
 		
+	}
+	
+	public boolean equals(Object obj) {
+		return obj instanceof StatusEffect && ((StatusEffect) obj).name.equals(name);
 	}
 	
 	public String toString() {

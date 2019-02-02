@@ -1,8 +1,9 @@
 package global;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Reward {
+public class Reward implements Serializable{
 	public ArrayList<Card> cardReward1;
 	public ArrayList<Card> cardReward2;
 	public ArrayList<Card> cardReward3;

@@ -1,9 +1,11 @@
 package global;
 
+import java.io.Serializable;
+
 import server.ServerDataHandler;
 
-public abstract class CardPlayCallBack {
-	protected ServerDataHandler sdh;
+public abstract class CardPlayCallBack implements Serializable {
+	protected transient ServerDataHandler sdh;
 	
 	public CardPlayCallBack(ServerDataHandler sdh) {
 		this.sdh = sdh;

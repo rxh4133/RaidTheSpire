@@ -16,6 +16,7 @@ public class Card implements Serializable{
 		this.cpcb = cpcb;
 		defaultCost = defCost;
 		cost = defCost;
+		this.rarity = rarity;
 		this.name = name;
 	}
 	
