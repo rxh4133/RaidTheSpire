@@ -125,7 +125,7 @@ public class ServerDataHandler implements EntityListener {
 			p.setDeck(cardManager.getStartingDeck(p.playerClass));
 			if(p.playerClass.equals(PlayerClass.RETRIBUTOR)) {
 				p.addMaxHealth(60);
-				p.addRelic(new AvengingEye(this).onAdd());
+				p.addRelic(new AvengingEye(this).onAdd(p));
 			}else if(p.playerClass.equals(PlayerClass.REVENANT)) {
 				p.addMaxHealth(80);
 			}else if(p.playerClass.equals(PlayerClass.RESIPISCENT)) {

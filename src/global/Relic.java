@@ -10,15 +10,15 @@ public class Relic implements Serializable, EntityListener{
 	
 	private String name;
 	
-	protected ServerDataHandler dataHandler;
+	protected transient ServerDataHandler dataHandler;
 	
 	public Relic(String name, ServerDataHandler sdh) {
 		this.name = name;
 		dataHandler = sdh;
 	}
 
-	public Relic onAdd() {
-		return null;
+	public Relic onAdd(Player owner) {
+		return this;
 	}
 	
 	public String toString() {

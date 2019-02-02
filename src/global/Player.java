@@ -56,6 +56,10 @@ public class Player extends Entity{
 	public void resetEnergy() {
 		curEnergy = maxEnergy;
 	}
+	
+	public int getBlock() {
+		return block;
+	}
 
 	public void setMaxEnergy(int max) {
 		maxEnergy = max;
@@ -198,7 +202,8 @@ public class Player extends Entity{
 				+ "Health: (" + block + " B) " + curHealth + "/" + maxHealth + "\n\t"
 				+ "Cards: " + hand + "\n\t"
 				+ "Status: " + effects + "\n\t"
-				+ "Done: " + readyToEndTurn;
+				+ "Done: " + readyToEndTurn+ "\n\t"
+				+ "Relics: " + relics;
 
 	}
 

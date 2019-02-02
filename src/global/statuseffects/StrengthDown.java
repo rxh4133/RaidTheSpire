@@ -12,6 +12,7 @@ public class StrengthDown extends StatusEffect{
 	
 	public void postTurn(Entity e) {
 		e.reduceSE(e.getSE("Strength"), value);
+		e.reduceSE(this, value);
 	}
 
 }

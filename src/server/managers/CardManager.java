@@ -15,10 +15,10 @@ import server.ServerDataHandler;
 public class CardManager{
 
 	private transient ServerDataHandler sdh;
-	private transient ArrayList<Card> retCards;
-	private transient ArrayList<Card> retComCards;
-	private transient ArrayList<Card> retUnCards;
-	private transient ArrayList<Card> retRareCards;
+	private ArrayList<Card> retCards;
+	private ArrayList<Card> retComCards;
+	private ArrayList<Card> retUnCards;
+	private ArrayList<Card> retRareCards;
 
 	public CardManager(ServerDataHandler sdh) {
 		this.sdh = sdh;
