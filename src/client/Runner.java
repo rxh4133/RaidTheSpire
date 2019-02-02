@@ -1,5 +1,7 @@
 package client;
 
+import client.gui.ClientWindow;
+
 public class Runner {
 
 	public static void main(String[] args) {

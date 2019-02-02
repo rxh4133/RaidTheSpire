@@ -2,6 +2,7 @@ package client;
 
 import java.util.ArrayList;
 
+import client.gui.ClientWindow;
 import global.Enemy;
 import global.Message;
 import global.Player;

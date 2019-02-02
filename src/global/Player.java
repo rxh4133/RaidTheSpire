@@ -138,9 +138,11 @@ public class Player extends Entity{
 	}
 
 	public Message playCard(int index, int target) {
+		System.out.println("playing");
 		if(index < hand.size()) {
 			Card card = hand.get(index);
 			if(card != null && card.cost <= curEnergy) {
+				System.out.println("doin it here");
 				card.play(this, target);
 				curEnergy -= card.cost;
 				numberToDiscard++;

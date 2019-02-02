@@ -3,17 +3,17 @@ package server;
 import java.util.ArrayList;
 
 import global.Card;
-import global.CardManager;
 import global.Enemy;
-import global.EnemyManager;
 import global.Entity;
 import global.Message;
 import global.Player;
 import global.PlayerClass;
-import global.RelicManager;
 import global.Reward;
 import global.RewardChoice;
-import global.RewardManager;
+import server.managers.CardManager;
+import server.managers.EnemyManager;
+import server.managers.RelicManager;
+import server.managers.RewardManager;
 
 public class ServerDataHandler implements EntityListener {
 
@@ -38,7 +38,7 @@ public class ServerDataHandler implements EntityListener {
 		connHandler = new ConnectionHandler(this);
 		cardManager = new CardManager(this);
 		enemyManager = new EnemyManager(this);
-		relicManager = new RelicManager();
+		relicManager = new RelicManager(this);
 		rewardManager = new RewardManager(cardManager, relicManager);
 		new Thread(connHandler).start();
 	}

@@ -2,6 +2,8 @@ package global;
 
 import java.io.Serializable;
 
+import server.ServerDataHandler;
+
 public class Card implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public int cost;
@@ -10,18 +12,22 @@ public class Card implements Serializable{
 	public String name;
 	public int rarity;
 	
-	private transient CardPlayCallBack cpcb;
+	protected transient ServerDataHandler dataHandler;
 
-	public Card(int defCost, String name, int rarity, CardPlayCallBack cpcb) {
-		this.cpcb = cpcb;
+	public Card(int defCost, String name, int rarity, ServerDataHandler sdh) {
 		defaultCost = defCost;
 		cost = defCost;
 		this.rarity = rarity;
 		this.name = name;
+		dataHandler = sdh;
 	}
 	
 	public void play(Player player, int target) {
-		cpcb.play(player, target);
+		
+	}
+	
+	public void playUpgraded(Player player, int target) {
+		
 	}
 	
 	public boolean equals(Object obj) {
@@ -29,7 +35,7 @@ public class Card implements Serializable{
 	}
 	
 	public Card copyCard() {
-		return new Card(defaultCost, name, rarity, cpcb);
+		return new Card(defaultCost, name, rarity, dataHandler);
 	}
 	
 	public String toString() {

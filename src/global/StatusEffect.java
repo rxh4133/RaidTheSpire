@@ -2,7 +2,9 @@ package global;
 
 import java.io.Serializable;
 
-public class StatusEffect implements Serializable{
+import server.EntityListener;
+
+public class StatusEffect implements Serializable, EntityListener{
  
 	private static final long serialVersionUID = 1L;
 	
@@ -28,5 +30,10 @@ public class StatusEffect implements Serializable{
 	
 	public String toString() {
 		return name + " " + value;
+	}
+
+	@Override
+	public void notify(Entity entity, String message, Object data) {
+		
 	}
 }

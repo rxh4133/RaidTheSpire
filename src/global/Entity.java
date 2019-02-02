@@ -20,6 +20,8 @@ public class Entity implements Serializable{
 	protected ArrayList<EntityListener> preTurnSubs;
 	protected ArrayList<EntityListener> postTurnSubs;
 	protected ArrayList<EntityListener> fightStartSubs;
+	protected ArrayList<EntityListener> attackedSubs;
+	protected ArrayList<EntityListener> attackingSubs;
 	
 	public Entity() {
 		effects = new ArrayList<StatusEffect>();
@@ -31,6 +33,8 @@ public class Entity implements Serializable{
 		postTurnSubs = new ArrayList<EntityListener>();
 		fightStartSubs = new ArrayList<EntityListener>();
 		deathSubs = new ArrayList<EntityListener>();
+		attackedSubs = new ArrayList<EntityListener>();
+		attackingSubs = new ArrayList<EntityListener>();
 	}
 	
 	public void healToFull() {
@@ -38,8 +42,8 @@ public class Entity implements Serializable{
 	}
 
 	public void preTurn() {
-		for(StatusEffect se: effects) {
-			se.preTurn(this);
+		for(int i = 0; i < effects.size(); i++) {
+			effects.get(i).preTurn(this);
 		}
 		for(EntityListener el: preTurnSubs) {
 			el.notify(this, "preturn", this);
@@ -47,8 +51,8 @@ public class Entity implements Serializable{
 	}
 	
 	public void postTurn() {
-		for(StatusEffect se: effects) {
-			se.postTurn(this);
+		for(int i = 0; i < effects.size(); i++) {
+			effects.get(i).postTurn(this);
 		}
 		for(EntityListener el: postTurnSubs) {
 			el.notify(this, "postturn", this);
@@ -106,7 +110,7 @@ public class Entity implements Serializable{
 		}
 	}
 	
-	public void takeAttackDamage(int damage) {
+	public void takeAttackDamage(int damage, Entity attacker) {
 		if(block > 0) {
 			damage = damage - block;
 			if(damage < 0) {
@@ -116,7 +120,8 @@ public class Entity implements Serializable{
 		}
 		if(damage > 0) {
 			for(EntityListener el: attDamSubs) {
-				el.notify(this, "attdamagetaken", damage);
+				System.out.println("notifying a sub");
+				el.notify(this, "attdamagetaken", new Object[] {damage, attacker});
 			}
 		}
 		curHealth -= damage;
@@ -150,6 +155,12 @@ public class Entity implements Serializable{
 	
 	public void addDeathSub(EntityListener el) {
 		deathSubs.add(el);
+	}
+	
+	public EntityListener addAttDamSub(EntityListener el) {
+		System.out.println("fuggin addin it");
+		attDamSubs.add(el);
+		return el;
 	}
 	
 	public boolean isDead() {

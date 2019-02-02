@@ -1,4 +1,4 @@
-package client;
+package client.gui;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import client.ClientDataHandler;
 import global.PlayerClass;
 import server.ServerDataHandler;
 

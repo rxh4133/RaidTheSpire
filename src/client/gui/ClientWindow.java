@@ -1,10 +1,11 @@
-package client;
+package client.gui;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import client.ClientDataHandler;
 import global.Enemy;
 import global.Player;
 import global.Reward;

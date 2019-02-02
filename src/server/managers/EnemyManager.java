@@ -1,8 +1,11 @@
-package global;
+package server.managers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import global.Enemy;
+import global.EnemyAction;
+import global.Player;
 import server.ServerDataHandler;
 
 public class EnemyManager implements Serializable{
@@ -17,12 +20,12 @@ public class EnemyManager implements Serializable{
 		Enemy e = new Enemy() {
 			private static final long serialVersionUID = 1L;
 			public EnemyAction takeAction() {
-				return new EnemyAction() {
+				return new EnemyAction(this) {
 					private static final long serialVersionUID = 1L;
 
 					public void doAction() {
 						for(Player p: dataHandler.players) {
-							p.takeAttackDamage(10);
+							p.takeAttackDamage(10, enemy);
 						}
 					}
 				};

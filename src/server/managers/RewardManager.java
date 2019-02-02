@@ -1,6 +1,11 @@
-package global;
+package server.managers;
 
 import java.util.ArrayList;
+
+import global.Card;
+import global.PlayerClass;
+import global.Relic;
+import global.Reward;
 
 public class RewardManager {
 	private CardManager cardManager;
