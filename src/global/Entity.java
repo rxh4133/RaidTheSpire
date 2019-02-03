@@ -2,7 +2,7 @@ package global;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import server.AttackFailedException;
 import server.EntityListener;
 
 public class Entity implements Serializable{
@@ -117,6 +117,13 @@ public class Entity implements Serializable{
 	}
 
 	public int takeAttackDamage(int damage, Entity attacker) {
+		try {
+			for(EntityListener el: attackedSubs) {
+				el.notify(this, "attacked", new Object[] {damage, attacker});
+			}
+		} catch(AttackFailedException afe) {
+			return 0;
+		}
 		if(block > 0) {
 			damage = damage - block;
 			if(damage < 0) {

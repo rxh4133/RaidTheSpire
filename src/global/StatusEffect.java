@@ -2,6 +2,7 @@ package global;
 
 import java.io.Serializable;
 
+import server.AttackFailedException;
 import server.EntityListener;
 
 public class StatusEffect implements Serializable, EntityListener{
@@ -33,7 +34,7 @@ public class StatusEffect implements Serializable, EntityListener{
 	}
 
 	@Override
-	public void notify(Entity entity, String message, Object data) {
+	public void notify(Entity entity, String message, Object data) throws AttackFailedException {
 		
 	}
 }

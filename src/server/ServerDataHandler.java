@@ -25,11 +25,11 @@ public class ServerDataHandler implements EntityListener {
 	private RewardManager rewardManager;
 	private RelicManager relicManager;
 	private EnemyManager enemyManager;
+	private CardManager cardManager;
 
 	private boolean playersCanPlayCard;
 	private ConnectionHandler connHandler;
 	
-	private CardManager cardManager;
 	
 	private int fightTracker;
 
