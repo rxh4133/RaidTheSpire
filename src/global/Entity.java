@@ -74,7 +74,12 @@ public class Entity implements Serializable{
 	}
 
 	public StatusEffect getSE(String seName) {
-		return effects.get(effects.indexOf(new StatusEffect(seName, 0)));
+		int index = effects.indexOf(new StatusEffect(seName, 0));
+		if(index == -1) {
+			return null;
+		}else {
+			return effects.get(index);
+		}
 	}
 
 	public void addSE(StatusEffect se) {
@@ -91,6 +96,7 @@ public class Entity implements Serializable{
 
 	public void takeTrueDamage(int damage) {
 		curHealth -= damage;
+		System.out.println("True damage taken: " + damage);
 		if(curHealth <= 0) {
 			for(EntityListener el: deathSubs) {
 				el.notify(this, "diedtotruedamage", damage);
@@ -116,6 +122,8 @@ public class Entity implements Serializable{
 			if(damage < 0) {
 				block = Math.abs(damage);
 				damage = 0;
+			}else {
+				block = 0;
 			}
 		}
 		for(EntityListener el: attDamSubs) {

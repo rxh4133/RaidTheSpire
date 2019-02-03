@@ -11,6 +11,6 @@ public class ThornsGen extends StatusEffect{
 	}
 
 	public void postTurn(Entity entity) {
-		entity.addSE(new Thorns(value));
+		entity.addSE(new Thorns(value, entity));
 	}
 }

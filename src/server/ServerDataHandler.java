@@ -192,7 +192,7 @@ public class ServerDataHandler implements EntityListener {
 		for(Enemy e: enemies) {
 			e.takeAction().doAction();
 			sendMessageToAll(new Message("players", players));
-			//sendMessageToAll(new Message("eaction", ea));
+			sendMessageToAll(new Message("enemies", getDisplayEnemies()));
 			try {
 				Thread.sleep(ENEMY_ACTION_DELAY * 1000);
 			} catch (Exception ex) {
@@ -207,10 +207,10 @@ public class ServerDataHandler implements EntityListener {
 			p.removeAllBlock();
 		}
 		for(Player p: players) {
-			p.preTurn();
-			p.resetEnergy();
 			p.endTurnDiscard();
 			p.drawCards(5);
+			p.preTurn();
+			p.resetEnergy();
 		}
 	}
 	

@@ -29,7 +29,7 @@ public class Player extends Entity{
 	public PlayerClass playerClass;
 
 	public Reward lastReward;
-	
+
 	private ArrayList<Relic> relics;
 
 
@@ -48,7 +48,7 @@ public class Player extends Entity{
 	public String getName() {
 		return name;
 	}
-	
+
 	public void addRelic(Relic relic) {
 		relics.add(relic);
 	}
@@ -56,7 +56,7 @@ public class Player extends Entity{
 	public void resetEnergy() {
 		curEnergy = maxEnergy;
 	}
-	
+
 	public int getBlock() {
 		return block;
 	}
@@ -150,16 +150,20 @@ public class Player extends Entity{
 
 	public Message playCard(int index, int target) {
 		System.out.println("playing");
-		if(index < hand.size()) {
-			Card card = hand.get(index);
-			if(card != null && card.cost <= curEnergy) {
-				System.out.println("doin it here");
-				card.play(this, target);
-				curEnergy -= card.cost;
-				numberToDiscard++;
-				discardCard(new int[] {index});
-				return new Message("pcok", null);
+		try {
+			if(index < hand.size()) {
+				Card card = hand.get(index);
+				if(card != null && card.cost <= curEnergy) {
+					System.out.println("doin it here");
+					card.play(this, target);
+					curEnergy -= card.cost;
+					numberToDiscard++;
+					discardCard(new int[] {index});
+					return new Message("pcok", null);
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return new Message("pkfail", null);
 	}

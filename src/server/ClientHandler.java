@@ -55,7 +55,7 @@ public class ClientHandler {
 	public void handleIncoming(Object obj) {
 		if(obj instanceof Message) {
 			Message message = (Message) obj;
-			System.out.println("SMR: " + message.text);
+			//System.out.println("SMR: " + message.text);
 			if(message.textEquals("pjoin")) {
 				player = dataHandler.createPlayer(this, message.data);
 				if(player == null) {

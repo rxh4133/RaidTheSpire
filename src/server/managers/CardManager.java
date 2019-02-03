@@ -6,6 +6,7 @@ import java.util.Collections;
 import global.Card;
 import global.PlayerClass;
 import global.cards.Defend;
+import global.cards.EnmitysMight;
 import global.cards.Strike;
 import global.cards.retributor.Brace;
 import global.cards.retributor.DualStrike;
@@ -37,6 +38,7 @@ public class CardManager{
 		retCards.add(new HatredsBite(sdh));
 		retCards.add(new DualStrike(sdh));
 		retCards.add(new Brace(sdh));
+		retCards.add(new EnmitysMight(sdh));
 		for(Card c: retCards) {
 			switch(c.rarity) {
 			case 1: retComCards.add(c); break;
@@ -80,6 +82,7 @@ public class CardManager{
 			starterDeck.add(getRetCard("Strike"));
 			starterDeck.add(getRetCard("Defend"));
 		}
+		starterDeck.add(getRetCard("Enmity's Might"));
 		return starterDeck;
 	}
 }

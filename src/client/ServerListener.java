@@ -48,7 +48,7 @@ public class ServerListener implements Runnable{
 	public void handleIncoming(Object obj) {
 		if(obj instanceof Message) {
 			Message message = (Message) obj;
-			System.out.println("Message received at client " + message.text);
+			//System.out.println("Message received at client " + message.text);
 			if(message.textEquals("CONN")) {
 				dataHandler.connected();
 			}else if(message.textEquals("players")) {

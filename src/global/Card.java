@@ -2,6 +2,7 @@ package global;
 
 import java.io.Serializable;
 
+import server.CardFailException;
 import server.ServerDataHandler;
 
 public class Card implements Serializable{
@@ -22,11 +23,11 @@ public class Card implements Serializable{
 		dataHandler = sdh;
 	}
 	
-	public void play(Player player, int target) {
+	public void play(Player player, int target) throws CardFailException{
 		
 	}
 	
-	public void playUpgraded(Player player, int target) {
+	public void playUpgraded(Player player, int target) throws CardFailException{
 		
 	}
 	
