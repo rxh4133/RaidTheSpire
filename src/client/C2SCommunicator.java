@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 
 import global.Message;
 
-public class ServerListener implements Runnable{
+public class C2SCommunicator implements Runnable{
 	
 	private ObjectInputStream ois = null;
 	private ObjectOutputStream oos = null;
@@ -17,7 +17,7 @@ public class ServerListener implements Runnable{
 	
 	private boolean done;
 
-	public ServerListener(ClientDataHandler cdh) {
+	public C2SCommunicator(ClientDataHandler cdh) {
 		dataHandler = cdh;
 	}
 	

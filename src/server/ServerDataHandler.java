@@ -44,7 +44,7 @@ public class ServerDataHandler implements EntityListener {
 		new Thread(connHandler).start();
 	}
 
-	public Player createPlayer(ClientHandler clientHandler, Object data) {
+	public Player createPlayer(S2CCommunicator clientHandler, Object data) {
 		boolean nameTaken = false;
 		for(Player p: players) {
 			if(p.getName().equals(((Object[]) data)[0])) {

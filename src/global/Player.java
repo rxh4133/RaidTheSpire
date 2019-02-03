@@ -3,7 +3,7 @@ package global;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import server.ClientHandler;
+import server.S2CCommunicator;
 
 public class Player extends Entity{
 	private static final long serialVersionUID = 1L;
@@ -14,7 +14,7 @@ public class Player extends Entity{
 	private ArrayList<Card> discard;
 	private ArrayList<Card> deck;
 
-	private transient ClientHandler client;
+	private transient S2CCommunicator client;
 	private boolean readyToEndTurn;
 	private boolean readyToStartGame;
 	private boolean readyToStartFight;
@@ -168,7 +168,7 @@ public class Player extends Entity{
 		return new Message("pkfail", null);
 	}
 
-	public void setClientHandler(ClientHandler ch) {
+	public void setClientHandler(S2CCommunicator ch) {
 		client = ch;
 	}
 

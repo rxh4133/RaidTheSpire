@@ -8,7 +8,7 @@ import java.net.Socket;
 import global.Message;
 import global.Player;
 
-public class ClientHandler {
+public class S2CCommunicator {
 	
 	public Socket client;
 	public ObjectInputStream ois;
@@ -20,7 +20,7 @@ public class ClientHandler {
 	
 	private Player player;
 	
-	public ClientHandler(Socket clientSocket, ServerDataHandler dh) {
+	public S2CCommunicator(Socket clientSocket, ServerDataHandler dh) {
 		dataHandler = dh;
 		client = clientSocket;
 		done = false;
@@ -88,6 +88,6 @@ public class ClientHandler {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof ClientHandler && ((ClientHandler) obj).client.equals(client);
+		return obj instanceof S2CCommunicator && ((S2CCommunicator) obj).client.equals(client);
 	}
 }

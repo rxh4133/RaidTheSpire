@@ -10,14 +10,14 @@ public class ConnectionHandler implements Runnable {
 	
 	public static final int SERVER_PORT = 25646;
 	
-	public ArrayList<ClientHandler> clients;
+	public ArrayList<S2CCommunicator> clients;
 	public ServerSocket server = null;
 	public boolean done;
 	
 	private final ServerDataHandler dataHandler;
 	
 	public ConnectionHandler(ServerDataHandler dh) {
-		clients = new ArrayList<ClientHandler>();
+		clients = new ArrayList<S2CCommunicator>();
 		done = false;
 		dataHandler = dh;
 	}
@@ -28,7 +28,7 @@ public class ConnectionHandler implements Runnable {
 			server = new ServerSocket(SERVER_PORT);
 			while(!done) {
 				Socket client = server.accept();
-				clients.add(new ClientHandler(client, dataHandler));
+				clients.add(new S2CCommunicator(client, dataHandler));
 			}
 		} catch (SocketException se) {
 			se.printStackTrace();

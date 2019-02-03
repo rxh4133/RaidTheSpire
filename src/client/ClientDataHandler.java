@@ -13,7 +13,7 @@ import global.RewardChoice;
 public class ClientDataHandler {
 	
 	public ClientWindow window;
-	public ServerListener serverListener;
+	public C2SCommunicator serverListener;
 	public String playerName;
 	public PlayerClass playerClass;
 	
@@ -25,18 +25,17 @@ public class ClientDataHandler {
 	
 	public ClientDataHandler(ClientWindow window) {
 		this.window = window;
-		serverListener = new ServerListener(this);
+		serverListener = new C2SCommunicator(this);
 	}
 	
 	public void goToHome() {
-		serverListener = new ServerListener(this);
+		serverListener = new C2SCommunicator(this);
 		window.switchToHome();
 	}
 	
 	public void goToFight() {
 		state = FIGHT;
 		window.switchToFight();
-		
 	}
 	
 	public void connect(String address, String pname, Object playerClass) {
