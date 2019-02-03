@@ -15,17 +15,13 @@ public class HatredsBite extends Card {
 	
 	public void play(Player play, int target) {
 		play.gainBlock(15 + play.getDex());
-		Thorns toApply = new Thorns(5, play);
-		play.addSE(toApply);
-		play.addAttDamSub(toApply);
+		play.addSE(new Thorns(5, play));
 		play.addSE(new ThornsDown(5));
 	}
 
 	public void playUpgraded(Player play, int target) {
 		play.gainBlock(20 + play.getDex());
-		Thorns toApply = new Thorns(5, play);
-		play.addSE(toApply);
-		play.addAttDamSub(toApply);
+		play.addSE(new Thorns(5, play));
 		play.addSE(new ThornsDown(5));
 	}
 	

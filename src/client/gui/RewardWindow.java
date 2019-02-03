@@ -16,6 +16,7 @@ import global.Reward;
 import global.RewardChoice;
 
 public class RewardWindow extends JPanel{
+	private static final long serialVersionUID = 1L;
 
 	private ClientDataHandler dataHandler;
 	

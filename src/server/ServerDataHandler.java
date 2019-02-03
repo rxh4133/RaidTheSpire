@@ -78,7 +78,7 @@ public class ServerDataHandler implements EntityListener {
 			for(int i = 0; i < players.size(); i++) {
 				players.get(i).setReadyToEndTurn(false);
 			}
-			takeEnemyTurn();
+			doTurnCycle();
 		}
 		sendMessageToAll(new Message("players", players));
 	}
@@ -178,7 +178,7 @@ public class ServerDataHandler implements EntityListener {
 		}
 	}
 
-	public void takeEnemyTurn() {
+	public void doTurnCycle() {
 		for(Player p: players) {
 			p.postTurn();
 		}

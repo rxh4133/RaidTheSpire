@@ -1,4 +1,4 @@
-package global.cards;
+package global.cards.retributor;
 
 import global.Card;
 import global.Player;
