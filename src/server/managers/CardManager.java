@@ -10,6 +10,7 @@ import global.cards.Strike;
 import global.cards.retributor.Brace;
 import global.cards.retributor.DualStrike;
 import global.cards.retributor.EnmitysMight;
+import global.cards.retributor.Evade;
 import global.cards.retributor.HatredsBite;
 import global.cards.retributor.MountingHate;
 import server.ServerDataHandler;
@@ -39,6 +40,7 @@ public class CardManager{
 		retCards.add(new DualStrike(sdh));
 		retCards.add(new Brace(sdh));
 		retCards.add(new EnmitysMight(sdh));
+		retCards.add(new Evade(sdh));
 		for(Card c: retCards) {
 			switch(c.rarity) {
 			case 1: retComCards.add(c); break;

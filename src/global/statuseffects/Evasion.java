@@ -13,7 +13,7 @@ import server.ServerDataHandler;
 public class Evasion extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 	
-	private ServerDataHandler dataHandler;
+	private transient ServerDataHandler dataHandler;
 
 	public Evasion(int v, ServerDataHandler sdh) {
 		super("Evasion", v);
