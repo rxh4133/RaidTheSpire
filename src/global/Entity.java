@@ -148,7 +148,6 @@ public class Entity implements Serializable{
 			}
 		}
 		for(EntityListener el: attDamSubs) {
-			System.out.println("notifying a sub");
 			el.notify(this, "attdamagetaken", new Object[] {damage, attacker});
 		}
 		curHealth -= damage;
@@ -196,6 +195,10 @@ public class Entity implements Serializable{
 	
 	public void addDamageDealtSub(EntityListener el) {
 		damageDealtSubs.add(el);
+	}
+	
+	public void addTurnEndSub(EntityListener el) {
+		postTurnSubs.add(el);
 	}
 	
 	public void removeAttackedSub(EntityListener el) {

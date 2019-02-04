@@ -12,7 +12,9 @@ import global.cards.retributor.DualStrike;
 import global.cards.retributor.EnmitysMight;
 import global.cards.retributor.Evade;
 import global.cards.retributor.HatredsBite;
+import global.cards.retributor.HealthyRespect;
 import global.cards.retributor.MountingHate;
+import global.cards.retributor.Revenge;
 import server.ServerDataHandler;
 
 public class CardManager{
@@ -41,6 +43,8 @@ public class CardManager{
 		retCards.add(new Brace(sdh));
 		retCards.add(new EnmitysMight(sdh));
 		retCards.add(new Evade(sdh));
+		retCards.add(new HealthyRespect(sdh));
+		retCards.add(new Revenge(sdh));
 		for(Card c: retCards) {
 			switch(c.rarity) {
 			case 1: retComCards.add(c); break;
@@ -81,15 +85,10 @@ public class CardManager{
 	public ArrayList<Card> getRetStartingDeck(){
 		ArrayList<Card> starterDeck = new ArrayList<Card>();
 		for(int i = 0; i < 5; i++) {
-			//starterDeck.add(getRetCard("Strike"));
-			//starterDeck.add(getRetCard("Defend"));
+			starterDeck.add(getRetCard("Strike"));
+			starterDeck.add(getRetCard("Defend"));
 		}
-		starterDeck.add(getRetCard("Evade"));
-		starterDeck.add(getRetCard("Evade"));
-		starterDeck.add(getRetCard("Evade"));
-		starterDeck.add(getRetCard("Evade"));
-		starterDeck.add(getRetCard("Evade"));
-		starterDeck.add(getRetCard("Evade"));
+		starterDeck.add(getRetCard("Enmity's Might"));
 		return starterDeck;
 	}
 }

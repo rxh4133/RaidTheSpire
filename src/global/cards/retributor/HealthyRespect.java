@@ -9,7 +9,7 @@ public class HealthyRespect extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public HealthyRespect(ServerDataHandler sdh) {
-		super(2, "Health Respect", 2, sdh);
+		super(2, "Healthy Respect", 2, sdh);
 	}
 	
 	public void play(Player play, int target) {

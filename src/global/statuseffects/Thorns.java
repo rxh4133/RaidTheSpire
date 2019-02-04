@@ -17,10 +17,8 @@ public class Thorns extends StatusEffect{
 	}
 
 	public void notify(Entity entity, String message, Object data) {
-		System.out.println("message thorns gets " + message);
 		if(message.equals("attdamagetaken")) {
 			Entity reflect = (Entity) ((Object[]) data)[1];
-			System.out.println(this.value);
 			reflect.takeTrueDamage(this.value);
 			appTo.damageDealtOut(this.value, name);
 		}

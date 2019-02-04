@@ -17,6 +17,7 @@ public class Respect extends StatusEffect{
 	}
 	
 	public void notify(Entity e, String message, Object data) {
+		System.out.println("respect otified");
 		Object[] pay = (Object[]) data;
 		if(pay[1].equals("Thorns")) {
 			this.value += (int) pay[0];

@@ -85,10 +85,14 @@ public class Player extends Entity{
 
 	public void addCardToDeck(Card card) {
 		deck.add(card);
+		card.onAddToDeck(this);
 	}
 
 	public void setDeck(ArrayList<Card> cards) {
 		deck = cards;
+		for(Card c: deck) {
+			c.onAddToDeck(this);
+		}
 	}
 
 	public void shuffleCardsFromDiscard() {
@@ -149,12 +153,10 @@ public class Player extends Entity{
 	}
 
 	public Message playCard(int index, int target) {
-		System.out.println("playing");
 		try {
 			if(index < hand.size()) {
 				Card card = hand.get(index);
 				if(card != null && card.cost <= curEnergy) {
-					System.out.println("doin it here");
 					card.play(this, target);
 					curEnergy -= card.cost;
 					numberToDiscard++;

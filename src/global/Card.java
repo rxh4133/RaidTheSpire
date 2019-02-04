@@ -23,6 +23,10 @@ public class Card implements Serializable{
 		dataHandler = sdh;
 	}
 	
+	public void onAddToDeck(Player p) {
+		
+	}
+	
 	public void play(Player player, int target) throws CardFailException{
 		
 	}
