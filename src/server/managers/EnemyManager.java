@@ -24,8 +24,8 @@ public class EnemyManager implements Serializable{
 					private static final long serialVersionUID = 1L;
 
 					public void doAction() {
-						for(Player p: dataHandler.players) {
-							p.takeAttackDamage(10, enemy);
+						for(int i = 0; i < dataHandler.players.size(); i++) {
+							dataHandler.players.get(i).takeAttackDamage(10, enemy);
 						}
 					}
 				};

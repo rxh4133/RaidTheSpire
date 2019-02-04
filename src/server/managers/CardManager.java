@@ -81,10 +81,15 @@ public class CardManager{
 	public ArrayList<Card> getRetStartingDeck(){
 		ArrayList<Card> starterDeck = new ArrayList<Card>();
 		for(int i = 0; i < 5; i++) {
-			starterDeck.add(getRetCard("Strike"));
-			starterDeck.add(getRetCard("Defend"));
+			//starterDeck.add(getRetCard("Strike"));
+			//starterDeck.add(getRetCard("Defend"));
 		}
-		starterDeck.add(getRetCard("Enmity's Might"));
+		starterDeck.add(getRetCard("Evade"));
+		starterDeck.add(getRetCard("Evade"));
+		starterDeck.add(getRetCard("Evade"));
+		starterDeck.add(getRetCard("Evade"));
+		starterDeck.add(getRetCard("Evade"));
+		starterDeck.add(getRetCard("Evade"));
 		return starterDeck;
 	}
 }

@@ -15,24 +15,31 @@ public class Evasion extends StatusEffect {
 	
 	private transient ServerDataHandler dataHandler;
 
-	public Evasion(int v, ServerDataHandler sdh) {
+	public Evasion(int v, ServerDataHandler sdh, Entity appliedTo) {
 		super("Evasion", v);
 		dataHandler = sdh;
+		appliedTo.addAttackedSub(this);
 	}
 	
 	public void preTurn(Entity e) {
 		e.removeSE(this);
+		e.removeAttackedSub(this);
 	}
 	
 	@Override
 	public void notify(Entity entity, String message, Object data) throws AttackFailedException {
+		System.out.println("Evading " + entity + " message " + message + " data " + data);
 		if(entity instanceof Player) {
-			ArrayList<Player> players = dataHandler.players;
+			ArrayList<Player> players = new ArrayList<Player>();
+			players.addAll(dataHandler.players);
 			if(players.size() > 1) {
 				Object[] attackData = (Object[]) data;
 				players.remove(entity);
 				Collections.shuffle(players);
-				entity.reduceSE(this, 1);
+				boolean stillLeft = entity.reduceSE(this, 1);
+				if(!stillLeft) {
+					entity.removeAttackedSub(this);
+				}
 				players.get(0).takeAttackDamage((int) attackData[0], (Entity) attackData[1]);
 				throw new AttackFailedException();
 			}
@@ -43,7 +50,10 @@ public class Evasion extends StatusEffect {
 				Object[] attackData = (Object[]) data;
 				enemies.remove(entity);
 				Collections.shuffle(enemies);
-				entity.reduceSE(this, 1);
+				boolean stillLeft = entity.reduceSE(this, 1);
+				if(!stillLeft) {
+					entity.removeAttackedSub(this);
+				}
 				enemies.get(0).takeAttackDamage((int) attackData[0], (Entity) attackData[1]);
 				throw new AttackFailedException();
 			}

@@ -17,7 +17,8 @@ public class Strike extends Card{
 		if(target < dataHandler.enemies.size()) {
 			Enemy targetedEnemy = dataHandler.enemies.get(target);
 			if(targetedEnemy != null) {
-				targetedEnemy.takeAttackDamage(6 + play.getStrength(), play);
+				int dealt = targetedEnemy.takeAttackDamage(6 + play.getStrength(), play);
+				play.damageDealtOut(dealt, name);
 			}
 		}else {
 			throw new CardFailException();
@@ -28,7 +29,8 @@ public class Strike extends Card{
 		if(target < dataHandler.enemies.size()) {
 			Enemy targetedEnemy = dataHandler.enemies.get(target);
 			if(targetedEnemy != null) {
-				targetedEnemy.takeAttackDamage(9 + play.getStrength(), play);
+				int dealt = targetedEnemy.takeAttackDamage(9 + play.getStrength(), play);
+				play.damageDealtOut(dealt, name);
 			}
 		}else {
 			throw new CardFailException();

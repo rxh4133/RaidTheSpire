@@ -22,6 +22,7 @@ public class Entity implements Serializable{
 	protected ArrayList<EntityListener> fightStartSubs;
 	protected ArrayList<EntityListener> attackedSubs;
 	protected ArrayList<EntityListener> attackingSubs;
+	protected ArrayList<EntityListener> damageDealtSubs;
 
 	public Entity() {
 		effects = new ArrayList<StatusEffect>();
@@ -35,6 +36,7 @@ public class Entity implements Serializable{
 		deathSubs = new ArrayList<EntityListener>();
 		attackedSubs = new ArrayList<EntityListener>();
 		attackingSubs = new ArrayList<EntityListener>();
+		damageDealtSubs = new ArrayList<EntityListener>();
 	}
 
 	public void healToFull() {
@@ -63,14 +65,20 @@ public class Entity implements Serializable{
 		effects.remove(se);
 	}
 
-	public void reduceSE(StatusEffect se, int reduce) {
-		StatusEffect al = effects.get(effects.indexOf(se));
-		if(al != null) {
-			al.value -= reduce;
-			if(al.value <= 0) {
-				removeSE(se);
+	public boolean reduceSE(StatusEffect se, int reduce) {
+		int index = effects.indexOf(se);
+		if (index >= 0) {
+			StatusEffect al = effects.get(index);
+			if(al != null) {
+				al.value -= reduce;
+				if(al.value <= 0) {
+					removeSE(se);
+					return false;
+				}
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public StatusEffect getSE(String seName) {
@@ -87,6 +95,12 @@ public class Entity implements Serializable{
 			effects.get(effects.indexOf(se)).value += se.value;
 		}else {
 			effects.add(se);
+		}
+	}
+	
+	public void damageDealtOut(int damage, String source) {
+		for(EntityListener el: damageDealtSubs) {
+			el.notify(this, "damagedealt", new Object[] {damage, source});
 		}
 	}
 
@@ -172,9 +186,20 @@ public class Entity implements Serializable{
 	}
 
 	public EntityListener addAttDamSub(EntityListener el) {
-		System.out.println("fuggin addin it");
 		attDamSubs.add(el);
 		return el;
+	}
+
+	public void addAttackedSub(EntityListener el) {
+		attackedSubs.add(el);
+	}
+	
+	public void addDamageDealtSub(EntityListener el) {
+		damageDealtSubs.add(el);
+	}
+	
+	public void removeAttackedSub(EntityListener el) {
+		attackedSubs.remove(el);
 	}
 
 	public boolean isDead() {
