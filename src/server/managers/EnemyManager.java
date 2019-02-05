@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import global.Enemy;
-import global.EnemyAction;
-import global.Player;
+import global.enemies.BasicEnemy;
 import server.ServerDataHandler;
 
 public class EnemyManager implements Serializable{
@@ -16,27 +15,12 @@ public class EnemyManager implements Serializable{
 	
 	public EnemyManager(ServerDataHandler sdh) {
 		dataHandler = sdh;
-		myOnlyFight = new ArrayList<Enemy>();
-		Enemy e = new Enemy() {
-			private static final long serialVersionUID = 1L;
-			public EnemyAction takeAction() {
-				return new EnemyAction(this) {
-					private static final long serialVersionUID = 1L;
-
-					public void doAction() {
-						for(int i = 0; i < dataHandler.players.size(); i++) {
-							dataHandler.players.get(i).takeAttackDamage(10, enemy);
-						}
-					}
-				};
-			}
-		};
-		e.addMaxHealth(30);
-		e.addDeathSub(dataHandler);
-		myOnlyFight.add(e);
+		
 	}
 	
 	public ArrayList<Enemy> getEnemiesForFight(int fightnum){
+		myOnlyFight = new ArrayList<Enemy>();
+		myOnlyFight.add(new BasicEnemy(dataHandler));
 		return myOnlyFight;
 	}
 }

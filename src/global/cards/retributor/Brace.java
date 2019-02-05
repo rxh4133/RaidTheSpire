@@ -3,8 +3,10 @@ package global.cards.retributor;
 import java.io.Serializable;
 
 import global.Card;
+import global.CardType;
 import global.Entity;
 import global.Player;
+import global.Rarity;
 import global.statuseffects.StartDraw;
 import server.EntityListener;
 import server.ServerDataHandler;
@@ -13,7 +15,7 @@ public class Brace extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Brace(ServerDataHandler sdh) {
-		super(1, "Brace", 1, sdh);
+		super(1, "Brace", Rarity.COMMON, CardType.SKILL, sdh);
 	}
 	
 	public void play(Player play, int target) {

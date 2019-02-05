@@ -10,7 +10,6 @@ import global.Player;
 import global.PlayerClass;
 import global.Reward;
 import global.RewardChoice;
-import global.relics.AvengingEye;
 import server.managers.CardManager;
 import server.managers.EnemyManager;
 import server.managers.RelicManager;
@@ -39,7 +38,7 @@ public class ServerDataHandler implements EntityListener {
 		connHandler = new ConnectionHandler(this);
 		cardManager = new CardManager(this);
 		enemyManager = new EnemyManager(this);
-		relicManager = new RelicManager(this);
+		relicManager = new RelicManager();
 		rewardManager = new RewardManager(cardManager, relicManager);
 		new Thread(connHandler).start();
 	}
@@ -123,14 +122,8 @@ public class ServerDataHandler implements EntityListener {
 	public void startGame() {
 		for(Player p: players) {
 			p.setDeck(cardManager.getStartingDeck(p.playerClass));
-			if(p.playerClass.equals(PlayerClass.RETRIBUTOR)) {
-				p.addMaxHealth(60);
-				p.addRelic(new AvengingEye(this).onAdd(p));
-			}else if(p.playerClass.equals(PlayerClass.REVENANT)) {
-				p.addMaxHealth(80);
-			}else if(p.playerClass.equals(PlayerClass.RESIPISCENT)) {
-				p.addMaxHealth(50);
-			}
+			p.addMaxHealth(p.playerClass.getMaxHealth());
+			p.addRelic(p.playerClass.getStartingRelic().onAdd(p, this));
 			p.setMaxEnergy(3);
 		}
 	}
@@ -140,6 +133,7 @@ public class ServerDataHandler implements EntityListener {
 		enemies = enemyManager.getEnemiesForFight(fightNum);
 		for(Enemy e: enemies) {
 			e.healToFull();
+			e.decideAction();
 		}
 		for(Player p: players) {
 			p.removeHandAndDiscard();
@@ -150,15 +144,7 @@ public class ServerDataHandler implements EntityListener {
 		}
 		sendMessageToAll(new Message("startFight", null));
 		sendMessageToAll(new Message("players", players));
-		sendMessageToAll(new Message("enemies", getDisplayEnemies()));
-	}
-	
-	public ArrayList<Enemy> getDisplayEnemies(){
-		ArrayList<Enemy> disEns = new ArrayList<Enemy>();
-		for(Enemy e: enemies) {
-			disEns.add(e.copyForDisplay());
-		}
-		return disEns;
+		sendMessageToAll(new Message("enemies", enemies));
 	}
 
 	public Message playCard(Object obj, Player play) {
@@ -166,7 +152,7 @@ public class ServerDataHandler implements EntityListener {
 			Integer[] cardData = (Integer[]) obj;
 			Message result = play.playCard(cardData[0], cardData[1]);
 			sendMessageToAll(new Message("players", players));
-			sendMessageToAll(new Message("enemies", getDisplayEnemies()));
+			sendMessageToAll(new Message("enemies", enemies));
 			return result;
 		}
 		return new Message("pcfail", null);
@@ -190,9 +176,9 @@ public class ServerDataHandler implements EntityListener {
 			e.preTurn();
 		}
 		for(Enemy e: enemies) {
-			e.takeAction().doAction();
+			e.takeAction();
 			sendMessageToAll(new Message("players", players));
-			sendMessageToAll(new Message("enemies", getDisplayEnemies()));
+			sendMessageToAll(new Message("enemies", enemies));
 			try {
 				Thread.sleep(ENEMY_ACTION_DELAY * 1000);
 			} catch (Exception ex) {

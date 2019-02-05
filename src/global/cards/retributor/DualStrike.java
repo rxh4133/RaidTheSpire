@@ -1,14 +1,16 @@
 package global.cards.retributor;
 
 import global.Card;
+import global.CardType;
 import global.Player;
+import global.Rarity;
 import server.ServerDataHandler;
 
 public class DualStrike extends Card{
 	private static final long serialVersionUID = 1L;
 
 	public DualStrike(ServerDataHandler sdh) {
-		super(1, "Dual Strike", 1, sdh);
+		super(1, "Dual Strike", Rarity.COMMON, CardType.ATTACK, sdh);
 	}
 	
 	public void play(Player play, int target) {

@@ -38,7 +38,7 @@ public class HomeWindow extends JPanel{
 		hostButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ServerDataHandler sdh = new ServerDataHandler();
+				new ServerDataHandler();
 				dataHandler.connect("localhost", nameField.getText(), classComboBox.getSelectedItem());
 			}
 		});

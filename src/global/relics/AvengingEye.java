@@ -13,16 +13,21 @@ import server.ServerDataHandler;
 public class AvengingEye extends Relic{
 	private static final long serialVersionUID = 1L;
 
-	public AvengingEye(ServerDataHandler sdh) {
-		super("Avenging Eye", sdh);
+	public AvengingEye() {
+		super("Avenging Eye");
 	}
 
-	public Relic onAdd(Player owner) {
+	public Relic onAdd(Player owner, ServerDataHandler sdh) {
+		super.onAdd(owner, sdh);
 		AEL ael = new AEL(owner);
 		for(Player p: dataHandler.players) {
 			p.addAttDamSub(ael);
 		}
 		return this;
+	}
+	
+	public Relic copyRelic() {
+		return new AvengingEye();
 	}
 
 	private class AEL implements EntityListener, Serializable{

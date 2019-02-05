@@ -11,15 +11,17 @@ public class Card implements Serializable{
 	public final int defaultCost;
 	
 	public String name;
-	public int rarity;
+	public Rarity rarity;
+	private CardType type;
 	
 	protected transient ServerDataHandler dataHandler;
 
-	public Card(int defCost, String name, int rarity, ServerDataHandler sdh) {
+	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
 		defaultCost = defCost;
 		cost = defCost;
 		this.rarity = rarity;
 		this.name = name;
+		type = ct;
 		dataHandler = sdh;
 	}
 	
@@ -40,7 +42,11 @@ public class Card implements Serializable{
 	}
 	
 	public Card copyCard() {
-		return new Card(defaultCost, name, rarity, dataHandler);
+		return new Card(defaultCost, name, rarity, type, dataHandler);
+	}
+	
+	public CardType getCardType() {
+		return type;
 	}
 	
 	public String toString() {

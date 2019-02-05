@@ -1,8 +1,10 @@
 package global.cards;
 
 import global.Card;
+import global.CardType;
 import global.Enemy;
 import global.Player;
+import global.Rarity;
 import server.CardFailException;
 import server.ServerDataHandler;
 
@@ -10,7 +12,7 @@ public class Strike extends Card{
 	private static final long serialVersionUID = 1L;
 
 	public Strike(ServerDataHandler sdh) {
-		super(1, "Strike", 0, sdh);
+		super(1, "Strike", Rarity.STARTER, CardType.ATTACK, sdh);
 	}
 
 	public void play(Player play, int target) throws CardFailException {

@@ -12,17 +12,21 @@ public class Relic implements Serializable, EntityListener{
 	
 	protected transient ServerDataHandler dataHandler;
 	
-	public Relic(String name, ServerDataHandler sdh) {
+	public Relic(String name) {
 		this.name = name;
-		dataHandler = sdh;
 	}
 
-	public Relic onAdd(Player owner) {
+	public Relic onAdd(Player owner, ServerDataHandler sdh) {
+		dataHandler = sdh;
 		return this;
 	}
 	
 	public String toString() {
 		return name;
+	}
+	
+	public Relic copyRelic() {
+		throw new RuntimeException("You must override copyRelic");
 	}
 
 	@Override

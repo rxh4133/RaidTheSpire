@@ -3,8 +3,10 @@ package global.cards.retributor;
 import java.io.Serializable;
 
 import global.Card;
+import global.CardType;
 import global.Entity;
 import global.Player;
+import global.Rarity;
 import server.AttackFailedException;
 import server.CardFailException;
 import server.EntityListener;
@@ -16,11 +18,11 @@ public class Revenge extends Card {
 	private transient REL dam;
 
 	public Revenge(ServerDataHandler sdh) {
-		super(2, "Revenge", 1, sdh);
+		super(2, "Revenge", Rarity.COMMON, CardType.ATTACK, sdh);
 	}
 	
 	private Revenge(ServerDataHandler sdh, REL nd) {
-		super(2, "Revenge", 1, sdh);
+		super(2, "Revenge", Rarity.COMMON, CardType.ATTACK, sdh);
 		dam = nd;
 	}
 	

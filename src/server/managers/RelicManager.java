@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import global.Relic;
-import server.ServerDataHandler;
 
 public class RelicManager {
 	
 	private ArrayList<Relic> relics;
-	private ServerDataHandler dataHandler;
 	
-	public RelicManager(ServerDataHandler sdh) {
-		dataHandler = sdh;
+	public RelicManager() {
 		generateRelics();
 	}
 	
@@ -24,6 +21,6 @@ public class RelicManager {
 	
 	public void generateRelics() {
 		relics = new ArrayList<Relic>();
-		relics.add(new Relic("",dataHandler));
+		relics.add(new Relic(""));
 	}
 }

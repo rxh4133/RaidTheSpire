@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Reward implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public ArrayList<Card> cardReward1;
 	public ArrayList<Card> cardReward2;
 	public ArrayList<Card> cardReward3;

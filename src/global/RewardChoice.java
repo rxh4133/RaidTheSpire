@@ -3,6 +3,7 @@ package global;
 import java.io.Serializable;
 
 public class RewardChoice implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public int choice1Index;
 	public int choice2Index;
 	public int choice3Index;
