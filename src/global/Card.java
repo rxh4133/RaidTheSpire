@@ -15,6 +15,7 @@ public class Card implements Serializable{
 	private CardType type;
 	
 	protected transient ServerDataHandler dataHandler;
+	public boolean exhausts;
 
 	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
 		defaultCost = defCost;
@@ -26,6 +27,10 @@ public class Card implements Serializable{
 	}
 	
 	public void onAddToDeck(Player p) {
+		
+	}
+	
+	public void onTurnEndInHand(Player p) {
 		
 	}
 	

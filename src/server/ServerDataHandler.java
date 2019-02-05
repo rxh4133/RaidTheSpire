@@ -190,13 +190,7 @@ public class ServerDataHandler implements EntityListener {
 		}
 		playersCanPlayCard = true;
 		for(Player p: players) {
-			p.removeAllBlock();
-		}
-		for(Player p: players) {
-			p.endTurnDiscard();
-			p.drawCards(5);
 			p.preTurn();
-			p.resetEnergy();
 		}
 	}
 	

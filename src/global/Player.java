@@ -41,6 +41,21 @@ public class Player extends Entity{
 		relics = new ArrayList<Relic>();
 	}
 
+	public void postTurn() {
+		super.postTurn();
+		for(Card c: hand) {
+			c.onTurnEndInHand(this);
+		}
+		endTurnDiscard();
+	}
+
+	public void preTurn() {
+		removeAllBlock();
+		drawCards(5);
+		super.preTurn();
+		resetEnergy();
+	}
+
 	public void setName(String n) {
 		name = n;
 	}
@@ -55,6 +70,13 @@ public class Player extends Entity{
 
 	public void resetEnergy() {
 		curEnergy = maxEnergy;
+	}
+
+	public void heal(int heal) {
+		curHealth += heal;
+		if(curHealth > maxHealth) {
+			curHealth = maxHealth;
+		}
 	}
 
 	public int getBlock() {
@@ -86,6 +108,11 @@ public class Player extends Entity{
 	public void addCardToDeck(Card card) {
 		deck.add(card);
 		card.onAddToDeck(this);
+	}
+
+	public void addCardToDraw(Card card) {
+		draw.add(card);
+		Collections.shuffle(draw);
 	}
 
 	public void setDeck(ArrayList<Card> cards) {
@@ -158,9 +185,13 @@ public class Player extends Entity{
 				Card card = hand.get(index);
 				if(card != null && card.cost <= curEnergy) {
 					card.play(this, target);
-					curEnergy -= card.cost;
-					numberToDiscard++;
-					discardCard(new int[] {index});
+					if(card.exhausts) {
+						hand.remove(index);
+					}else {
+						curEnergy -= card.cost;
+						numberToDiscard++;
+						discardCard(new int[] {index});
+					}
 					return new Message("pcok", null);
 				}
 			}
