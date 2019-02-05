@@ -16,6 +16,7 @@ import global.cards.retributor.HatredsBite;
 import global.cards.retributor.HealthyRespect;
 import global.cards.retributor.MountingHate;
 import global.cards.retributor.Revenge;
+import global.cards.revenant.FelFyre;
 import server.CardStorage;
 import server.ServerDataHandler;
 
@@ -41,6 +42,7 @@ public class CardManager{
 		cards.put(new Evade(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new HealthyRespect(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new Revenge(sdh), PlayerClass.RETRIBUTOR);
+		cards.put(new FelFyre(sdh), PlayerClass.REVENANT);
 
 	}
 
@@ -71,8 +73,20 @@ public class CardManager{
 	public ArrayList<Card> getStartingDeck(PlayerClass pc){
 		if(pc.equals(PlayerClass.RETRIBUTOR)) {
 			return getRetStartingDeck();
+		}else if(pc.equals(PlayerClass.REVENANT)) {
+			return getRevStartingDeck();
 		}
 		return null;
+	}
+	
+	public ArrayList<Card> getRevStartingDeck(){
+		ArrayList<Card> starterDeck = new ArrayList<Card>();
+		for(int i = 0; i < 5; i++) {
+			starterDeck.add(getCard(PlayerClass.ALL, "Strike"));
+			starterDeck.add(getCard(PlayerClass.ALL, "Defend"));
+		}
+		starterDeck.add(getCard(PlayerClass.REVENANT, "Fel Fyre"));
+		return starterDeck;
 	}
 
 	public ArrayList<Card> getRetStartingDeck(){

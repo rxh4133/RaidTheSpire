@@ -43,8 +43,11 @@ public class Player extends Entity{
 
 	public void postTurn() {
 		super.postTurn();
-		for(Card c: hand) {
-			c.onTurnEndInHand(this);
+		for(int i = 0; i < hand.size(); i++) {
+			if(hand.get(i).onTurnEndInHand(this)) {
+				exhaustFromHand(i);
+				i--;
+			}
 		}
 		endTurnDiscard();
 	}
@@ -103,6 +106,13 @@ public class Player extends Entity{
 			}
 		}
 		return 0;
+	}
+	
+	public void removeCardFromHand(Card card) {
+		int index = hand.indexOf(card);
+		if(index >= 0) {
+			hand.remove(index);
+		}
 	}
 
 	public void addCardToDeck(Card card) {

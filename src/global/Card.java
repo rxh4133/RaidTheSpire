@@ -16,6 +16,7 @@ public class Card implements Serializable{
 	
 	protected transient ServerDataHandler dataHandler;
 	public boolean exhausts;
+	private boolean upgraded;
 
 	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
 		defaultCost = defCost;
@@ -30,8 +31,13 @@ public class Card implements Serializable{
 		
 	}
 	
-	public void onTurnEndInHand(Player p) {
-		
+	/**
+	 * Return true if this is ethereal
+	 * @param p
+	 * @return
+	 */
+	public boolean onTurnEndInHand(Player p) {
+		return false;
 	}
 	
 	public void play(Player player, int target) throws CardFailException{
@@ -43,7 +49,7 @@ public class Card implements Serializable{
 	}
 	
 	public boolean equals(Object obj) {
-		return obj instanceof Card && ((Card) obj).name.equals(name);
+		return obj instanceof Card && ((Card) obj).name.equals(name) && ((Card) obj).cost == cost && ((Card) obj).exhausts == exhausts && ((Card) obj).upgraded == upgraded;
 	}
 	
 	public Card copyCard() {

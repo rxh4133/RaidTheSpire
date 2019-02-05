@@ -3,10 +3,11 @@ package global;
 import java.io.Serializable;
 
 import global.relics.AvengingEye;
+import global.relics.MarkOfUndeath;
 
 public enum PlayerClass implements Serializable{
 	RETRIBUTOR(60, new AvengingEye()),
-	REVENANT(80, null),
+	REVENANT(80, new MarkOfUndeath()),
 	RESIPISCENT(50, null),
 	ALL(0,null);
 	

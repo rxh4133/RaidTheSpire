@@ -17,8 +17,10 @@ public class FreshMinorWound extends Card{
 		play.heal(2);
 	}
 	
-	public void onTurnEndInHand(Player p) {
+	public boolean onTurnEndInHand(Player p) {
 		p.addCardToDraw(new MinorWound());
+		p.removeCardFromHand(this);
+		return true;
 	}
 
 	public Card copyCard() {
