@@ -107,7 +107,7 @@ public class Player extends Entity{
 		}
 		return 0;
 	}
-	
+
 	public void removeCardFromHand(Card card) {
 		int index = hand.indexOf(card);
 		if(index >= 0) {
@@ -124,7 +124,7 @@ public class Player extends Entity{
 		draw.add(card);
 		Collections.shuffle(draw);
 	}
-	
+
 	public void addCardToHand(Card card) {
 		hand.add(card);
 	}
@@ -163,9 +163,11 @@ public class Player extends Entity{
 			if(draw.size() == 0) {
 				shuffleCardsFromDiscard();
 			}
-			Card c = draw.get(0);
-			draw.remove(0);
-			hand.add(c);
+			if(draw.size() != 0) {
+				Card c = draw.get(0);
+				draw.remove(0);
+				hand.add(c);
+			}
 		}
 	}
 

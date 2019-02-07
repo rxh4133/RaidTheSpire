@@ -9,7 +9,11 @@ public enum PlayerClass implements Serializable{
 	RETRIBUTOR(60, new AvengingEye()),
 	REVENANT(80, new MarkOfUndeath()),
 	RESIPISCENT(50, null),
-	ALL(0,null);
+	ALL(0,new Relic("Ah fuck you") {
+		public Relic copyRelic() {
+			return this;
+		}
+	});
 	
 	private int maxHealth;
 	private Relic startingRelic;

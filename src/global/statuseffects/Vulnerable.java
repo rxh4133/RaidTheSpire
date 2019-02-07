@@ -10,16 +10,21 @@ public class Vulnerable extends StatusEffect{
 
 	public Vulnerable(int v, Entity appliedTo) {
 		super("Vulnerable", v);
-		appliedTo.addAttackedSub(new VEL());
+		if(appliedTo.getSE("Vulnerable") == null) {
+			appliedTo.addAttackedSub(new VEL());
+		}
 	}
 
-	
+	public void preTurn(Entity e) {
+		e.reduceSE(this, 1);
+	}
+
 	private class VEL implements EntityListener{
 
 		@Override
 		public void notify(Entity entity, String message, Object data) {
 			entity.takeDamage((int) ((Object[]) data)[0]);
 		}
-		
+
 	}
 }
