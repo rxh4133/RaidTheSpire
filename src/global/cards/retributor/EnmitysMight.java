@@ -16,19 +16,13 @@ public class EnmitysMight extends Card {
 	}
 	
 	public void play(Player play, int target) throws CardFailException{
-		if(target < dataHandler.players.size()) {
-			dataHandler.players.get(target).addSE(new Thorns(2, play));
-		}else {
-			throw new CardFailException();
-		}
+		tinp();
+		getPTarget(target).addSE(new Thorns(2, play));
 	}
 	
 	public void playUpgraded(Player play, int target) throws CardFailException{
-		if(target < dataHandler.players.size()) {
-			dataHandler.players.get(target).addSE(new Thorns(3, play));
-		}else {
-			throw new CardFailException();
-		}
+		tinp();
+		getPTarget(target).addSE(new Thorns(3, play));
 	}
 	
 	public Card copyCard() {

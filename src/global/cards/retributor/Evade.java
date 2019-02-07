@@ -15,10 +15,12 @@ public class Evade extends Card {
 	}
 	
 	public void play(Player p, int target) {
+		tinp();
 		p.addSE(new Evasion(1, dataHandler, p));
 	}
 	
 	public void playUpgraded(Player p, int target) {
+		tinp();
 		p.addSE(new Evasion(2, dataHandler, p));
 	}
 	

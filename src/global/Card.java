@@ -17,6 +17,7 @@ public class Card implements Serializable{
 	protected transient ServerDataHandler dataHandler;
 	public boolean exhausts;
 	private boolean upgraded;
+	public boolean playable;
 
 	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
 		defaultCost = defCost;
@@ -41,10 +42,41 @@ public class Card implements Serializable{
 	}
 	
 	public void play(Player player, int target) throws CardFailException{
-		
+		if(!playable) {
+			throw new CardFailException("Tried to play unplayable card");
+		}
 	}
 	
 	public void playUpgraded(Player player, int target) throws CardFailException{
+		if(!playable) {
+			throw new CardFailException("Tried to play unplayable card");
+		}
+	}
+	
+	protected void tinp() {
+		if(!playable) {
+			throw new CardFailException("Tried to play unplayable card");
+		}
+	}
+	
+	protected Enemy getETarget(int target) {
+		if(target < dataHandler.enemies.size() && target >= 0) {
+			Enemy targetedEnemy = dataHandler.enemies.get(target);
+			if(targetedEnemy != null) {
+				return targetedEnemy;
+			}
+		}
+		throw new CardFailException("Invalid target");
+	}
+	
+	protected Player getPTarget(int target) {
+		if(target < dataHandler.players.size() && target >= 0) {
+			Player targetedPlayer = dataHandler.players.get(target);
+			if(targetedPlayer != null) {
+				return targetedPlayer;
+			}
+		}
+		throw new CardFailException("Invalid target");
 		
 	}
 	

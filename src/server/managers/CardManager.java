@@ -4,19 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import global.Card;
+import global.CardType;
 import global.PlayerClass;
 import global.Rarity;
-import global.cards.Defend;
-import global.cards.Strike;
-import global.cards.retributor.Brace;
-import global.cards.retributor.DualStrike;
-import global.cards.retributor.EnmitysMight;
-import global.cards.retributor.Evade;
-import global.cards.retributor.HatredsBite;
-import global.cards.retributor.HealthyRespect;
-import global.cards.retributor.MountingHate;
-import global.cards.retributor.Revenge;
-import global.cards.revenant.FelFyre;
+import global.cards.*;
+import global.cards.retributor.*;
+import global.cards.revenant.*;
 import server.CardStorage;
 import server.ServerDataHandler;
 
@@ -43,7 +36,8 @@ public class CardManager{
 		cards.put(new HealthyRespect(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new Revenge(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new FelFyre(sdh), PlayerClass.REVENANT);
-
+		cards.put(new RawStrike(sdh), PlayerClass.REVENANT);
+		cards.put(new PowerBlow(sdh), PlayerClass.REVENANT);
 	}
 
 	public Card getRandomCard(PlayerClass player) {
@@ -75,6 +69,10 @@ public class CardManager{
 			return getRetStartingDeck();
 		}else if(pc.equals(PlayerClass.REVENANT)) {
 			return getRevStartingDeck();
+		}else if(pc.equals(PlayerClass.ALL)) {
+			ArrayList<Card> fug = new ArrayList<Card>();
+			fug.add(new Card(4, "Haha very funny, no you're not all the classes", Rarity.STARTER, CardType.CURSE, sdh));
+			return fug;
 		}
 		return null;
 	}

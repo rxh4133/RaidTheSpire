@@ -2,7 +2,6 @@ package global.cards;
 
 import global.Card;
 import global.CardType;
-import global.Enemy;
 import global.Player;
 import global.Rarity;
 import server.CardFailException;
@@ -16,27 +15,13 @@ public class Strike extends Card{
 	}
 
 	public void play(Player play, int target) throws CardFailException {
-		if(target < dataHandler.enemies.size()) {
-			Enemy targetedEnemy = dataHandler.enemies.get(target);
-			if(targetedEnemy != null) {
-				int dealt = targetedEnemy.takeAttackDamage(6 + play.getStrength(), play);
-				play.damageDealtOut(dealt, name);
-			}
-		}else {
-			throw new CardFailException();
-		}
+		int dealt = getETarget(target).takeAttackDamage(6 + play.getStrength(), play);
+		play.damageDealtOut(dealt, name);
 	}
 
 	public void playUpgraded(Player play, int target) throws CardFailException {
-		if(target < dataHandler.enemies.size()) {
-			Enemy targetedEnemy = dataHandler.enemies.get(target);
-			if(targetedEnemy != null) {
-				int dealt = targetedEnemy.takeAttackDamage(9 + play.getStrength(), play);
-				play.damageDealtOut(dealt, name);
-			}
-		}else {
-			throw new CardFailException();
-		}
+		int dealt = getETarget(target).takeAttackDamage(9 + play.getStrength(), play);
+		play.damageDealtOut(dealt, name);
 	}
 
 	public Card copyCard() {

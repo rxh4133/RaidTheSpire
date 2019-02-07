@@ -19,12 +19,14 @@ public class Brace extends Card {
 	}
 	
 	public void play(Player play, int target) {
+		tinp();
 		play.gainBlock(7 + play.getDex());
 		BEL bel = new BEL(play, 2);
 		play.addAttDamSub(bel);
 	}
 	
 	public void playUpgraded(Player play, int target) {
+		tinp();
 		play.gainBlock(7 + play.getDex());
 		BEL bel = new BEL(play, 3);
 		play.addAttDamSub(bel);

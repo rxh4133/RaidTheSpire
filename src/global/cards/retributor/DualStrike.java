@@ -14,17 +14,19 @@ public class DualStrike extends Card{
 	}
 	
 	public void play(Player play, int target) {
-		int dealt = dataHandler.enemies.get(target).takeAttackDamage(3 + play.getStrength(), play);
+		tinp();
+		int dealt = getETarget(target).takeAttackDamage(3 + play.getStrength(), play);
 		play.damageDealtOut(dealt, name);
-		dealt = dataHandler.enemies.get(target).takeAttackDamage(3 + play.getStrength(), play);
+		dealt = getETarget(target).takeAttackDamage(3 + play.getStrength(), play);
 		play.damageDealtOut(dealt, name);
 		play.drawCards(1);
 	}
 
 	public void playUpgraded(Player play, int target) {
-		int dealt = dataHandler.enemies.get(target).takeAttackDamage(4 + play.getStrength(), play);
+		tinp();
+		int dealt = getETarget(target).takeAttackDamage(4 + play.getStrength(), play);
 		play.damageDealtOut(dealt, name);
-		dealt = dataHandler.enemies.get(target).takeAttackDamage(4 + play.getStrength(), play);
+		dealt = getETarget(target).takeAttackDamage(4 + play.getStrength(), play);
 		play.damageDealtOut(dealt, name);
 		play.drawCards(1);
 	}

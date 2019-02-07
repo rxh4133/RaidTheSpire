@@ -124,6 +124,10 @@ public class Player extends Entity{
 		draw.add(card);
 		Collections.shuffle(draw);
 	}
+	
+	public void addCardToHand(Card card) {
+		hand.add(card);
+	}
 
 	public void setDeck(ArrayList<Card> cards) {
 		deck = cards;
