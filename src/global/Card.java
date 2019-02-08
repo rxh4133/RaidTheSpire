@@ -15,7 +15,6 @@ public class Card implements Serializable{
 	private CardType type;
 	
 	protected transient ServerDataHandler dataHandler;
-	public boolean exhausts;
 	private boolean upgraded;
 	public boolean playable;
 
@@ -33,25 +32,20 @@ public class Card implements Serializable{
 		
 	}
 	
-	/**
-	 * Return true if this is ethereal
-	 * @param p
-	 * @return
-	 */
-	public boolean onTurnEndInHand(Player p) {
-		return false;
+	public void prePlay(Player p, int index) {
+		p.discardCard(index);
+	}
+	
+	public void onTurnEndInHand(Player p, int index) {
+		
 	}
 	
 	public void play(Player player, int target) throws CardFailException{
-		if(!playable) {
-			throw new CardFailException("Tried to play unplayable card");
-		}
+		tinp();
 	}
 	
 	public void playUpgraded(Player player, int target) throws CardFailException{
-		if(!playable) {
-			throw new CardFailException("Tried to play unplayable card");
-		}
+		tinp();
 	}
 	
 	protected void tinp() {
@@ -82,10 +76,11 @@ public class Card implements Serializable{
 	}
 	
 	public boolean equals(Object obj) {
-		return obj instanceof Card && ((Card) obj).name.equals(name) && ((Card) obj).cost == cost && ((Card) obj).exhausts == exhausts && ((Card) obj).upgraded == upgraded;
+		return obj instanceof Card && ((Card) obj).name.equals(name) && ((Card) obj).cost == cost && ((Card) obj).upgraded == upgraded;
 	}
 	
 	public Card copyCard() {
+		System.out.println("OVERRIDE COPYCARD YOU DENSE IDIOT");
 		return new Card(defaultCost, name, rarity, type, dataHandler);
 	}
 	

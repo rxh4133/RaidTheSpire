@@ -10,15 +10,19 @@ public class FreshWound extends Card {
 
 	public FreshWound() {
 		super(1, "Fresh Wound", Rarity.STATUS, CardType.STATUS, null);
-		exhausts = true;
 	}
 	
-	public boolean onTurnEndInHand(Player p) {
+	public void onTurnEndInHand(Player p, int index) {
 		p.addCardToDraw(new Wound());
-		return true;
+		p.exhaustFromHand(index);
+	}
+	
+	public void prePlay(Player play, int index) {
+		play.exhaustFromHand(index);
 	}
 	
 	public void play(Player play, int target) {
+		tinp();
 		play.heal(4);
 	}
 	

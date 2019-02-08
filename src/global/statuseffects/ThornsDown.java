@@ -13,7 +13,6 @@ public class ThornsDown extends StatusEffect {
 	public void preTurn(Entity entity) {
 		entity.reduceSE(new StatusEffect("Thorns", 5), value);
 		entity.reduceSE(new StatusEffect("Thorns Down", 5), value);
-
 	}
 
 }

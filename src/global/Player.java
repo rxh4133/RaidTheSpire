@@ -41,17 +41,14 @@ public class Player extends Entity{
 
 	public void postTurn() {
 		super.postTurn();
-		for(int i = 0; i < hand.size(); i++) {
-			if(hand.get(i).onTurnEndInHand(this)) {
-				exhaustFromHand(i);
-				i--;
-			}
+		int handSize = hand.size();
+		for(int i = 0; i < handSize; i++) {
+			hand.get(0).onTurnEndInHand(this, 0);
+			discardCard(0);
 		}
-		endTurnDiscard();
 	}
 
 	public void preTurn() {
-		removeAllBlock();
 		drawCards(5);
 		super.preTurn();
 		resetEnergy();
@@ -89,28 +86,9 @@ public class Player extends Entity{
 	public void setMaxEnergy(int max) {
 		maxEnergy = max;
 	}
-
-	public int getStrength() {
-		for(StatusEffect se: effects) {
-			if(se.name.equals("Strength")) {
-				return se.value;
-			}
-		}
-		return 0;
-	}
-
-	public int getDex() {
-		for(StatusEffect se: effects) {
-			if(se.name.equals("Dexterity")) {
-				return se.value;
-			}
-		}
-		return 0;
-	}
-
-	public void removeCardFromHand(Card card) {
-		int index = hand.indexOf(card);
-		if(index >= 0) {
+	
+	public void removeCardFromHand(int index) {
+		if(index >= 0 && index < hand.size()) {
 			hand.remove(index);
 		}
 	}
@@ -184,7 +162,14 @@ public class Player extends Entity{
 			}
 		}
 	}
-	
+
+	public void discardCard(int handIndex) {
+		if(hand.size() > handIndex) {
+			discard.add(hand.get(handIndex));
+			hand.remove(handIndex);
+		}
+	}
+
 	public void discardRandomCard() {
 		if(hand.size() > 0) {
 			int index = (int) (Math.random() * hand.size());
@@ -192,7 +177,7 @@ public class Player extends Entity{
 		}
 	}
 
-	public void endTurnDiscard() {
+	public void discardHand() {
 		discard.addAll(hand);
 		hand.removeAll(hand);
 	}
@@ -202,13 +187,9 @@ public class Player extends Entity{
 			if(index < hand.size()) {
 				Card card = hand.get(index);
 				if(card != null && card.cost <= curEnergy) {
+					curEnergy -= card.cost;
+					card.prePlay(this, index);
 					card.play(this, target);
-					if(card.exhausts) {
-						hand.remove(index);
-					}else {
-						curEnergy -= card.cost;
-						discardCard(new int[] {index});
-					}
 					return new Message("pcok", null);
 				}
 			}

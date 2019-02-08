@@ -1,7 +1,6 @@
 package global.statuseffects;
 
 import global.Entity;
-import global.Player;
 import global.StatusEffect;
 import server.EntityListener;
 
@@ -22,7 +21,7 @@ public class Frail extends StatusEffect {
 		e.reduceSE(this, 1);
 	}
 	
-	public void onRemove(Player p) {
+	public void onRemove(Entity p) {
 		p.removeBlockGainedSub(el);
 	}
 	

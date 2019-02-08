@@ -4,35 +4,35 @@ import global.Card;
 import global.CardType;
 import global.Player;
 import global.Rarity;
-import global.cards.FreshWound;
 import server.ServerDataHandler;
 
-public class Sacrifice extends Card {
+public class Remember extends Card {
 	private static final long serialVersionUID = 1L;
 
-	public Sacrifice(ServerDataHandler sdh) {
-		super(1, "Sacrifice", Rarity.COMMON, CardType.SKILL, sdh);
+	public Remember(ServerDataHandler sdh) {
+		super(2, "Remember", Rarity.RARE, CardType.SKILL, sdh);
 	}
 	
 	public void prePlay(Player play, int index) {
 		play.exhaustFromHand(index);
 	}
-
+	
 	public void play(Player play, int target) {
 		tinp();
-		play.gainBlock(14);
-		play.takeDamage(5);
-		play.addCardToDraw(new FreshWound());
+		play.discardHand();
+		play.drawCards(3);
+		play.addEnergy(2);
 	}
 	
 	public void playUpgraded(Player play, int target) {
 		tinp();
-		play.gainBlock(20);
-		play.takeDamage(5);
-		play.addCardToDraw(new FreshWound());
+		play.discardHand();
+		play.drawCards(4);
+		play.addEnergy(3);
 	}
 	
 	public Card copyCard() {
-		return new Sacrifice(dataHandler);
+		return new Remember(dataHandler);
 	}
+
 }

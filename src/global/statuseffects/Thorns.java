@@ -5,22 +5,22 @@ import global.StatusEffect;
 
 public class Thorns extends StatusEffect{
 	private static final long serialVersionUID = 1L;
-	
-	private Entity appTo;
 
 	public Thorns(int v, Entity appliedTo) {
 		super("Thorns", v);
 		if(appliedTo.getSE("Thorns") == null) {
-			appliedTo.addAttDamSub(this);
+			appliedTo.addAttackedSub(this);
 		}
-		appTo = appliedTo;
+	}
+
+	public void onRemove(Entity e) {
+		e.removeAttackedSub(this);
 	}
 
 	public void notify(Entity entity, String message, Object data) {
-		if(message.equals("attdamagetaken")) {
-			Entity reflect = (Entity) ((Object[]) data)[1];
-			reflect.takeTrueDamage(this.value);
-			appTo.damageDealtOut(this.value, name);
-		}
+		Entity reflect = (Entity) ((Object[]) data)[1];
+		reflect.takeTrueDamage(this.value);
+		entity.damageDealtOut(this.value, name);
+
 	}
 }

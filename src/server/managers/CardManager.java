@@ -37,33 +37,35 @@ public class CardManager{
 		cards.put(new Revenge(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new HateSpike(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new Probe(sdh), PlayerClass.RETRIBUTOR);
-		
+
 		cards.put(new FelFyre(sdh), PlayerClass.REVENANT);
 		cards.put(new RawStrike(sdh), PlayerClass.REVENANT);
 		cards.put(new PowerBlow(sdh), PlayerClass.REVENANT);
 		cards.put(new Numb(sdh), PlayerClass.REVENANT);
 		cards.put(new Sacrifice(sdh), PlayerClass.REVENANT);
 		cards.put(new TakeAdvantage(sdh), PlayerClass.REVENANT);
+		cards.put(new Gauge(sdh), PlayerClass.REVENANT);
+		cards.put(new Salvage(sdh), PlayerClass.REVENANT);
+		cards.put(new Remember(sdh), PlayerClass.REVENANT);
+		cards.put(new Cannibalize(sdh), PlayerClass.REVENANT);
+		cards.put(new NecroticTouch(sdh), PlayerClass.REVENANT);
 	}
 
 	public Card getRandomCard(PlayerClass player) {
-		if(player.equals(PlayerClass.RETRIBUTOR)) {
-			double rand = Math.random() * 100;
-			if(rand < 12.5) {
-				ArrayList<Card> retRareCards = cards.getCards(player, Rarity.RARE);
-				Collections.shuffle(retRareCards);
-				return retRareCards.get(0).copyCard();
-			}else if(rand < 50) {
-				ArrayList<Card> retUnCards = cards.getCards(player, Rarity.UNCOMMON);
-				Collections.shuffle(retUnCards);
-				return retUnCards.get(0).copyCard();
-			}else {
-				ArrayList<Card> retComCards = cards.getCards(player, Rarity.COMMON);
-				Collections.shuffle(retComCards);
-				return retComCards.get(0).copyCard();
-			}
+		double rand = Math.random() * 100;
+		if(rand < 12.5) {
+			ArrayList<Card> rareCards = cards.getCards(player, Rarity.RARE);
+			Collections.shuffle(rareCards);
+			return rareCards.get(0).copyCard();
+		}else if(rand < 50) {
+			ArrayList<Card> unCards = cards.getCards(player, Rarity.UNCOMMON);
+			Collections.shuffle(unCards);
+			return unCards.get(0).copyCard();
+		}else {
+			ArrayList<Card> comCards = cards.getCards(player, Rarity.COMMON);
+			Collections.shuffle(comCards);
+			return comCards.get(0).copyCard();
 		}
-		return null;
 	}
 
 	public Card getCard(PlayerClass pc, String name) {
@@ -82,7 +84,7 @@ public class CardManager{
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Card> getRevStartingDeck(){
 		ArrayList<Card> starterDeck = new ArrayList<Card>();
 		for(int i = 0; i < 5; i++) {

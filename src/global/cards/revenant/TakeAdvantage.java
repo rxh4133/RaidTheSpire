@@ -33,4 +33,8 @@ public class TakeAdvantage extends Card{
 			play.drawCards(1);
 		}
 	}
+	
+	public Card copyCard() {
+		return new TakeAdvantage(dataHandler);
+	}
 }

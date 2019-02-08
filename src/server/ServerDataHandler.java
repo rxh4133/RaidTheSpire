@@ -168,6 +168,7 @@ public class ServerDataHandler implements EntityListener {
 		for(Player p: players) {
 			p.postTurn();
 		}
+		sendMessageToAll(new Message("status", "Enemy Turn"));
 		playersCanPlayCard = false;
 		for(Enemy e: enemies) {
 			e.removeAllBlock();
@@ -175,15 +176,13 @@ public class ServerDataHandler implements EntityListener {
 		for(Enemy e: enemies) {
 			e.preTurn();
 		}
+		sendMessageToAll(new Message("enemies", enemies));
+		sleep();
 		for(Enemy e: enemies) {
 			e.takeAction();
 			sendMessageToAll(new Message("players", players));
 			sendMessageToAll(new Message("enemies", enemies));
-			try {
-				Thread.sleep(ENEMY_ACTION_DELAY * 1000);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			sleep();
 		}
 		for(Enemy e: enemies) {
 			e.postTurn();
@@ -191,6 +190,16 @@ public class ServerDataHandler implements EntityListener {
 		playersCanPlayCard = true;
 		for(Player p: players) {
 			p.preTurn();
+		}
+		sendMessageToAll(new Message("players", players));
+		sendMessageToAll(new Message("status", "Player Turn"));
+	}
+	
+	private void sleep() {
+		try {
+			Thread.sleep(ENEMY_ACTION_DELAY * 1000);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 	
@@ -227,6 +236,8 @@ public class ServerDataHandler implements EntityListener {
 				}
 				if(allDead) {
 					for(Player p: players) {
+						p.fightEndSubs();
+						p.removeAllSE();
 						Reward r = rewardManager.getReward(p.playerClass);
 						p.lastReward = r;
 						p.sendMessage(new Message("choosereward", r));

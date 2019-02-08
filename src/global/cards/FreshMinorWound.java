@@ -10,7 +10,10 @@ public class FreshMinorWound extends Card{
 
 	public FreshMinorWound() {
 		super(0, "Fresh Minor Wound", Rarity.STATUS, CardType.STATUS, null);
-		exhausts = true;
+	}
+	
+	public void prePlay(Player play, int index) {
+		play.exhaustFromHand(index);
 	}
 	
 	public void play(Player play, int target) {
@@ -21,10 +24,9 @@ public class FreshMinorWound extends Card{
 		play(play, target);
 	}
 	
-	public boolean onTurnEndInHand(Player p) {
+	public void onTurnEndInHand(Player p, int index) {
 		p.addCardToDraw(new MinorWound());
-		p.removeCardFromHand(this);
-		return true;
+		p.exhaustFromHand(index);
 	}
 
 	public Card copyCard() {

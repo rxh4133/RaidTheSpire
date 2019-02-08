@@ -8,14 +8,20 @@ public class Respect extends StatusEffect{
 
 	public Respect(Entity appliedTo) {
 		super("Respect", 0);
-		appliedTo.addDamageDealtSub(this);
+		if(appliedTo.getSE(name) == null) {
+			appliedTo.addDamageDealtSub(this);
+		}
 	}
-	
+
 	public void preTurn(Entity e) {
 		e.gainBlock(value);
 		value = 0;
 	}
-	
+
+	public void onRemove(Entity e) {
+		e.removeDamageDealtSub(this);
+	}
+
 	public void notify(Entity e, String message, Object data) {
 		System.out.println("respect otified");
 		Object[] pay = (Object[]) data;
