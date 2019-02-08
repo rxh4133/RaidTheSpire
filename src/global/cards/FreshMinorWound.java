@@ -17,6 +17,10 @@ public class FreshMinorWound extends Card{
 		play.heal(2);
 	}
 	
+	public void playUpgraded(Player play, int target) {
+		play(play, target);
+	}
+	
 	public boolean onTurnEndInHand(Player p) {
 		p.addCardToDraw(new MinorWound());
 		p.removeCardFromHand(this);

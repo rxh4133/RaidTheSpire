@@ -28,7 +28,6 @@ public class Evasion extends StatusEffect {
 	
 	@Override
 	public void notify(Entity entity, String message, Object data) throws AttackFailedException {
-		System.out.println("Evading " + entity + " message " + message + " data " + data);
 		if(entity instanceof Player) {
 			ArrayList<Player> players = new ArrayList<Player>();
 			players.addAll(dataHandler.players);

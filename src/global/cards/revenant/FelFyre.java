@@ -24,6 +24,7 @@ public class FelFyre extends Card {
 	}
 
 	public void playUpgraded(Player p, int target) {
+		tinp();
 		int dealt = getETarget(target).takeAttackDamage(20 + p.getStrength(), p);
 		p.damageDealtOut(dealt, name);
 		p.takeDamage(3);

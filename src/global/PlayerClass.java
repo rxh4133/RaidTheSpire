@@ -10,6 +10,8 @@ public enum PlayerClass implements Serializable{
 	REVENANT(80, new MarkOfUndeath()),
 	RESIPISCENT(50, null),
 	ALL(0,new Relic("Ah fuck you") {
+		private static final long serialVersionUID = 1L;
+
 		public Relic copyRelic() {
 			return this;
 		}

@@ -26,6 +26,7 @@ public class Card implements Serializable{
 		this.name = name;
 		type = ct;
 		dataHandler = sdh;
+		playable = true;
 	}
 	
 	public void onAddToDeck(Player p) {

@@ -13,16 +13,17 @@ public class Entity implements Serializable{
 	protected int curHealth;
 
 	protected ArrayList<StatusEffect> effects;
-	protected ArrayList<EntityListener> damSubs;
-	protected ArrayList<EntityListener> attDamSubs;
-	protected ArrayList<EntityListener> deathSubs;
-	protected ArrayList<EntityListener> blockGainSubs;
-	protected ArrayList<EntityListener> preTurnSubs;
-	protected ArrayList<EntityListener> postTurnSubs;
-	protected ArrayList<EntityListener> fightStartSubs;
-	protected ArrayList<EntityListener> attackedSubs;
-	protected ArrayList<EntityListener> attackingSubs;
-	protected ArrayList<EntityListener> damageDealtSubs;
+	
+	protected transient ArrayList<EntityListener> damSubs;
+	protected transient ArrayList<EntityListener> attDamSubs;
+	protected transient ArrayList<EntityListener> deathSubs;
+	protected transient ArrayList<EntityListener> blockGainSubs;
+	protected transient ArrayList<EntityListener> preTurnSubs;
+	protected transient ArrayList<EntityListener> postTurnSubs;
+	protected transient ArrayList<EntityListener> fightStartSubs;
+	protected transient ArrayList<EntityListener> attackedSubs;
+	protected transient ArrayList<EntityListener> attackingSubs;
+	protected transient ArrayList<EntityListener> damageDealtSubs;
 
 	public Entity() {
 		effects = new ArrayList<StatusEffect>();
@@ -62,6 +63,7 @@ public class Entity implements Serializable{
 	}
 
 	public void removeSE(StatusEffect se) {
+		se.onRemove(this);
 		effects.remove(se);
 	}
 
@@ -173,6 +175,10 @@ public class Entity implements Serializable{
 		}
 		this.block += block;
 	}
+	
+	public void loseBlock(int block) {
+		this.block -= block;
+	}
 
 	public void fightStartSubs() {
 		for(EntityListener el: fightStartSubs) {
@@ -199,6 +205,14 @@ public class Entity implements Serializable{
 	
 	public void addTurnEndSub(EntityListener el) {
 		postTurnSubs.add(el);
+	}
+	
+	public void addBlockGainedSub(EntityListener el) {
+		blockGainSubs.add(el);
+	}
+	
+	public void removeBlockGainedSub(EntityListener el) {
+		blockGainSubs.remove(el);
 	}
 	
 	public void removeAttackedSub(EntityListener el) {

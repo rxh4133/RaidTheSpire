@@ -14,10 +14,12 @@ public class Defend extends Card {
 	}
 	
 	public void play(Player play, int target) {
+		tinp();
 		play.gainBlock(5 + play.getDex());
 	}
 
 	public void playUpgraded(Player play, int target) {
+		tinp();
 		play.gainBlock(8 + play.getDex());
 	}
 	

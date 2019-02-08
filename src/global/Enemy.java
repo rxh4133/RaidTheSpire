@@ -29,7 +29,8 @@ public class Enemy extends Entity{
 	public String toString() {
 		return "Enemy:\n\t"
 				+ "Health: (" + block + "B) " + curHealth + "/" + maxHealth + "\n\t"
-						+ "Actions: " + nextTurnActions;
+						+ "Actions: " + nextTurnActions + "\n\t"
+						+ "Status: " + effects;
 	}
 	
 	public Enemy copyForDisplay() {

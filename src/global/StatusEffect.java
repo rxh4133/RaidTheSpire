@@ -25,6 +25,10 @@ public class StatusEffect implements Serializable, EntityListener{
 		
 	}
 	
+	public void onRemove(Entity e) {
+		
+	}
+	
 	public boolean equals(Object obj) {
 		return obj instanceof StatusEffect && ((StatusEffect) obj).name.equals(name);
 	}

@@ -15,11 +15,13 @@ public class Strike extends Card{
 	}
 
 	public void play(Player play, int target) throws CardFailException {
+		tinp();
 		int dealt = getETarget(target).takeAttackDamage(6 + play.getStrength(), play);
 		play.damageDealtOut(dealt, name);
 	}
 
 	public void playUpgraded(Player play, int target) throws CardFailException {
+		tinp();
 		int dealt = getETarget(target).takeAttackDamage(9 + play.getStrength(), play);
 		play.damageDealtOut(dealt, name);
 	}

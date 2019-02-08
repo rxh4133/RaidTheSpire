@@ -35,9 +35,15 @@ public class CardManager{
 		cards.put(new Evade(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new HealthyRespect(sdh), PlayerClass.RETRIBUTOR);
 		cards.put(new Revenge(sdh), PlayerClass.RETRIBUTOR);
+		cards.put(new HateSpike(sdh), PlayerClass.RETRIBUTOR);
+		cards.put(new Probe(sdh), PlayerClass.RETRIBUTOR);
+		
 		cards.put(new FelFyre(sdh), PlayerClass.REVENANT);
 		cards.put(new RawStrike(sdh), PlayerClass.REVENANT);
 		cards.put(new PowerBlow(sdh), PlayerClass.REVENANT);
+		cards.put(new Numb(sdh), PlayerClass.REVENANT);
+		cards.put(new Sacrifice(sdh), PlayerClass.REVENANT);
+		cards.put(new TakeAdvantage(sdh), PlayerClass.REVENANT);
 	}
 
 	public Card getRandomCard(PlayerClass player) {

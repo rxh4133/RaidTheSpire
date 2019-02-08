@@ -19,8 +19,6 @@ public class Player extends Entity{
 	private boolean readyToStartGame;
 	private boolean readyToStartFight;
 
-	private int numberToDiscard;
-
 	private int maxEnergy;
 	private int curEnergy;
 
@@ -81,7 +79,9 @@ public class Player extends Entity{
 			curHealth = maxHealth;
 		}
 	}
-
+	public void addEnergy(int e) {
+		curEnergy += e;
+	}
 	public int getBlock() {
 		return block;
 	}
@@ -171,10 +171,6 @@ public class Player extends Entity{
 		}
 	}
 
-	public void prepDiscard(int numberToDiscard) {
-		this.numberToDiscard += numberToDiscard;
-	}
-
 	public void exhaustFromHand(int index) {
 		exhausted.add(hand.get(index));
 		hand.remove(index);
@@ -182,11 +178,17 @@ public class Player extends Entity{
 
 	public void discardCard(int[] handIndexes) {
 		for(int handIndex: handIndexes) {
-			if(hand.size() > handIndex && numberToDiscard > 0) {
+			if(hand.size() > handIndex) {
 				discard.add(hand.get(handIndex));
 				hand.remove(handIndex);
-				numberToDiscard--;
 			}
+		}
+	}
+	
+	public void discardRandomCard() {
+		if(hand.size() > 0) {
+			int index = (int) (Math.random() * hand.size());
+			discardCard(new int[] {index});
 		}
 	}
 
@@ -205,7 +207,6 @@ public class Player extends Entity{
 						hand.remove(index);
 					}else {
 						curEnergy -= card.cost;
-						numberToDiscard++;
 						discardCard(new int[] {index});
 					}
 					return new Message("pcok", null);
