@@ -64,7 +64,6 @@ public class Evasion extends StatusEffect {
 					throw new AttackFailedException();
 				}
 			}
-			entity.reduceSE(this, 1);
 		}
 	}
 

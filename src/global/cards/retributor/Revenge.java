@@ -33,13 +33,13 @@ public class Revenge extends Card {
 
 	public void play(Player p, int target) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(2 * dam.damageDealt + p.getStrength(), p);
+		int dealt = getETarget(target).takeAttackDamage(2 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 
 	public void playUpgraded(Player p, int target) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(2 * dam.damageDealt + p.getStrength(), p);
+		int dealt = getETarget(target).takeAttackDamage(2 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 

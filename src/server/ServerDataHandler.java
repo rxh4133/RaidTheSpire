@@ -178,8 +178,10 @@ public class ServerDataHandler implements EntityListener {
 		}
 		sendMessageToAll(new Message("enemies", enemies));
 		sleep();
-		for(Enemy e: enemies) {
+		for(int i = 0; i < enemies.size(); i++) {
+			Enemy e = enemies.get(i);
 			e.takeAction();
+			e.decideAction();
 			sendMessageToAll(new Message("players", players));
 			sendMessageToAll(new Message("enemies", enemies));
 			sleep();
@@ -243,6 +245,7 @@ public class ServerDataHandler implements EntityListener {
 						p.sendMessage(new Message("choosereward", r));
 					}
 				}
+				enemies.remove(entity);
 			}
 		}
 	}

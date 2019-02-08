@@ -15,6 +15,7 @@ public class Enemy extends Entity{
 		dataHandler = sdh;
 		addDeathSub(dataHandler);
 		this.maxHealth = health;
+		this.curHealth = health;
 	}
 	
 	public void takeAction() {

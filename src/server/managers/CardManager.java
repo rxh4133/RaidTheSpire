@@ -49,6 +49,7 @@ public class CardManager{
 		cards.put(new Remember(sdh), PlayerClass.REVENANT);
 		cards.put(new Cannibalize(sdh), PlayerClass.REVENANT);
 		cards.put(new NecroticTouch(sdh), PlayerClass.REVENANT);
+		cards.put(new Recycle(sdh), PlayerClass.REVENANT);
 	}
 
 	public Card getRandomCard(PlayerClass player) {

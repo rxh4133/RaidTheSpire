@@ -24,7 +24,6 @@ public class Numb extends Card {
 		tinp();
 		play.gainBlock(10);
 		play.discardRandomCard();
-		play.discardRandomCard();
 	}
 	
 	public Card copyCard() {

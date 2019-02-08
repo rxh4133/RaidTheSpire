@@ -16,18 +16,18 @@ public class FelFyre extends Card {
 
 	public void play(Player p, int target) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(16 + p.getStrength(), p);
+		int dealt = getETarget(target).takeAttackDamage(16, p);
 		p.damageDealtOut(dealt, name);
-		p.takeDamage(3);
+		p.takeDamage(4);
 		p.addCardToDraw(new FreshMinorWound());
 
 	}
 
 	public void playUpgraded(Player p, int target) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(20 + p.getStrength(), p);
+		int dealt = getETarget(target).takeAttackDamage(20, p);
 		p.damageDealtOut(dealt, name);
-		p.takeDamage(3);
+		p.takeDamage(4);
 		p.addCardToDraw(new FreshMinorWound());
 	}
 

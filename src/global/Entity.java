@@ -13,7 +13,7 @@ public class Entity implements Serializable{
 	protected int curHealth;
 
 	protected ArrayList<StatusEffect> effects;
-	
+
 	protected transient ArrayList<EntityListener> damSubs;
 	protected transient ArrayList<EntityListener> attDamSubs;
 	protected transient ArrayList<EntityListener> deathSubs;
@@ -41,12 +41,13 @@ public class Entity implements Serializable{
 		attackedSubs = new ArrayList<EntityListener>();
 		attackingSubs = new ArrayList<EntityListener>();
 		damageDealtSubs = new ArrayList<EntityListener>();
+		healSubs = new ArrayList<EntityListener>();
 	}
 
 	public void healToFull() {
 		curHealth = maxHealth;
 	}
-	
+
 	public void heal(int health) {
 		for(EntityListener el: healSubs) {
 			el.notify(this, "healed", health);
@@ -61,8 +62,9 @@ public class Entity implements Serializable{
 		for(int i = 0; i < effects.size(); i++) {
 			effects.get(i).preTurn(this);
 		}
-		for(EntityListener el: preTurnSubs) {
-			el.notify(this, "preturn", this);
+		
+		for(int i = 0; i < preTurnSubs.size(); i++) {
+			preTurnSubs.get(i).notify(this, "preturn", this);
 		}
 		removeAllBlock();
 	}
@@ -75,17 +77,20 @@ public class Entity implements Serializable{
 			el.notify(this, "postturn", this);
 		}
 	}
-	
+
 	public void removeAllSE() {
 		for(int i = 0; i < effects.size(); i++) {
 			effects.get(0).onRemove(this);
 			effects.remove(0);
+			i--;
 		}
 	}
 
 	public void removeSE(StatusEffect se) {
-		se.onRemove(this);
-		effects.remove(se);
+		if(se != null) {
+			se.onRemove(this);
+			effects.remove(se);
+		}
 	}
 
 	public boolean reduceSE(StatusEffect se, int reduce) {
@@ -120,7 +125,7 @@ public class Entity implements Serializable{
 			effects.add(se);
 		}
 	}
-	
+
 	public void damageDealtOut(int damage, String source) {
 		for(EntityListener el: damageDealtSubs) {
 			el.notify(this, "damagedealt", new Object[] {damage, source});
@@ -129,6 +134,14 @@ public class Entity implements Serializable{
 
 	public void removeAllBlock() {
 		block = 0;
+	}
+
+	public int getDamage(int damage) {
+		if(this.getSE("Weak") != null) {
+			damage = (int) (damage * .75);
+		}
+		damage += getStrength();
+		return damage;
 	}
 
 	public void takeTrueDamage(int damage) {
@@ -155,9 +168,10 @@ public class Entity implements Serializable{
 	}
 
 	public int takeAttackDamage(int damage, Entity attacker) {
+		damage = attacker.getDamage(damage);
 		try {
-			for(EntityListener el: attackedSubs) {
-				el.notify(this, "attacked", new Object[] {damage, attacker});
+			for(int i = 0; i < attackedSubs.size(); i++) {
+				attackedSubs.get(i).notify(this, "attacked", new Object[] {damage, attacker});
 			}
 		} catch(AttackFailedException afe) {
 			return 0;
@@ -178,7 +192,6 @@ public class Entity implements Serializable{
 		if(curHealth <= 0) {
 			for(int i = 0; i < deathSubs.size(); i++) {
 				deathSubs.get(0).notify(this, "diedtoattdamage", damage);
-				deathSubs.remove(0);
 			}
 		}
 		return damage;
@@ -191,7 +204,7 @@ public class Entity implements Serializable{
 			takeTrueDamage(curHealth);
 		}
 	}
-	
+
 	public void reduceMaxHealth(int health) {
 		maxHealth -= health;
 		if(curHealth > maxHealth) {
@@ -201,7 +214,7 @@ public class Entity implements Serializable{
 			takeTrueDamage(curHealth);
 		}
 	}
-	
+
 	public int getStrength() {
 		for(StatusEffect se: effects) {
 			if(se.name.equals("Strength")) {
@@ -226,11 +239,11 @@ public class Entity implements Serializable{
 		}
 		this.block += (block + getDex());
 	}
-	
+
 	public void loseBlock(int block) {
 		this.block -= block;
 	}
-	
+
 	public int getBlock() {
 		return block;
 	}
@@ -240,7 +253,7 @@ public class Entity implements Serializable{
 			el.notify(this, "fightstart", "fightstart");
 		}
 	}
-	
+
 	public void fightEndSubs() {
 		for(EntityListener el: fightEndSubs) {
 			el.notify(this, "fightend", "fightend");
@@ -259,49 +272,69 @@ public class Entity implements Serializable{
 	public void addAttackedSub(EntityListener el) {
 		attackedSubs.add(el);
 	}
-	
+
 	public void addDamageDealtSub(EntityListener el) {
 		damageDealtSubs.add(el);
 	}
-	
+
 	public void addTurnEndSub(EntityListener el) {
 		postTurnSubs.add(el);
 	}
-	
+
 	public void addBlockGainedSub(EntityListener el) {
 		blockGainSubs.add(el);
 	}
-	
+
 	public void removeBlockGainedSub(EntityListener el) {
 		blockGainSubs.remove(el);
 	}
-	
+
 	public void removeAttackedSub(EntityListener el) {
 		attackedSubs.remove(el);
 	}
-	
+
 	public void removeDamageDealtSub(EntityListener el) {
 		damageDealtSubs.remove(el);
 	}
-	
+
 	public void removeFightEndSub(EntityListener el) {
 		fightEndSubs.remove(el);
 	}
-	
+
 	public void addFightEndSub(EntityListener el) {
 		fightEndSubs.add(el);
 	}
-	
+
 	public void addHealSub(EntityListener el) {
 		healSubs.add(el);
 	}
-	
+
+	public void addDamSub(EntityListener el) {
+		damSubs.add(el);
+	}
+
+	public void removeDamSub(EntityListener el) {
+		damSubs.remove(el);
+	}
+
 	public void removeHealSub(EntityListener el) {
 		healSubs.remove(el);
 	}
-	
+
 	public void removeDeathSub(EntityListener el) {
 		deathSubs.remove(el);
+	}
+	
+	public void addTurnStartSub(EntityListener el) {
+		preTurnSubs.add(el);
+	}
+	
+	public void removeTurnStartSub(EntityListener el) {
+		preTurnSubs.remove(el);
+	}
+	
+	public void removeAttDamSub(EntityListener el) {
+		attDamSubs.remove(el);
 	}
 
 	public boolean isDead() {

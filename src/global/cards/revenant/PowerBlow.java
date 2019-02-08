@@ -18,7 +18,7 @@ public class PowerBlow extends Card {
 	public void play(Player play, int target) {
 		tinp();
 		Enemy te = getETarget(target);
-		int dealt = te.takeAttackDamage(7 + play.getStrength(), play);
+		int dealt = te.takeAttackDamage(7, play);
 		play.damageDealtOut(dealt, name);
 		getETarget(target).addSE(new Vulnerable(2,te));
 	}
@@ -26,7 +26,7 @@ public class PowerBlow extends Card {
 	public void playUpgraded(Player play, int target) {
 		tinp();
 		Enemy te = getETarget(target);
-		int dealt = te.takeAttackDamage(11 + play.getStrength(), play);
+		int dealt = te.takeAttackDamage(11, play);
 		play.damageDealtOut(dealt, name);
 		getETarget(target).addSE(new Vulnerable(2,te));
 	}

@@ -15,7 +15,7 @@ public class Probe extends Card {
 	}
 
 	public void play(Player play, int target) {
-		int dealt = getETarget(target).takeAttackDamage(6 + play.getStrength(), play);
+		int dealt = getETarget(target).takeAttackDamage(6, play);
 		play.damageDealtOut(dealt, name);
 		if(dealt == 0) {
 			play.addSE(new Strength(3));
@@ -23,7 +23,7 @@ public class Probe extends Card {
 	}
 	
 	public void playUpgraded(Player play, int target) {
-		int dealt = getETarget(target).takeAttackDamage(3 + play.getStrength(), play);
+		int dealt = getETarget(target).takeAttackDamage(3, play);
 		play.damageDealtOut(dealt, name);
 		if(dealt == 0) {
 			play.addSE(new Strength(4));

@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 import global.Enemy;
 import global.enemies.BasicEnemy;
+import global.enemies.WrithingMass;
 import server.ServerDataHandler;
 
 public class EnemyManager implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private transient ServerDataHandler dataHandler;
-	private transient ArrayList<Enemy> myOnlyFight;
 	
 	public EnemyManager(ServerDataHandler sdh) {
 		dataHandler = sdh;
@@ -19,8 +19,12 @@ public class EnemyManager implements Serializable{
 	}
 	
 	public ArrayList<Enemy> getEnemiesForFight(int fightnum){
-		myOnlyFight = new ArrayList<Enemy>();
-		myOnlyFight.add(new BasicEnemy(dataHandler));
-		return myOnlyFight;
+		ArrayList<Enemy> fight = new ArrayList<Enemy>();
+		if(fightnum == 0) {
+			fight.add(new BasicEnemy(dataHandler));
+		}else {
+			fight.add(new WrithingMass(dataHandler));
+		}
+		return fight;
 	}
 }

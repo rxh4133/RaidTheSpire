@@ -187,8 +187,8 @@ public class Player extends Entity{
 			if(index < hand.size()) {
 				Card card = hand.get(index);
 				if(card != null && card.cost <= curEnergy) {
-					curEnergy -= card.cost;
 					card.prePlay(this, index);
+					curEnergy -= card.cost;
 					card.play(this, target);
 					return new Message("pcok", null);
 				}

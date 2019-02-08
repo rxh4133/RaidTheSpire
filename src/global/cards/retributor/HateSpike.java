@@ -21,8 +21,8 @@ public class HateSpike extends Card{
 		
 		StatusEffect thorns = p.getSE("Thorns");
 		if(thorns != null) {
-			for(Enemy e: dataHandler.enemies) {
-				int dealt = e.takeAttackDamage(thorns.value, play);
+			for(int i = 0; i < dataHandler.enemies.size(); i++) {
+				int dealt = getETarget(i).takeAttackDamage(thorns.value, play);
 				play.damageDealtOut(dealt, name);
 			}
 		}

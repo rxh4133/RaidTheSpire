@@ -17,30 +17,32 @@ public class Brace extends Card {
 	public Brace(ServerDataHandler sdh) {
 		super(1, "Brace", Rarity.COMMON, CardType.SKILL, sdh);
 	}
-	
+
 	public void play(Player play, int target) {
 		tinp();
 		play.gainBlock(7);
 		BEL bel = new BEL(play, 2);
 		play.addAttDamSub(bel);
+		play.addTurnStartSub(bel);
 	}
-	
+
 	public void playUpgraded(Player play, int target) {
 		tinp();
 		play.gainBlock(7);
 		BEL bel = new BEL(play, 3);
 		play.addAttDamSub(bel);
+		play.addTurnStartSub(bel);
 	}
-	
+
 	public Card copyCard() {
 		return new Brace(dataHandler);
 	}
-	
+
 	private class BEL implements Serializable, EntityListener{
 		private static final long serialVersionUID = 1L;
 		private Player owner;
 		private int toDraw;
-		
+
 		public BEL(Player play, int td) {
 			owner = play;
 			toDraw = td;
@@ -49,12 +51,17 @@ public class Brace extends Card {
 		@Override
 		public void notify(Entity entity, String message, Object data) {
 			System.out.println("notified " + owner.getBlock());
-			if(owner.getBlock() == 0) {
-				owner.addSE(new StartDraw(toDraw));
+			if(message.equals("attdamagetaken")) {
+				if(owner.getBlock() == 0) {
+					owner.addSE(new StartDraw(toDraw));
+				}
+			}else {
+				entity.removeTurnStartSub(this);
+				entity.removeAttDamSub(this);
 			}
 		}
-		
-		
+
+
 	}
 
 }

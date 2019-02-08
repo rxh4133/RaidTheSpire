@@ -33,6 +33,7 @@ public class Card implements Serializable{
 	}
 	
 	public void prePlay(Player p, int index) {
+		tinp();
 		p.discardCard(index);
 	}
 	
