@@ -194,6 +194,7 @@ public class ServerDataHandler implements EntityListener {
 			p.preTurn();
 		}
 		sendMessageToAll(new Message("players", players));
+		sendMessageToAll(new Message("enemies", enemies));
 		sendMessageToAll(new Message("status", "Player Turn"));
 	}
 	
@@ -217,7 +218,7 @@ public class ServerDataHandler implements EntityListener {
 	}
 	
 	public void addCard(int selection, ArrayList<Card> cards, Player player) {
-		if(selection >= 0 && selection <= 3) {
+		if(selection >= 0 && selection <= 2) {
 			player.addCardToDeck(cards.get(selection));
 		}
 	}
