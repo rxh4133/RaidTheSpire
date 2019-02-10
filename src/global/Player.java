@@ -3,6 +3,7 @@ package global;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import global.card.Card;
 import server.S2CCommunicator;
 
 public class Player extends Entity{
@@ -30,7 +31,6 @@ public class Player extends Entity{
 
 	private ArrayList<Relic> relics;
 
-
 	public Player() {
 		hand = new ArrayList<Card>();
 		discard = new ArrayList<Card>();
@@ -39,7 +39,7 @@ public class Player extends Entity{
 		relics = new ArrayList<Relic>();
 	}
 
-	public void postTurn() {
+	public void postTurn() {//TODO fix this asap
 		super.postTurn();
 		int handSize = hand.size();
 		for(int i = 0; i < handSize; i++) {

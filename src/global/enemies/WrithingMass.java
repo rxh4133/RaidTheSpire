@@ -7,9 +7,9 @@ import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
 import global.Player;
-import global.StatusEffect;
-import global.statuseffects.Metallicize;
-import global.statuseffects.Regen;
+import global.statuseffect.StatusEffect;
+import global.statuseffect.statuseffects.Metallicize;
+import global.statuseffect.statuseffects.Regen;
 import server.ServerDataHandler;
 
 public class WrithingMass extends Enemy {

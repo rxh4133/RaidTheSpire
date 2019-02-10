@@ -3,13 +3,14 @@ package server.managers;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import global.Card;
-import global.CardType;
+import global.card.Card;
 import global.PlayerClass;
 import global.Rarity;
-import global.cards.*;
-import global.cards.retributor.*;
-import global.cards.revenant.*;
+import global.card.*;
+import global.card.cards.Defend;
+import global.card.cards.Strike;
+import global.card.cards.retributor.*;
+import global.card.cards.revenant.*;
 import server.CardStorage;
 import server.ServerDataHandler;
 

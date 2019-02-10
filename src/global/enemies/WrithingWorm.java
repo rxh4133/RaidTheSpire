@@ -6,7 +6,7 @@ import global.ELM;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
-import global.StatusEffect;
+import global.statuseffect.StatusEffect;
 import global.enemyactions.Attack;
 import global.enemyactions.Weaken;
 import server.ServerDataHandler;

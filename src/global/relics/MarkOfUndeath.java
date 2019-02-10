@@ -4,7 +4,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Relic;
-import global.statuseffects.Regen;
+import global.statuseffect.statuseffects.Regen;
 import server.EntityListener;
 import server.ServerDataHandler;
 

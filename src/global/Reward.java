@@ -3,6 +3,8 @@ package global;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import global.card.Card;
+
 public class Reward implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public ArrayList<Card> cardReward1;

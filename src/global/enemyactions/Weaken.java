@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import global.Enemy;
 import global.EnemyAction;
 import global.Player;
-import global.statuseffects.Weak;
+import global.statuseffect.statuseffects.Weak;
 import server.ServerDataHandler;
 
 public class Weaken extends EnemyAction{

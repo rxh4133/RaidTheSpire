@@ -3,10 +3,10 @@ package server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import global.Card;
-import global.CardType;
+import global.card.Card;
 import global.PlayerClass;
 import global.Rarity;
+import global.card.CardType;
 
 public class CardStorage {
 	

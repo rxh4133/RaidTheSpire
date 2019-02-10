@@ -2,7 +2,7 @@ package server.managers;
 
 import java.util.ArrayList;
 
-import global.Card;
+import global.card.Card;
 import global.PlayerClass;
 import global.Relic;
 import global.Reward;

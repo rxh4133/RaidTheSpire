@@ -6,8 +6,8 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Relic;
-import global.statuseffects.Strength;
-import global.statuseffects.StrengthDown;
+import global.statuseffect.statuseffects.Strength;
+import global.statuseffect.statuseffects.StrengthDown;
 import server.EntityListener;
 import server.ServerDataHandler;
 

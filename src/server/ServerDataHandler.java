@@ -2,7 +2,7 @@ package server;
 
 import java.util.ArrayList;
 
-import global.Card;
+import global.card.Card;
 import global.ELM;
 import global.Enemy;
 import global.Entity;

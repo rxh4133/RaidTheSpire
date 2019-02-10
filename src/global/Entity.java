@@ -1,6 +1,8 @@
 package global;
 
 import java.io.Serializable;
+
+import global.statuseffect.StatusEffect;
 import server.ActionInteruptException;
 import server.ELList;
 import server.EntityListener;
