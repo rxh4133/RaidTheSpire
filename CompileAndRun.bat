@@ -1,5 +1,5 @@
 color 02
 cd src
-javac client/gui/*.java client/*.java global/*.java global/cards/*.java global/cards/revenant/*.java global/cards/retributor/*.java global/relics/*.java global/statuseffects/*.java global/enemyactions/*.java global/enemies/*.java server/*.java server/managers/*.java
+javac client/gui/*.java client/*.java global/*.java global/card/*.java global/card/cards/*.java global/card/cards/revenant/*.java global/card/cards/retributor/*.java global/relics/*.java global/statuseffect/*.java global/statuseffect/statuseffects/*.java global/enemyactions/*.java global/enemies/*.java server/*.java server/managers/*.java
 java client/Runner
 pause
