@@ -18,7 +18,8 @@ public class Vulnerable extends StatusEffect{
 
 	public void notify(Entity entity, ELM message, Object data) {
 		if(message.is(ELM.ATTACKED)) {
-			throw new ModifyValueException((int) ((int) (data) * .5));
+			Object[] payload = (Object[]) data;
+			throw new ModifyValueException((int) ((int) (payload[0]) * .5));
 		}else if(message.is(ELM.TURN_START)) {
 			entity.reduceSE(this, 1);
 		}
