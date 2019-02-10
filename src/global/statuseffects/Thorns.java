@@ -1,5 +1,6 @@
 package global.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.StatusEffect;
 
@@ -8,19 +9,13 @@ public class Thorns extends StatusEffect{
 
 	public Thorns(int v, Entity appliedTo) {
 		super("Thorns", v);
-		if(appliedTo.getSE("Thorns") == null) {
-			appliedTo.addAttackedSub(this);
+	}
+
+	public void notify(Entity entity, ELM message, Object data) {
+		if(message.is(ELM.ATTACKED)) {
+			Entity reflect = (Entity) ((Object[]) data)[1];
+			reflect.takeTrueDamage(this.value);
+			entity.damageDealtOut(this.value, name);
 		}
-	}
-
-	public void onRemove(Entity e) {
-		e.removeAttackedSub(this);
-	}
-
-	public void notify(Entity entity, String message, Object data) {
-		Entity reflect = (Entity) ((Object[]) data)[1];
-		reflect.takeTrueDamage(this.value);
-		entity.damageDealtOut(this.value, name);
-
 	}
 }

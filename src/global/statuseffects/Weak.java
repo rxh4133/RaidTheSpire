@@ -1,7 +1,9 @@
 package global.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.StatusEffect;
+import server.ModifyValueException;
 
 public class Weak extends StatusEffect {
 	private static final long serialVersionUID = 1L;
@@ -10,8 +12,12 @@ public class Weak extends StatusEffect {
 		super("Weak", v);
 	}
 	
-	public void preTurn(Entity e) {
-		e.reduceSE(this, 1);
+	public void notify(Entity e, ELM m, Object o) {
+		if(m.is(ELM.ATTACKING)) {
+			throw new ModifyValueException(-(int) ((int) o * .25));
+		}else if(m.is(ELM.TURN_START)) {
+			e.reduceSE(this, 1);
+		}
 	}
 
 }

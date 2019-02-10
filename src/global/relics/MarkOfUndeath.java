@@ -1,5 +1,6 @@
 package global.relics;
 
+import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Relic;
@@ -22,19 +23,18 @@ public class MarkOfUndeath extends Relic {
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
 		super.onAdd(owner, sdh);
 		MUEL muel = new MUEL();
-		owner.addAttDamSub(muel);
-		owner.addDamSub(muel);
+		owner.addListener(muel);
 		return this;
 	}
 	
 	private class MUEL implements EntityListener{
 
 		@Override
-		public void notify(Entity entity, String message, Object data) {
-			if(message.equals("damagetaken") && (int) data > 0) {
+		public void notify(Entity entity, ELM message, Object data) {
+			if(message.is(ELM.DAMAGE_TAKEN) && (int) data > 0) {
 				entity.addSE(new Regen(1));
 			}
-			if(message.equals("attdamagetaken") && (int)((Object[]) data)[0] > 0) {
+			if(message.is(ELM.ATTACK_DAMAGE_TAKEN) && (int)((Object[]) data)[0] > 0) {
 				entity.addSE(new Regen(1));
 			}
 		}

@@ -3,6 +3,7 @@ package server;
 import java.util.ArrayList;
 
 import global.Card;
+import global.ELM;
 import global.Enemy;
 import global.Entity;
 import global.Message;
@@ -228,9 +229,9 @@ public class ServerDataHandler implements EntityListener {
 	}
 
 	@Override
-	public void notify(Entity entity, String message, Object data) {
+	public void notify(Entity entity, ELM message, Object data) {
 		if(entity instanceof Enemy) {
-			if(message.equals("diedtoattdamage") || message.equals("diedtotruedamage") || message.equals("diedtodamage")) {
+			if(message.is(ELM.DIED_ATTACK_DAMAGE) || message.is(ELM.DIED_TRUE_DAMAGE) || message.is(ELM.DIED_DAMAGE)) {
 				boolean allDead = true;
 				for(Enemy e: enemies) {
 					if(!e.isDead()) {

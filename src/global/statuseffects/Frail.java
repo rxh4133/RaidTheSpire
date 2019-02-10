@@ -1,38 +1,26 @@
 package global.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.StatusEffect;
-import server.EntityListener;
+import server.ModifyValueException;
 
 public class Frail extends StatusEffect {
 	private static final long serialVersionUID = 1L;
-	
-	private EntityListener el;
 
 	public Frail(int v, Entity appliedTo) {
 		super("Frail", v);
-		el = new FEL();
-		if(appliedTo.getSE("Frail") == null) {
-			appliedTo.addBlockGainedSub(el);
-		}
 	}
-	
-	public void preTurn(Entity e) {
-		e.reduceSE(this, 1);
-	}
-	
-	public void onRemove(Entity p) {
-		p.removeBlockGainedSub(el);
-	}
-	
-	private class FEL implements EntityListener {
 
-		@Override
-		public void notify(Entity entity, String message, Object data) {
+	@Override
+	public void notify(Entity entity, ELM message, Object data) {
+		if(message.is(ELM.TURN_START)) {
+			entity.reduceSE(this, 1);
+		}else if(message.is(ELM.BLOCK_GAINED_CARD)) {
 			int gained = (int) data;
-			entity.loseBlock((int)(gained * .25));
+			throw new ModifyValueException(-(int)(gained * .25));
 		}
-		
 	}
+
 
 }

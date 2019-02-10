@@ -2,9 +2,11 @@ package global;
 
 public enum ELM {
 	ATTACKED,
+	ATTACKING,
 	DAMAGE_TAKEN,
 	ATTACK_DAMAGE_TAKEN,
 	BLOCK_GAINED,
+	BLOCK_GAINED_CARD,
 	HEALED,
 	FIGHT_START,
 	FIGHT_END,
@@ -13,5 +15,11 @@ public enum ELM {
 	DAMAGE_DEALT,
 	DIED_ATTACK_DAMAGE,
 	DIED_TRUE_DAMAGE,
-	DIED_DAMAGE,
+	DIED_DAMAGE;
+	
+	
+	
+	public boolean is(ELM elm) {
+		return this.equals(elm);
+	}
 }

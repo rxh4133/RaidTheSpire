@@ -1,14 +1,13 @@
 package global.cards.retributor;
 
-import java.io.Serializable;
-
 import global.Card;
 import global.CardType;
+import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.StatusEffect;
 import global.statuseffects.StartDraw;
-import server.EntityListener;
 import server.ServerDataHandler;
 
 public class Brace extends Card {
@@ -21,43 +20,39 @@ public class Brace extends Card {
 	public void play(Player play, int target) {
 		tinp();
 		play.gainBlock(7);
-		BEL bel = new BEL(play, 2);
-		play.addAttDamSub(bel);
-		play.addTurnStartSub(bel);
+		play.addSE(new BEL(play, 1));
 	}
 
 	public void playUpgraded(Player play, int target) {
 		tinp();
 		play.gainBlock(7);
-		BEL bel = new BEL(play, 3);
-		play.addAttDamSub(bel);
-		play.addTurnStartSub(bel);
+		play.addSE(new BEL(play, 2));
 	}
 
 	public Card copyCard() {
 		return new Brace(dataHandler);
 	}
 
-	private class BEL implements Serializable, EntityListener{
+	private class BEL extends StatusEffect{
 		private static final long serialVersionUID = 1L;
 		private Player owner;
 		private int toDraw;
 
 		public BEL(Player play, int td) {
+			super("Bracing", 1);
 			owner = play;
 			toDraw = td;
 		}
 
 		@Override
-		public void notify(Entity entity, String message, Object data) {
-			System.out.println("notified " + owner.getBlock());
-			if(message.equals("attdamagetaken")) {
+		public void notify(Entity entity, ELM message, Object data) {
+			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
 				if(owner.getBlock() == 0) {
 					owner.addSE(new StartDraw(toDraw));
+					owner.removeSE(this);
 				}
-			}else {
-				entity.removeTurnStartSub(this);
-				entity.removeAttDamSub(this);
+			}else if(message.is(ELM.TURN_START)){
+				owner.removeSE(this);
 			}
 		}
 

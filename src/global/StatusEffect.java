@@ -2,7 +2,7 @@ package global;
 
 import java.io.Serializable;
 
-import server.AttackFailedException;
+import server.ActionInteruptException;
 import server.EntityListener;
 
 public class StatusEffect implements Serializable, EntityListener{
@@ -11,22 +11,11 @@ public class StatusEffect implements Serializable, EntityListener{
 	
 	public String name;
 	public int value;
+	public boolean hidden;
 	
 	public StatusEffect(String n, int v) {
 		name = n;
 		value = v;
-	}
-
-	public void preTurn(Entity e) {
-		
-	}
-	
-	public void postTurn(Entity e) {
-		
-	}
-	
-	public void onRemove(Entity e) {
-		
 	}
 	
 	public boolean equals(Object obj) {
@@ -38,7 +27,7 @@ public class StatusEffect implements Serializable, EntityListener{
 	}
 
 	@Override
-	public void notify(Entity entity, String message, Object data) throws AttackFailedException {
+	public void notify(Entity entity, ELM message, Object data) throws ActionInteruptException {
 		
 	}
 }

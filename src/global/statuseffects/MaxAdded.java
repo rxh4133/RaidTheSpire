@@ -1,5 +1,6 @@
 package global.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.StatusEffect;
 
@@ -9,14 +10,12 @@ public class MaxAdded extends StatusEffect {
 	public MaxAdded(int v, Entity appliedTo) {
 		super("Max Added", v);
 		appliedTo.addMaxHealth(v);
-		if(appliedTo.getSE(name) == null) {
-			appliedTo.addFightEndSub(this);
-		}
 	}
-	
-	public void notify(Entity e, String message, Object data) {
-		e.reduceMaxHealth(value);
-		e.removeFightEndSub(this);
-		e.removeSE(this);
+
+	public void notify(Entity e, ELM message, Object data) {
+		if(message.is(ELM.FIGHT_END)) {
+			e.reduceMaxHealth(value);
+			e.removeSE(this);
+		}
 	}
 }

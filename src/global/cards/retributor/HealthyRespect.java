@@ -16,12 +16,12 @@ public class HealthyRespect extends Card {
 	
 	public void play(Player play, int target) {
 		tinp();
-		play.addSE(new Respect(play));
+		play.addSE(new Respect());
 	}
 	
 	public void playUpgraded(Player play, int target) {
 		tinp();
-		play.addSE(new Respect(play));
+		play.addSE(new Respect());
 	}
 	
 	public Card copyCard() {

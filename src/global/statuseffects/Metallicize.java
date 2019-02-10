@@ -1,5 +1,6 @@
 package global.statuseffects;
 
+import global.ELM;
 import global.Entity;
 
 public class Metallicize extends global.StatusEffect{
@@ -8,8 +9,10 @@ public class Metallicize extends global.StatusEffect{
 	public Metallicize(int v) {
 		super("Metallicize", v);
 	}
-
-	public void postTurn(Entity e) {
-		e.gainBlock(value);
+	
+	public void notify(Entity e, ELM m, Object o) {
+		if(m.is(ELM.TURN_END)) {
+			e.gainBlock(value);
+		}
 	}
 }

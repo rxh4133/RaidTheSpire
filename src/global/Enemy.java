@@ -13,7 +13,7 @@ public class Enemy extends Entity{
 	public Enemy(ServerDataHandler sdh, int health) {
 		super();
 		dataHandler = sdh;
-		addDeathSub(dataHandler);
+		addListener(dataHandler);
 		this.maxHealth = health;
 		this.curHealth = health;
 	}

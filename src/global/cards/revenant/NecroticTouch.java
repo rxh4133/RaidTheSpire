@@ -23,7 +23,7 @@ public class NecroticTouch extends Card {
 	public void play(Player play, int target) {
 		tinp();
 		Enemy e = getETarget(target);
-		e.addSE(new Necrotic(1,e));
+		e.addSE(new Necrotic(1));
 		e.addSE(new Poison(10));
 	}
 	

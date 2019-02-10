@@ -1,6 +1,6 @@
 package server;
 
-public class AttackFailedException extends RuntimeException{
+public class ActionInteruptException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 
 }

@@ -2,24 +2,22 @@ package global.enemies;
 
 import java.util.ArrayList;
 
+import global.ELM;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
 import global.Player;
+import global.StatusEffect;
 import global.statuseffects.Metallicize;
 import global.statuseffects.Regen;
-import server.EntityListener;
 import server.ServerDataHandler;
 
 public class WrithingMass extends Enemy {
 	private static final long serialVersionUID = 1L;
 
-	private int numCanSpawn = 7;
-	private int numSpawned;
-
 	public WrithingMass(ServerDataHandler sdh) {
 		super(sdh, 120);
-		this.addAttDamSub(new MSEL(this));
+		this.addSE(new MSEL(7));
 	}
 
 	public ArrayList<EnemyAction> decideAction() {
@@ -37,28 +35,28 @@ public class WrithingMass extends Enemy {
 		return nextTurnActions;
 	}
 
-	private class MSEL implements EntityListener{
-		
-		private WrithingMass wm;
-		
-		public MSEL(WrithingMass wm) {
-			this.wm = wm;
+	private class MSEL extends StatusEffect{
+		private static final long serialVersionUID = 1L;
+
+		public MSEL(int v) {
+			super("Writhing", v);
 		}
 
 		@Override
-		public void notify(Entity entity, String message, Object data) {
-			if(wm.numSpawned < wm.numCanSpawn && (int) (((Object[]) data)[0]) > 0) {
-				WrithingWorm wm = new WrithingWorm(dataHandler);
-				wm.decideAction();
-				wm.takeDamage((int) (((Object[]) data)[0]));
-				if(!wm.isDead()) {
-					dataHandler.enemies.add(wm);
-					wm.addDeathSub(dataHandler);
+		public void notify(Entity entity, ELM message, Object data) {
+			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
+				if(value > 0 && (int) (((Object[]) data)[0]) > 0) {
+					WrithingWorm wm = new WrithingWorm(dataHandler);
+					wm.decideAction();
+					wm.takeDamage((int) (((Object[]) data)[0]));
+					if(!wm.isDead()) {
+						dataHandler.enemies.add(wm);
+						wm.addListener(dataHandler);
+					}
+					value--;
 				}
-				numSpawned++;
 			}
 		}
-
 	}
 
 	private class Bite extends EnemyAction {
@@ -82,17 +80,17 @@ public class WrithingMass extends Enemy {
 		public void doAction() {
 			ArrayList<Player> players = dataHandler.players;
 			if(target1 < players.size() && target1 >= 0) {
-				int dealt = players.get(target1).takeAttackDamage((2*((WrithingMass) enemy).numCanSpawn) + 10, enemy);
+				int dealt = players.get(target1).takeAttackDamage((2*((WrithingMass) enemy).getSE("Writhing").value) + 10, enemy);
 				enemy.damageDealtOut(dealt, name);
 			}
 			if(target2 < players.size() && target2 >= 0) {
-				int dealt = players.get(target2).takeAttackDamage((2*((WrithingMass) enemy).numCanSpawn) + 10, enemy);
+				int dealt = players.get(target2).takeAttackDamage((2*((WrithingMass) enemy).getSE("Writhing").value) + 10, enemy);
 				enemy.damageDealtOut(dealt, name);
 			}
 		}
 
 		public String toString() {
-			return "Bite: T1:" + target1 + " T2: " + target2 + " D:" +  2*((WrithingMass) enemy).numCanSpawn + 10;
+			return "Bite: T1:" + target1 + " T2: " + target2 + " D:" +  (2*((WrithingMass) enemy).getSE("Writhing").value + 10);
 		}
 
 	}
@@ -103,12 +101,12 @@ public class WrithingMass extends Enemy {
 		public Writhe(Enemy e, ServerDataHandler sdh) {
 			super(e, "Writhe", sdh);		
 		}
-		
+
 		public void doAction() {
 			enemy.gainBlock(20);
 			enemy.addSE(new Metallicize(1));
 		}
-		
+
 		public String toString() {
 			return "Writhe";
 		}
@@ -121,16 +119,16 @@ public class WrithingMass extends Enemy {
 		public Swarm(WrithingMass wm, ServerDataHandler sdh) {
 			super(wm, "Swarm", sdh);
 		}
-		
+
 		public void doAction() {
-			((WrithingMass) enemy).numCanSpawn++;
+			enemy.addSE(new MSEL(1));
 			enemy.removeSE(enemy.getSE("Regen"));
 			enemy.addSE(new Regen(5));
 		}
-		
+
 		public String toString() {
 			return "Swarm";
 		}
-		
+
 	}
 }

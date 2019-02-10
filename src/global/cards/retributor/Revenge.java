@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 import global.Card;
 import global.CardType;
+import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
-import server.AttackFailedException;
+import server.ActionInteruptException;
 import server.EntityListener;
 import server.ServerDataHandler;
 
@@ -27,8 +28,8 @@ public class Revenge extends Card {
 
 	public void onAddToDeck(Player p) {
 		dam = new REL();
-		p.addAttDamSub(dam);
-		p.addTurnEndSub(dam);
+		p.addListener(dam);
+		p.addListener(dam);
 	}
 
 	public void play(Player p, int target) {
@@ -52,10 +53,10 @@ public class Revenge extends Card {
 		public int damageDealt;
 
 		@Override
-		public void notify(Entity entity, String message, Object data) throws AttackFailedException {
-			if(message.equals("postturn")) {
+		public void notify(Entity entity, ELM message, Object data) throws ActionInteruptException {
+			if(message.is(ELM.TURN_END)) {
 				damageDealt = 0;
-			}else {
+			}else if(message.is(ELM.DAMAGE_DEALT) || message.is(ELM.ATTACK_DAMAGE_TAKEN)){
 				damageDealt += (int)((Object[])data)[0];
 			}
 		}

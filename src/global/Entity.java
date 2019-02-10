@@ -1,9 +1,10 @@
 package global;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import server.AttackFailedException;
+import server.ActionInteruptException;
+import server.ELList;
 import server.EntityListener;
+import server.ModifyValueException;
 
 public class Entity implements Serializable{
 
@@ -12,13 +13,13 @@ public class Entity implements Serializable{
 	protected int maxHealth;
 	protected int curHealth;
 
-	protected ArrayList<StatusEffect> effects;
+	protected ELList<StatusEffect> effects;
 
-	protected transient ArrayList<EntityListener> listeners;
+	protected transient ELList<EntityListener> listeners;
 
 	public Entity() {
-		effects = new ArrayList<StatusEffect>();
-		listeners = new ArrayList<EntityListener>();
+		effects = new ELList<StatusEffect>();
+		listeners = new ELList<EntityListener>();
 	}
 
 	public void healToFull() {
@@ -26,8 +27,10 @@ public class Entity implements Serializable{
 	}
 
 	public void heal(int health) {
-		for(EntityListener el: listeners) {
-			el.notify(this, ELM.HEALED, health);
+		try {
+			notify(this, ELM.HEALED, health);
+		}catch(ModifyValueException mve) {
+			health += mve.modifier;
 		}
 		curHealth += health;
 		if(curHealth > maxHealth) {
@@ -36,28 +39,17 @@ public class Entity implements Serializable{
 	}
 
 	public void preTurn() {
-		for(int i = 0; i < effects.size(); i++) {
-			effects.get(i).notify(this, ELM.TURN_START, this);
-		}
-		
-		for(int i = 0; i < listeners.size(); i++) {
-			listeners.get(i).notify(this, ELM.TURN_START, this);
-		}
+		notify(this, ELM.TURN_START, this);
 		removeAllBlock();
 	}
 
 	public void postTurn() {
-		for(int i = 0; i < effects.size(); i++) {
-			effects.get(i).notify(this, ELM.TURN_END, this);
-		}
-		for(EntityListener el: listeners) {
-			el.notify(this, ELM.TURN_END, this);
-		}
+		notify(this, ELM.TURN_END, this);
 	}
 
 	public void removeAllSE() {
-		for(int i = 0; i < effects.size(); i++) {
-			effects.get(0).onRemove(this);
+		int num = effects.size();
+		for(int i = 0; i < num; i++) {
 			effects.remove(0);
 			i--;
 		}
@@ -65,12 +57,11 @@ public class Entity implements Serializable{
 
 	public void removeSE(StatusEffect se) {
 		if(se != null) {
-			se.onRemove(this);
 			effects.remove(se);
 		}
 	}
 
-	public boolean reduceSE(StatusEffect se, int reduce) {
+	public void reduceSE(StatusEffect se, int reduce) {
 		int index = effects.indexOf(se);
 		if (index >= 0) {
 			StatusEffect al = effects.get(index);
@@ -78,12 +69,9 @@ public class Entity implements Serializable{
 				al.value -= reduce;
 				if(al.value <= 0) {
 					removeSE(se);
-					return false;
 				}
-				return true;
 			}
 		}
-		return false;
 	}
 
 	public StatusEffect getSE(String seName) {
@@ -104,54 +92,42 @@ public class Entity implements Serializable{
 	}
 
 	public void damageDealtOut(int damage, String source) {
-		for(EntityListener el: listeners) {
-			el.notify(this, ELM.DAMAGE_DEALT, new Object[] {damage, source});
-		}
+		notify(this, ELM.DAMAGE_DEALT, new Object[] {damage, source});
 	}
 
 	public void removeAllBlock() {
 		block = 0;
 	}
 
-	public int getDamage(int damage) {
-		if(this.getSE("Weak") != null) {
-			damage = (int) (damage * .75);
-		}
-		damage += getStrength();
-		return damage;
-	}
-
 	public void takeTrueDamage(int damage) {
 		curHealth -= damage;
 		System.out.println("True damage taken: " + damage);
 		if(curHealth <= 0) {
-			for(EntityListener el: listeners) {
-				el.notify(this, ELM.DIED_TRUE_DAMAGE, damage);
-			}
+			notify(this, ELM.DIED_TRUE_DAMAGE, damage);
 		}
 	}
 
 	public void takeDamage(int damage) {
-		for(EntityListener el: listeners) {
-			el.notify(this, "damagetaken", damage);
-		}
+		notify(this, ELM.DAMAGE_TAKEN, damage);
 		curHealth -= damage;
 		if(curHealth <= 0) {
-			for(int i = 0; i < listeners.size(); i++) {
-				listeners.get(0).notify(this, "diedtodamage", damage);
-				listeners.remove(0);
-			}
+			notify(this, ELM.DIED_DAMAGE, damage);
 		}
 	}
 
 	public int takeAttackDamage(int damage, Entity attacker) {
-		damage = attacker.getDamage(damage);
 		try {
-			for(int i = 0; i < listeners.size(); i++) {
-				listeners.get(i).notify(this, "attacked", new Object[] {damage, attacker});
-			}
-		} catch(AttackFailedException afe) {
+			attacker.notify(attacker, ELM.ATTACKING, damage);
+		}catch(ModifyValueException mve) {
+			damage += mve.modifier;
+		}
+		
+		try {
+			notify(this, ELM.ATTACKED, new Object[] {damage, attacker});
+		} catch(ActionInteruptException afe) {
 			return 0;
+		} catch(ModifyValueException mve) {
+			damage += mve.modifier;
 		}
 		if(block > 0) {
 			damage = damage - block;
@@ -162,14 +138,10 @@ public class Entity implements Serializable{
 				block = 0;
 			}
 		}
-		for(EntityListener el: listeners) {
-			el.notify(this, "attdamagetaken", new Object[] {damage, attacker});
-		}
+		notify(this, ELM.ATTACK_DAMAGE_TAKEN, new Object[] {damage, attacker});
 		curHealth -= damage;
 		if(curHealth <= 0) {
-			for(int i = 0; i < listeners.size(); i++) {
-				listeners.get(0).notify(this, "diedtoattdamage", damage);
-			}
+			notify(this, ELM.DIED_ATTACK_DAMAGE, damage);
 		}
 		return damage;
 	}
@@ -192,29 +164,22 @@ public class Entity implements Serializable{
 		}
 	}
 
-	public int getStrength() {
-		for(StatusEffect se: effects) {
-			if(se.name.equals("Strength")) {
-				return se.value;
-			}
+	public void gainBlockFromCard(int block) {
+		try {
+			notify(this, ELM.BLOCK_GAINED_CARD, block);
+		}catch(ModifyValueException mbge) {
+			block = block + mbge.modifier;
 		}
-		return 0;
-	}
-
-	private int getDex() {
-		for(StatusEffect se: effects) {
-			if(se.name.equals("Dexterity")) {
-				return se.value;
-			}
-		}
-		return 0;
+		this.block += (block);
 	}
 
 	public void gainBlock(int block) {
-		for(EntityListener el: listeners) {
-			el.notify(this, "blockGained", block);
+		try {
+			notify(this, ELM.BLOCK_GAINED, block);
+		}catch(ModifyValueException mbge) {
+			block = block + mbge.modifier;
 		}
-		this.block += (block + getDex());
+		this.block += (block);
 	}
 
 	public void loseBlock(int block) {
@@ -226,26 +191,27 @@ public class Entity implements Serializable{
 	}
 
 	public void fightStartSubs() {
-		for(EntityListener el: listeners) {
-			el.notify(this, "fightstart", "fightstart");
-		}
+		notify(this, ELM.FIGHT_START, "fightstart");
 	}
 
 	public void fightEndSubs() {
-		for(EntityListener el: listeners) {
-			el.notify(this, "fightend", "fightend");
-		}
+		notify(this, ELM.FIGHT_END, "fightend");
 	}
 
 	public void addListener(EntityListener el) {
 		listeners.add(el);
 	}
-	
+
 	public void removeListener(EntityListener el) {
 		listeners.remove(el);
 	}
 
 	public boolean isDead() {
 		return curHealth <= 0;
+	}
+	
+	private void notify(Entity el, ELM message, Object data) {
+		listeners.notifyAll(el, message, data);
+		effects.notifyAll(el, message, data);
 	}
 }

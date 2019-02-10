@@ -1,32 +1,25 @@
 package global.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.StatusEffect;
 
 public class Respect extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
-	public Respect(Entity appliedTo) {
+	public Respect() {
 		super("Respect", 0);
-		if(appliedTo.getSE(name) == null) {
-			appliedTo.addDamageDealtSub(this);
-		}
 	}
 
-	public void preTurn(Entity e) {
-		e.gainBlock(value);
-		value = 0;
-	}
-
-	public void onRemove(Entity e) {
-		e.removeDamageDealtSub(this);
-	}
-
-	public void notify(Entity e, String message, Object data) {
-		System.out.println("respect otified");
-		Object[] pay = (Object[]) data;
-		if(pay[1].equals("Thorns")) {
-			this.value += (int) pay[0];
+	public void notify(Entity e, ELM message, Object data) {
+		if(message.is(ELM.DAMAGE_DEALT)) {
+			Object[] pay = (Object[]) data;
+			if(pay[1].equals("Thorns")) {
+				this.value += (int) pay[0];
+			}
+		}else if(message.is(ELM.TURN_START)) {
+			e.gainBlock(value);
+			value = 0;
 		}
 	}
 
