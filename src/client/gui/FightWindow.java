@@ -1,6 +1,8 @@
 package client.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -80,6 +82,12 @@ public class FightWindow extends JPanel {
 		for(Enemy e: enemies) {
 			enemyTextArea.append(e.toString() + "\n");
 		}
+	}
+	
+	public void setSize(Component cmp, int w, int h){
+		Dimension dim = new Dimension(w,h);
+		cmp.setPreferredSize(dim);
+		cmp.setMaximumSize(dim);
 	}
 	
 	private class PlayCardListener implements ActionListener{

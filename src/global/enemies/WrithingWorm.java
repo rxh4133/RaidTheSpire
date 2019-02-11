@@ -15,7 +15,7 @@ public class WrithingWorm extends Enemy {
 	private static final long serialVersionUID = 1L;
 
 	public WrithingWorm(ServerDataHandler sdh) {
-		super(sdh, (int) ((Math.random() * 5) + 12));
+		super(sdh, (int) ((Math.random() * 5) + 12), "Writhing Worm");
 		this.addSE(new CUEL((int) (3 + Math.random()*5)));
 	}
 

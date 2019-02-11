@@ -10,7 +10,7 @@ import server.ServerDataHandler;
 public class BasicEnemy extends Enemy{
 	private static final long serialVersionUID = 1L;
 	public BasicEnemy(ServerDataHandler sdh) {
-		super(sdh, 30);
+		super(sdh, 30, "Basic Enemy");
 	}
 	
 	public ArrayList<EnemyAction> decideAction() {

@@ -33,17 +33,21 @@ public class Player extends Entity{
 	private ArrayList<Relic> relics;
 
 	public Player() {
-		hand = new ArrayList<Card>();
+		setHand(new ArrayList<Card>());
 		discard = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
 		exhausted = new ArrayList<Card>();
 		relics = new ArrayList<Relic>();
 	}
+	
+	public Player(String name) {
+		this.name = name;
+	}
 
 	public void postTurn() {//TODO fix this asap
 		super.postTurn();
-		for(int i = 0; i < hand.size(); i++) {
-			CER r = hand.get(i).onTurnEndInHand(this, i);
+		for(int i = 0; i < getHand().size(); i++) {
+			CER r = getHand().get(i).onTurnEndInHand(this, i);
 			if(r.equals(CER.DISCARD)) {
 				discardCard(i);
 				i--;
@@ -51,7 +55,7 @@ public class Player extends Entity{
 				exhaustFromHand(i);
 				i--;
 			}else if(r.equals(CER.REMOVE)) {
-				hand.remove(i);
+				getHand().remove(i);
 				i--;
 			}
 		}
@@ -76,7 +80,7 @@ public class Player extends Entity{
 	}
 
 	public void resetEnergy() {
-		curEnergy = maxEnergy;
+		setCurEnergy(getMaxEnergy());
 	}
 
 	public void heal(int heal) {
@@ -86,7 +90,7 @@ public class Player extends Entity{
 		}
 	}
 	public void addEnergy(int e) {
-		curEnergy += e;
+		setCurEnergy(getCurEnergy() + e);
 	}
 	public int getBlock() {
 		return block;
@@ -97,8 +101,8 @@ public class Player extends Entity{
 	}
 	
 	public void removeCardFromHand(int index) {
-		if(index >= 0 && index < hand.size()) {
-			hand.remove(index);
+		if(index >= 0 && index < getHand().size()) {
+			getHand().remove(index);
 		}
 	}
 
@@ -113,7 +117,7 @@ public class Player extends Entity{
 	}
 
 	public void addCardToHand(Card card) {
-		hand.add(card);
+		getHand().add(card);
 	}
 
 	public void setDeck(ArrayList<Card> cards) {
@@ -133,7 +137,7 @@ public class Player extends Entity{
 	}
 
 	public void removeHandAndDiscard() {
-		hand.removeAll(hand);
+		getHand().removeAll(getHand());
 		discard.removeAll(discard);
 	}
 
@@ -153,51 +157,51 @@ public class Player extends Entity{
 			if(draw.size() != 0) {
 				Card c = draw.get(0);
 				draw.remove(0);
-				hand.add(c);
+				getHand().add(c);
 			}
 		}
 	}
 
 	public void exhaustFromHand(int index) {
-		exhausted.add(hand.get(index));
-		hand.remove(index);
+		exhausted.add(getHand().get(index));
+		getHand().remove(index);
 	}
 
 	public void discardCard(int[] handIndexes) {
 		for(int handIndex: handIndexes) {
-			if(hand.size() > handIndex) {
-				discard.add(hand.get(handIndex));
-				hand.remove(handIndex);
+			if(getHand().size() > handIndex) {
+				discard.add(getHand().get(handIndex));
+				getHand().remove(handIndex);
 			}
 		}
 	}
 
 	public void discardCard(int handIndex) {
-		if(hand.size() > handIndex) {
-			discard.add(hand.get(handIndex));
-			hand.remove(handIndex);
+		if(getHand().size() > handIndex) {
+			discard.add(getHand().get(handIndex));
+			getHand().remove(handIndex);
 		}
 	}
 
 	public void discardRandomCard() {
-		if(hand.size() > 0) {
-			int index = (int) (Math.random() * hand.size());
+		if(getHand().size() > 0) {
+			int index = (int) (Math.random() * getHand().size());
 			discardCard(new int[] {index});
 		}
 	}
 
 	public void discardHand() {
-		discard.addAll(hand);
-		hand.removeAll(hand);
+		discard.addAll(getHand());
+		getHand().removeAll(getHand());
 	}
 
 	public Message playCard(int index, int target) {
 		try {
-			if(index < hand.size()) {
-				Card card = hand.get(index);
-				if(card != null && card.cost <= curEnergy) {
+			if(index < getHand().size()) {
+				Card card = getHand().get(index);
+				if(card != null && card.cost <= getCurEnergy()) {
 					card.prePlay(this, index);
-					curEnergy -= card.cost;
+					setCurEnergy(getCurEnergy() - card.cost);
 					card.play(this, target);
 					return new Message("pcok", null);
 				}
@@ -242,9 +246,9 @@ public class Player extends Entity{
 
 	@Override
 	public String toString() {
-		return "Player: ("+ curEnergy + "/" + maxEnergy + " E) " + name + "\n\t"
+		return "Player: ("+ getCurEnergy() + "/" + getMaxEnergy() + " E) " + name + "\n\t"
 				+ "Health: (" + block + " B) " + curHealth + "/" + maxHealth + "\n\t"
-				+ "Hand: " + hand + "\n\t"
+				+ "Hand: " + getHand() + "\n\t"
 				+ "Draw: " + draw + "\n\t"
 				+ "Discard: " + discard + "\n\t"
 				+ "Exhausted: " + exhausted + "\n\t"
@@ -257,5 +261,25 @@ public class Player extends Entity{
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Player && ((Player) obj).name.equals(name);
+	}
+
+	public int getCurEnergy() {
+		return curEnergy;
+	}
+
+	public void setCurEnergy(int curEnergy) {
+		this.curEnergy = curEnergy;
+	}
+
+	public int getMaxEnergy() {
+		return maxEnergy;
+	}
+
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+
+	public void setHand(ArrayList<Card> hand) {
+		this.hand = hand;
 	}
 }

@@ -16,14 +16,13 @@ public class WrithingMass extends Enemy {
 	private static final long serialVersionUID = 1L;
 
 	public WrithingMass(ServerDataHandler sdh) {
-		super(sdh, 120);
+		super(sdh, 120, "Writhing Mass");
 		this.addSE(new MSEL(7));
 	}
 
 	public ArrayList<EnemyAction> decideAction() {
 		nextTurnActions = new ArrayList<EnemyAction>();
 		int whatToDo = (int) (Math.random() * 3);
-		System.out.println(whatToDo + " fuck man");
 		if(whatToDo == 0) {
 			nextTurnActions.add(new Bite(this, dataHandler));
 		}else if(whatToDo == 1) {

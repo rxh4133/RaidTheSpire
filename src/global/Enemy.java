@@ -9,19 +9,29 @@ public class Enemy extends Entity{
 	
 	protected ArrayList<EnemyAction> nextTurnActions;
 	protected transient ServerDataHandler dataHandler;
+	protected String name;
 
-	public Enemy(ServerDataHandler sdh, int health) {
+	public Enemy(ServerDataHandler sdh, int health, String n) {
 		super();
 		dataHandler = sdh;
 		addListener(dataHandler);
 		this.maxHealth = health;
 		this.curHealth = health;
+		name = n;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void takeAction() {
 		for(EnemyAction ea: nextTurnActions) {
 			ea.doAction();
 		}
+	}
+	
+	public ArrayList<EnemyAction> getActions(){
+		return nextTurnActions;
 	}
 	
 	public ArrayList<EnemyAction> decideAction() {
@@ -36,7 +46,7 @@ public class Enemy extends Entity{
 	}
 	
 	public Enemy copyForDisplay() {
-		Enemy e = new Enemy(dataHandler, maxHealth);
+		Enemy e = new Enemy(dataHandler, maxHealth, name);
 		e.curHealth = curHealth;
 		e.effects = effects;
 		e.block = block;

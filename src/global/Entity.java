@@ -1,6 +1,7 @@
 package global;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import global.statuseffect.StatusEffect;
 import server.ActionInteruptException;
@@ -38,6 +39,18 @@ public class Entity implements Serializable{
 		if(curHealth > maxHealth) {
 			curHealth = maxHealth;
 		}
+	}
+	
+	public int getCurHealth() {
+		return curHealth;
+	}
+	
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+	
+	public ArrayList<StatusEffect> getEffects(){
+		return effects;
 	}
 
 	public void preTurn() {

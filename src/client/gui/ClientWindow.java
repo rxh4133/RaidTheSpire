@@ -18,14 +18,14 @@ public class ClientWindow {
 	
 	private HomeWindow homeWindow;
 	private LobbyWindow lobbyWindow;
-	private FightWindow fightWindow;
+	private RemadeFightWindow fightWindow;
 	private RewardWindow rewardWindow;
 	
 	public ClientWindow() {
 		clientDataHandler = new ClientDataHandler(this);
 		lobbyWindow = new LobbyWindow(clientDataHandler);
 		homeWindow = new HomeWindow(clientDataHandler);
-		fightWindow = new FightWindow(clientDataHandler);
+		fightWindow = new RemadeFightWindow(clientDataHandler);
 		rewardWindow = new RewardWindow(clientDataHandler);
 
 		initFrame();
@@ -34,9 +34,11 @@ public class ClientWindow {
 	private void initFrame() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(800, 450);
+		frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+		frame.setSize(1600, 900);
 		frame.setTitle("Raid The Spire");
 		frame.add(homeWindow, BorderLayout.CENTER);
+		//frame.add(lobbyWindow, BorderLayout.CENTER);
 		frame.setVisible(true);
 	}
 	
@@ -59,6 +61,7 @@ public class ClientWindow {
 		frame.add(fightWindow);
 		frame.revalidate();
 		frame.repaint();
+
 	}
 	
 	public void switchToReward() {
