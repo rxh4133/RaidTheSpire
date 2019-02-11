@@ -50,8 +50,7 @@ public class Entity implements Serializable{
 	}
 
 	public void removeAllSE() {
-		int num = effects.size();
-		for(int i = 0; i < num; i++) {
+		for(int i = 0; i < effects.size(); i++) {
 			effects.remove(0);
 			i--;
 		}

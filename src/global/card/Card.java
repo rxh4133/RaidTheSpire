@@ -20,6 +20,7 @@ public class Card implements Serializable{
 	protected transient ServerDataHandler dataHandler;
 	private boolean upgraded;
 	public boolean playable;
+	public boolean retain;
 
 	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
 		defaultCost = defCost;
@@ -29,6 +30,8 @@ public class Card implements Serializable{
 		type = ct;
 		dataHandler = sdh;
 		playable = true;
+		retain = false;
+		upgraded = false;
 	}
 	
 	public void onAddToDeck(Player p) {
@@ -40,8 +43,11 @@ public class Card implements Serializable{
 		p.discardCard(index);
 	}
 	
-	public void onTurnEndInHand(Player p, int index) {
-		
+	public CER onTurnEndInHand(Player p, int index) {
+		if(retain) {
+			return CER.RETAIN;
+		}
+		return CER.DISCARD;
 	}
 	
 	public void play(Player player, int target) throws CardFailException{

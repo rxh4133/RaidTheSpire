@@ -3,6 +3,7 @@ package global;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import global.card.CER;
 import global.card.Card;
 import server.S2CCommunicator;
 
@@ -41,10 +42,18 @@ public class Player extends Entity{
 
 	public void postTurn() {//TODO fix this asap
 		super.postTurn();
-		int handSize = hand.size();
-		for(int i = 0; i < handSize; i++) {
-			hand.get(0).onTurnEndInHand(this, 0);
-			discardCard(0);
+		for(int i = 0; i < hand.size(); i++) {
+			CER r = hand.get(i).onTurnEndInHand(this, i);
+			if(r.equals(CER.DISCARD)) {
+				discardCard(i);
+				i--;
+			}else if(r.equals(CER.EXHAUST)) {
+				exhaustFromHand(i);
+				i--;
+			}else if(r.equals(CER.REMOVE)) {
+				hand.remove(i);
+				i--;
+			}
 		}
 	}
 
@@ -235,7 +244,10 @@ public class Player extends Entity{
 	public String toString() {
 		return "Player: ("+ curEnergy + "/" + maxEnergy + " E) " + name + "\n\t"
 				+ "Health: (" + block + " B) " + curHealth + "/" + maxHealth + "\n\t"
-				+ "Cards: " + hand + "\n\t"
+				+ "Hand: " + hand + "\n\t"
+				+ "Draw: " + draw + "\n\t"
+				+ "Discard: " + discard + "\n\t"
+				+ "Exhausted: " + exhausted + "\n\t"
 				+ "Status: " + effects + "\n\t"
 				+ "Done: " + readyToEndTurn+ "\n\t"
 				+ "Relics: " + relics;

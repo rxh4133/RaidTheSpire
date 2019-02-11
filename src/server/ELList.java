@@ -21,6 +21,7 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 		int modify = 0;
 		ActionInteruptException doot = null;
 		for(F f: this) {
+			System.out.println(e + " " + message + " " + data);
 			try {
 				f.notify(e, message, data);
 			}catch(ModifyValueException mbge) {
@@ -48,15 +49,21 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 		}
 	}
 	
-	public boolean remove(F f) {
+	@Override
+	public boolean remove(Object f) {
 		if(notifying) {
-			if(contains(f)) {
-				toRemove.add(f);
+			if(contains(f) && f instanceof EntityListener) {
+				toRemove.add((F) f);
 			}
 		}else {
 			return super.remove(f);
 		}
 		return false;
+	}
+	
+	public boolean add(F f) {
+		System.out.println("Adding while " + notifying);
+		return super.add(f);
 	}
 
 }
