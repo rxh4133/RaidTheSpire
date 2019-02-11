@@ -9,11 +9,11 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	private static final long serialVersionUID = 1L;
 	
 	private boolean notifying;
-	private ArrayList<F> toRemove;
+	private ArrayList<EntityListener> toRemove;
 	
 	public ELList() {
 		super();
-		toRemove = new ArrayList<F>();
+		toRemove = new ArrayList<EntityListener>();
 	}
 	
 	public void notifyAll(Entity e, ELM message, Object data) {
@@ -53,7 +53,7 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	public boolean remove(Object f) {
 		if(notifying) {
 			if(contains(f) && f instanceof EntityListener) {
-				toRemove.add((F) f);
+				toRemove.add((EntityListener) f);
 			}
 		}else {
 			return super.remove(f);
