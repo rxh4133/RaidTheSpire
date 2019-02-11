@@ -1,5 +1,6 @@
 package global.statuseffect.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.statuseffect.StatusEffect;
 
@@ -9,8 +10,10 @@ public class ThornsGen extends StatusEffect{
 	public ThornsGen(int v) {
 		super("Thorns Gen", v);
 	}
-
-	public void postTurn(Entity entity) {
-		entity.addSE(new Thorns(value, entity));
+	
+	public void notify(Entity e, ELM m, Object o) {
+		if(m.is(ELM.TURN_END)) {
+			e.addSE(new Thorns(value));
+		}
 	}
 }

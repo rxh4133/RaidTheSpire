@@ -7,7 +7,7 @@ import global.statuseffect.StatusEffect;
 public class Thorns extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
-	public Thorns(int v, Entity appliedTo) {
+	public Thorns(int v) {
 		super("Thorns", v);
 	}
 

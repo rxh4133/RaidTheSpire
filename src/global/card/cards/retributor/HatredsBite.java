@@ -18,14 +18,14 @@ public class HatredsBite extends Card {
 	public void play(Player play, int target) {
 		tinp();
 		play.gainBlock(15);
-		play.addSE(new Thorns(5, play));
+		play.addSE(new Thorns(5));
 		play.addSE(new ThornsDown(5));
 	}
 
 	public void playUpgraded(Player play, int target) {
 		tinp();
 		play.gainBlock(20);
-		play.addSE(new Thorns(5, play));
+		play.addSE(new Thorns(5));
 		play.addSE(new ThornsDown(5));
 	}
 	

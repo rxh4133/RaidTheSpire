@@ -17,12 +17,12 @@ public class EnmitysMight extends Card {
 	
 	public void play(Player play, int target) throws CardFailException{
 		tinp();
-		getPTarget(target).addSE(new Thorns(2, play));
+		getPTarget(target).addSE(new Thorns(2));
 	}
 	
 	public void playUpgraded(Player play, int target) throws CardFailException{
 		tinp();
-		getPTarget(target).addSE(new Thorns(3, play));
+		getPTarget(target).addSE(new Thorns(3));
 	}
 	
 	public Card copyCard() {
