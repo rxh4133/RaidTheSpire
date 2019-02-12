@@ -42,7 +42,7 @@ public class Player extends Entity{
 		removed = new ArrayList<Card>();
 		relics = new ArrayList<Relic>();
 	}
-	
+
 	public Player(String name) {
 		this.name = name;
 	}
@@ -102,7 +102,7 @@ public class Player extends Entity{
 	public void setMaxEnergy(int max) {
 		maxEnergy = max;
 	}
-	
+
 	public void removeCardFromHand(int index) {
 		if(index >= 0 && index < getHand().size()) {
 			removed.add(hand.remove(index));
@@ -214,12 +214,14 @@ public class Player extends Entity{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(result.equals(CardResult.EXHAUST)) {
-				hand.add(index, exhausted.get(exhausted.size()-1));
-			}else if(result.equals(CardResult.DISCARD)) {
-				hand.add(index, discard.get(discard.size()-1));
-			}else if(result.equals(CardResult.REMOVE)) {
-				hand.add(index, removed.get(removed.size()-1));
+			if(result != null) {
+				if(result.equals(CardResult.EXHAUST)) {
+					hand.add(index, exhausted.get(exhausted.size()-1));
+				}else if(result.equals(CardResult.DISCARD)) {
+					hand.add(index, discard.get(discard.size()-1));
+				}else if(result.equals(CardResult.REMOVE)) {
+					hand.add(index, removed.get(removed.size()-1));
+				}
 			}
 			if(energyUsed) {
 				setCurEnergy(getCurEnergy() + hand.get(index).cost);

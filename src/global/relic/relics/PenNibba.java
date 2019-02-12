@@ -9,6 +9,7 @@ import server.ModifyValueException;
 import server.ServerDataHandler;
 
 public class PenNibba extends Relic{
+	private static final long serialVersionUID = 1L;
 	private int attacks;
 	
 	public PenNibba() {

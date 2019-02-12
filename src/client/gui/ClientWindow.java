@@ -73,6 +73,8 @@ public class ClientWindow {
 	
 	public void displayReward(Reward reward) {
 		remadeRewardWindow.showReward(reward);
+		remadeRewardWindow.revalidate();
+		remadeRewardWindow.repaint();
 	}
 	
 	public void updateLobbyPlayers(ArrayList<Player> players) {
