@@ -1,11 +1,12 @@
-package global.relics;
+package global.relic.relics;
 
 import java.io.Serializable;
 
 import global.ELM;
 import global.Entity;
 import global.Player;
-import global.Relic;
+import global.Rarity;
+import global.relic.Relic;
 import global.statuseffect.statuseffects.Strength;
 import global.statuseffect.statuseffects.StrengthDown;
 import server.EntityListener;
@@ -15,7 +16,7 @@ public class AvengingEye extends Relic{
 	private static final long serialVersionUID = 1L;
 
 	public AvengingEye() {
-		super("Avenging Eye");
+		super("Avenging Eye", Rarity.STARTER);
 	}
 
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

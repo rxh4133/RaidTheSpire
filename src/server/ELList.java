@@ -10,20 +10,21 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	
 	private boolean notifying;
 	private ArrayList<EntityListener> toRemove;
+	private ArrayList<F> toAdd;
 	
 	public ELList() {
 		super();
 		toRemove = new ArrayList<EntityListener>();
+		toAdd = new ArrayList<F>();
 	}
 	
 	public void notifyAll(Entity e, ELM message, Object data) {
 		notifying = true;
 		int modify = 0;
 		ActionInteruptException doot = null;
-		for(F f: this) {
-			System.out.println(e + " " + message + " " + data);
+		for(int i = 0; i < size(); i++) {
 			try {
-				f.notify(e, message, data);
+				get(i).notify(e, message, data);
 			}catch(ModifyValueException mbge) {
 				modify += mbge.modifier;
 			}catch(ActionInteruptException afe) {
@@ -33,6 +34,8 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 		notifying = false;
 		removeAll(toRemove);
 		toRemove.removeAll(toRemove);
+		addAll(toAdd);
+		toAdd.removeAll(toAdd);
 		if(doot != null) {
 			throw doot;
 		}else if(modify != 0) {
@@ -62,8 +65,12 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	}
 	
 	public boolean add(F f) {
-		System.out.println("Adding while " + notifying);
-		return super.add(f);
+		if(notifying) {
+			toAdd.add(f);
+		}else {
+			return super.add(f);
+		}
+		return false;
 	}
 
 }

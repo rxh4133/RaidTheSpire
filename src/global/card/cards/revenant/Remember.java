@@ -1,6 +1,7 @@
 package global.card.cards.revenant;
 
 import global.card.Card;
+import global.card.CardResult;
 import global.Player;
 import global.Rarity;
 import global.card.CardType;
@@ -13,8 +14,9 @@ public class Remember extends Card {
 		super(2, "Remember", Rarity.RARE, CardType.SKILL, sdh);
 	}
 	
-	public void prePlay(Player play, int index) {
+	public CardResult prePlay(Player play, int index) {
 		play.exhaustFromHand(index);
+		return CardResult.EXHAUST;
 	}
 	
 	public void play(Player play, int target) {

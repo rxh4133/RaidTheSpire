@@ -1,5 +1,6 @@
 package global.statuseffect.statuseffects;
 
+import global.ELM;
 import global.Entity;
 import global.statuseffect.StatusEffect;
 
@@ -10,11 +11,13 @@ public class Gauging extends StatusEffect {
 		super("Gauging", v);
 	}
 	
-	public void preTurn(Entity e) {
-		if(e.getBlock() > 0) {
-			e.addSE(new Dexterity(3 * value));
+	public void notify(Entity e, ELM m, Object o) {
+		if(m.is(ELM.TURN_START)) {
+			if(e.getBlock() > 0) {
+				e.addSE(new Dexterity(3 * value));
+			}
+			e.removeSE(this);
 		}
-		e.removeSE(this);
 	}
 
 }

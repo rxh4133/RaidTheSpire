@@ -4,6 +4,7 @@ import global.Enemy;
 import global.Player;
 import global.Rarity;
 import global.card.Card;
+import global.card.CardResult;
 import global.card.CardType;
 import global.statuseffect.statuseffects.Necrotic;
 import global.statuseffect.statuseffects.Poison;
@@ -16,8 +17,9 @@ public class NecroticTouch extends Card {
 		super(2, "Necrotic Touch", Rarity.RARE, CardType.POWER, sdh);
 	}
 	
-	public void prePlay(Player play, int index) {
+	public CardResult prePlay(Player play, int index) {
 		play.removeCardFromHand(index);
+		return CardResult.REMOVE;
 	}
 	
 	public void play(Player play, int target) {

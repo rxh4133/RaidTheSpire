@@ -3,7 +3,8 @@ package global;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import global.card.CER;
+import global.card.CardResult;
+import global.relic.Relic;
 import global.card.Card;
 import server.S2CCommunicator;
 
@@ -14,6 +15,7 @@ public class Player extends Entity{
 	private ArrayList<Card> draw;
 	private ArrayList<Card> exhausted;
 	private ArrayList<Card> discard;
+	private ArrayList<Card> removed;
 	private ArrayList<Card> deck;
 
 	private transient S2CCommunicator client;
@@ -37,6 +39,7 @@ public class Player extends Entity{
 		discard = new ArrayList<Card>();
 		draw = new ArrayList<Card>();
 		exhausted = new ArrayList<Card>();
+		removed = new ArrayList<Card>();
 		relics = new ArrayList<Relic>();
 	}
 	
@@ -47,14 +50,14 @@ public class Player extends Entity{
 	public void postTurn() {//TODO fix this asap
 		super.postTurn();
 		for(int i = 0; i < getHand().size(); i++) {
-			CER r = getHand().get(i).onTurnEndInHand(this, i);
-			if(r.equals(CER.DISCARD)) {
+			CardResult r = getHand().get(i).onTurnEndInHand(this, i);
+			if(r.equals(CardResult.DISCARD)) {
 				discardCard(i);
 				i--;
-			}else if(r.equals(CER.EXHAUST)) {
+			}else if(r.equals(CardResult.EXHAUST)) {
 				exhaustFromHand(i);
 				i--;
-			}else if(r.equals(CER.REMOVE)) {
+			}else if(r.equals(CardResult.REMOVE)) {
 				getHand().remove(i);
 				i--;
 			}
@@ -102,7 +105,7 @@ public class Player extends Entity{
 	
 	public void removeCardFromHand(int index) {
 		if(index >= 0 && index < getHand().size()) {
-			getHand().remove(index);
+			removed.add(hand.remove(index));
 		}
 	}
 
@@ -196,11 +199,14 @@ public class Player extends Entity{
 	}
 
 	public Message playCard(int index, int target) {
+		CardResult result = null;
+		boolean energyUsed = false;
 		try {
 			if(index < getHand().size()) {
 				Card card = getHand().get(index);
 				if(card != null && card.cost <= getCurEnergy()) {
-					card.prePlay(this, index);
+					result = card.prePlay(this, index);
+					energyUsed = true;
 					setCurEnergy(getCurEnergy() - card.cost);
 					card.play(this, target);
 					return new Message("pcok", null);
@@ -208,6 +214,16 @@ public class Player extends Entity{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			if(result.equals(CardResult.EXHAUST)) {
+				hand.add(index, exhausted.get(exhausted.size()-1));
+			}else if(result.equals(CardResult.DISCARD)) {
+				hand.add(index, discard.get(discard.size()-1));
+			}else if(result.equals(CardResult.REMOVE)) {
+				hand.add(index, removed.get(removed.size()-1));
+			}
+			if(energyUsed) {
+				setCurEnergy(getCurEnergy() + hand.get(index).cost);
+			}
 		}
 		return new Message("pkfail", null);
 	}

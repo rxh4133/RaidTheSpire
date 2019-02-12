@@ -13,6 +13,7 @@ public class Entity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	protected int block;
+	protected int provisionalBlock;
 	protected int maxHealth;
 	protected int curHealth;
 
@@ -41,6 +42,10 @@ public class Entity implements Serializable{
 		}
 	}
 	
+	public void addProvBlock(int block) {
+		provisionalBlock += block;
+	}
+	
 	public int getCurHealth() {
 		return curHealth;
 	}
@@ -56,6 +61,8 @@ public class Entity implements Serializable{
 	public void preTurn() {
 		notify(this, ELM.TURN_START, this);
 		removeAllBlock();
+		block += provisionalBlock;
+		provisionalBlock = 0;
 	}
 
 	public void postTurn() {
@@ -112,7 +119,6 @@ public class Entity implements Serializable{
 
 	public void takeTrueDamage(int damage) {
 		curHealth -= damage;
-		System.out.println("True damage taken: " + damage);
 		if(curHealth <= 0) {
 			notify(this, ELM.DIED_TRUE_DAMAGE, damage);
 		}

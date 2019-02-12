@@ -15,12 +15,12 @@ public class Defend extends Card {
 	
 	public void play(Player play, int target) {
 		tinp();
-		play.gainBlock(5);
+		play.gainBlockFromCard(5);
 	}
 
 	public void playUpgraded(Player play, int target) {
 		tinp();
-		play.gainBlock(8);
+		play.gainBlockFromCard(8);
 	}
 	
 	public Card copyCard() {

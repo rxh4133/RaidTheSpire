@@ -18,6 +18,7 @@ public class Recycle extends Card {
 	public void play(Player play, int target) {
 		for(int i = 0; i < target; i++) {
 			play.drawCards(1);
+			play.gainBlockFromCard(1);
 			play.takeDamage(7);
 			play.addCardToDraw(new FreshWound());
 		}
@@ -26,6 +27,7 @@ public class Recycle extends Card {
 	public void playUpgraded(Player play, int target) {
 		for(int i = 0; i < target; i++) {
 			play.drawCards(1);
+			play.gainBlockFromCard(1);
 			play.takeDamage(4);
 			play.addCardToDraw(new FreshMinorWound());
 		}

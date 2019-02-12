@@ -18,7 +18,7 @@ public class Respect extends StatusEffect{
 				this.value += (int) pay[0];
 			}
 		}else if(message.is(ELM.TURN_START)) {
-			e.gainBlock(value);
+			e.addProvBlock(value);
 			value = 0;
 		}
 	}

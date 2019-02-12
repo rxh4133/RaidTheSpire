@@ -1,6 +1,6 @@
 package global.card.cards;
 
-import global.card.CER;
+import global.card.CardResult;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
@@ -13,13 +13,14 @@ public class FreshWound extends Card {
 		super(1, "Fresh Wound", Rarity.STATUS, CardType.STATUS, null);
 	}
 	
-	public CER onTurnEndInHand(Player p, int index) {
+	public CardResult onTurnEndInHand(Player p, int index) {
 		p.addCardToDraw(new Wound());
-		return CER.EXHAUST;
+		return CardResult.EXHAUST;
 	}
 	
-	public void prePlay(Player play, int index) {
+	public CardResult prePlay(Player play, int index) {
 		play.exhaustFromHand(index);
+		return CardResult.EXHAUST;
 	}
 	
 	public void play(Player play, int target) {

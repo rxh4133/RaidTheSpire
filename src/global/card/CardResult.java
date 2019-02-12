@@ -1,6 +1,6 @@
 package global.card;
 
-public enum CER {
+public enum CardResult {
 	DISCARD,
 	EXHAUST,
 	RETAIN,

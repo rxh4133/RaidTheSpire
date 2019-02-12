@@ -59,7 +59,7 @@ public class RemadeFightWindow extends JPanel{
 		playerPanel.setBackground(DARK_RED);
 
 		enemyPanel = new JPanel();
-		enemyPanel.setLayout(new FlowLayout());
+		enemyPanel.setLayout(new BoxLayout(enemyPanel, BoxLayout.Y_AXIS));
 		enemyPane = new JScrollPane(enemyPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		enemyPanel.setBackground(DARK_RED);
 
@@ -120,10 +120,13 @@ public class RemadeFightWindow extends JPanel{
 	public void setEnemies(ArrayList<Enemy> enemy) {
 		enemyPanel.removeAll();
 		for(int i = 0; i < enemy.size(); i++) {
-			enemyPanel.add(new EnemyPanel(enemy.get(i), i));
+			EnemyPanel ep = new EnemyPanel(enemy.get(i), i);
+			enemyPanel.add(ep);
+			setSize(ep, (int) (getWidth()/2.3), 250);
 			enemyPanel.add(Box.createRigidArea(new Dimension(0,75)));
 		}
 		enemyPanel.revalidate();
+		enemyPanel.repaint();
 	}
 
 	public void doResizing() {
@@ -203,7 +206,9 @@ public class RemadeFightWindow extends JPanel{
 			statusPanel.setBackground(DARK_ORANGE);
 			statusPanel.setLayout(new FlowLayout());
 			for(StatusEffect se: en.getEffects()) {
-				statusPanel.add(new JLabel(se.toString()));
+				JLabel temp = new JLabel(se.toString());
+				temp.setForeground(Color.WHITE);
+				statusPanel.add(temp);
 			}
 
 
@@ -263,7 +268,9 @@ public class RemadeFightWindow extends JPanel{
 			statusPanel.setBackground(DARK_ORANGE);
 			statusPanel.setLayout(new FlowLayout());
 			for(StatusEffect se: play.getEffects()) {
-				statusPanel.add(new JLabel(se.toString()));
+				JLabel temp = new JLabel(se.toString());
+				temp.setForeground(Color.WHITE);
+				statusPanel.add(temp);
 			}
 
 			JButton targetButton = new JButton("Target");

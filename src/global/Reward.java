@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import global.card.Card;
+import global.relic.Relic;
 
 public class Reward implements Serializable{
 	private static final long serialVersionUID = 1L;

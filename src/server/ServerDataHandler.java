@@ -3,6 +3,7 @@ package server;
 import java.util.ArrayList;
 
 import global.card.Card;
+import global.relic.Relic;
 import global.ELM;
 import global.Enemy;
 import global.Entity;
@@ -215,7 +216,16 @@ public class ServerDataHandler implements EntityListener {
 		addCard(rewardChoice.choice3Index, reward.cardReward3, player);
 		addCard(rewardChoice.choice4Index, reward.cardReward4, player);
 		addCard(rewardChoice.choice5Index, reward.cardReward5, player);
-		//TODO handle relics
+		addRelic(rewardChoice.choice6Index, reward.relicReward1, player);
+		addRelic(rewardChoice.choice7Index, reward.relicReward2, player);
+
+	}
+	
+	public void addRelic(int selection, ArrayList<Relic> relics, Player player) {
+		if(selection >= 0 && selection <= 1) {
+			player.addRelic(relics.get(selection));
+			relics.get(selection).onAdd(player, this);
+		}
 	}
 	
 	public void addCard(int selection, ArrayList<Card> cards, Player player) {

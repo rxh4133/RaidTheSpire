@@ -1,9 +1,10 @@
-package global.relics;
+package global.relic.relics;
 
 import global.ELM;
 import global.Entity;
 import global.Player;
-import global.Relic;
+import global.Rarity;
+import global.relic.Relic;
 import global.statuseffect.statuseffects.Regen;
 import server.EntityListener;
 import server.ServerDataHandler;
@@ -12,7 +13,7 @@ public class MarkOfUndeath extends Relic {
 	private static final long serialVersionUID = 1L;
 
 	public MarkOfUndeath() {
-		super("Mark of Undeath");
+		super("Mark of Undeath", Rarity.STARTER);
 	}
 	
 	public Relic copyRelic() {

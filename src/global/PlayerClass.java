@@ -2,14 +2,15 @@ package global;
 
 import java.io.Serializable;
 
-import global.relics.AvengingEye;
-import global.relics.MarkOfUndeath;
+import global.relic.Relic;
+import global.relic.relics.AvengingEye;
+import global.relic.relics.MarkOfUndeath;
 
 public enum PlayerClass implements Serializable{
 	RETRIBUTOR(60, new AvengingEye()),
 	REVENANT(80, new MarkOfUndeath()),
 	RESIPISCENT(50, null),
-	ALL(0,new Relic("Ah fuck you") {
+	ALL(0,new Relic("Ah fuck you", Rarity.MYTHIC) {
 		private static final long serialVersionUID = 1L;
 
 		public Relic copyRelic() {

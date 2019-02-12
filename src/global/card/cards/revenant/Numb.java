@@ -15,14 +15,14 @@ public class Numb extends Card {
 	
 	public void play(Player play, int target) {
 		tinp();
-		play.gainBlock(10);
+		play.gainBlockFromCard(10);
 		play.discardRandomCard();
 		play.discardRandomCard();
 	}
 	
 	public void playUpgraded(Player play, int target) {
 		tinp();
-		play.gainBlock(10);
+		play.gainBlockFromCard(10);
 		play.discardRandomCard();
 	}
 	

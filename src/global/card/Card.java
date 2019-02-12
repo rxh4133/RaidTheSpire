@@ -38,16 +38,17 @@ public class Card implements Serializable{
 		
 	}
 	
-	public void prePlay(Player p, int index) {
+	public CardResult prePlay(Player p, int index) {
 		tinp();
 		p.discardCard(index);
+		return CardResult.DISCARD;
 	}
 	
-	public CER onTurnEndInHand(Player p, int index) {
+	public CardResult onTurnEndInHand(Player p, int index) {
 		if(retain) {
-			return CER.RETAIN;
+			return CardResult.RETAIN;
 		}
-		return CER.DISCARD;
+		return CardResult.DISCARD;
 	}
 	
 	public void play(Player player, int target) throws CardFailException{

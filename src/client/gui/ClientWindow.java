@@ -19,14 +19,14 @@ public class ClientWindow {
 	private HomeWindow homeWindow;
 	private LobbyWindow lobbyWindow;
 	private RemadeFightWindow fightWindow;
-	private RewardWindow rewardWindow;
+	private RemadeRewardWindow remadeRewardWindow;
 	
 	public ClientWindow() {
 		clientDataHandler = new ClientDataHandler(this);
 		lobbyWindow = new LobbyWindow(clientDataHandler);
 		homeWindow = new HomeWindow(clientDataHandler);
 		fightWindow = new RemadeFightWindow(clientDataHandler);
-		rewardWindow = new RewardWindow(clientDataHandler);
+		remadeRewardWindow = new RemadeRewardWindow(clientDataHandler);
 
 		initFrame();
 	}
@@ -38,7 +38,7 @@ public class ClientWindow {
 		frame.setSize(1600, 900);
 		frame.setTitle("Raid The Spire");
 		frame.add(homeWindow, BorderLayout.CENTER);
-		//frame.add(lobbyWindow, BorderLayout.CENTER);
+		//frame.add(new RemadeRewardWindow(clientDataHandler), BorderLayout.CENTER);
 		frame.setVisible(true);
 	}
 	
@@ -56,7 +56,7 @@ public class ClientWindow {
 	
 	public void switchToFight() {
 		frame.remove(lobbyWindow);
-		frame.remove(rewardWindow);
+		frame.remove(remadeRewardWindow);
 		frame.revalidate();
 		frame.add(fightWindow);
 		frame.revalidate();
@@ -66,13 +66,13 @@ public class ClientWindow {
 	
 	public void switchToReward() {
 		frame.remove(fightWindow);
-		frame.add(rewardWindow);
+		frame.add(remadeRewardWindow);
 		frame.revalidate();
 		frame.repaint();
 	}
 	
 	public void displayReward(Reward reward) {
-		rewardWindow.showReward(reward);
+		remadeRewardWindow.showReward(reward);
 	}
 	
 	public void updateLobbyPlayers(ArrayList<Player> players) {

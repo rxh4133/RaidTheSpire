@@ -3,8 +3,8 @@ package server.managers;
 import java.util.ArrayList;
 
 import global.card.Card;
+import global.relic.Relic;
 import global.PlayerClass;
-import global.Relic;
 import global.Reward;
 
 public class RewardManager {
