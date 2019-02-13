@@ -56,8 +56,10 @@ public class Revenge extends Card {
 		public void notify(Entity entity, ELM message, Object data) throws ActionInteruptException {
 			if(message.is(ELM.TURN_END)) {
 				damageDealt = 0;
-			}else if(message.is(ELM.DAMAGE_DEALT) || message.is(ELM.ATTACK_DAMAGE_TAKEN)){
+			}else if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
 				damageDealt += (int)((Object[])data)[0];
+			}else if(message.is(ELM.DAMAGE_TAKEN)) {
+				damageDealt += (int) data;
 			}
 		}
 

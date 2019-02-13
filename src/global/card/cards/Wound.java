@@ -14,6 +14,11 @@ public class Wound extends Card {
 		playable = false;
 	}
 	
+	public void setTextStuff() {
+		description = "Literally unplayable.";
+		flavor = "Your arm's off!";
+	}
+	
 	public void play(Player play, int target) {
 		throw new CardFailException("Wounds are unplayable");
 	}

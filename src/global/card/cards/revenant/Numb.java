@@ -13,6 +13,15 @@ public class Numb extends Card {
 		super(1, "Numb", Rarity.COMMON, CardType.SKILL, sdh);
 	}
 	
+	public Numb(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Numb", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 10 block. Discard 2 (1) cards.";
+		flavor = "Feeling no pain requires feeling nothing at all.";
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
 		play.gainBlockFromCard(10);
@@ -27,7 +36,7 @@ public class Numb extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Numb(dataHandler);
+		return new Numb(dataHandler, playable, upgraded);
 	}
 
 }

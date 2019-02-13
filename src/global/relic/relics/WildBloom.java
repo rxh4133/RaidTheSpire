@@ -13,6 +13,8 @@ public class WildBloom extends Relic {
 
 	public WildBloom() {
 		super("Wild Bloom", Rarity.UNCOMMON);
+		description = "All healing is increased 50%.";
+		flavor = "Flower power!";
 	}
 	
 	public Relic onAdd(Player p, ServerDataHandler sdh) {

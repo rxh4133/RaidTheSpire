@@ -12,6 +12,8 @@ public class SolarHat extends Relic{
 
 	public SolarHat() {
 		super("Solar Hat", Rarity.RARE);
+		description = "Gain 1 extra max energy. At the start of your turn, take 1 true damage.";
+		flavor = "The creator's soldering skills weren't very good, you've got a short.";
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

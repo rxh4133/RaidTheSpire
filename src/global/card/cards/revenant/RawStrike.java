@@ -13,6 +13,15 @@ public class RawStrike extends Card {
 	public RawStrike(ServerDataHandler sdh) {
 		super(1, "Raw Strike", Rarity.COMMON, CardType.ATTACK, sdh);
 	}
+	
+	public RawStrike(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Raw Strike", Rarity.COMMON, CardType.ATTACK, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Deal 15 (20) damage. Take 7 damage. Add a Fresh Wound to your hand.";
+		flavor = "Think of their brain as your baby, and their face as the car on top of them.";
+	}
 
 	public void play(Player play, int target) {
 		tinp();
@@ -31,7 +40,7 @@ public class RawStrike extends Card {
 	}
 
 	public Card copyCard() {
-		return new RawStrike(dataHandler);
+		return new RawStrike(dataHandler, playable, upgraded);
 	}
 
 }

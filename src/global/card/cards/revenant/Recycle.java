@@ -15,6 +15,15 @@ public class Recycle extends Card {
 		super(0, "Recycle", Rarity.RARE, CardType.SKILL, sdh);
 	}
 	
+	public Recycle(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(0, "Recycle", Rarity.RARE, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Choose a number X. Then, do the following X times: Draw 1 card, gain 1 block, take 7 (4) damage, and add a Fresh (Minor) Wound to your draw pile.";
+		flavor = "Sometimes, ingenuity requires respurposement.";
+	}
+	
 	public void play(Player play, int target) {
 		for(int i = 0; i < target; i++) {
 			play.drawCards(1);
@@ -34,7 +43,7 @@ public class Recycle extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Recycle(dataHandler);
+		return new Recycle(dataHandler, playable, upgraded);
 	}
 
 }

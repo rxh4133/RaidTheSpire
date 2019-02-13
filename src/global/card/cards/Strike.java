@@ -10,8 +10,17 @@ import server.ServerDataHandler;
 public class Strike extends Card{
 	private static final long serialVersionUID = 1L;
 
+	public void setTextStuff() {
+		description = "Do 6 (9) damage.";
+		flavor = "Standard stuff.";
+	}
+	
 	public Strike(ServerDataHandler sdh) {
 		super(1, "Strike", Rarity.STARTER, CardType.ATTACK, sdh);
+	}
+	
+	public Strike(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Strike", Rarity.STARTER, CardType.ATTACK, play, upgr, sdh);
 	}
 
 	public void play(Player play, int target) throws CardFailException {
@@ -27,6 +36,6 @@ public class Strike extends Card{
 	}
 
 	public Card copyCard() {
-		return new Strike(dataHandler);
+		return new Strike(dataHandler, playable, upgraded);
 	}
 }

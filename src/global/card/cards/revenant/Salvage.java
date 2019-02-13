@@ -1,6 +1,7 @@
 package global.card.cards.revenant;
 
 import global.card.Card;
+import global.card.CardResult;
 import global.Player;
 import global.Rarity;
 import global.card.CardType;
@@ -14,8 +15,19 @@ public class Salvage extends Card {
 		super(2, "Salvage", Rarity.UNCOMMON, CardType.SKILL, sdh);
 	}
 	
-	public void afterPlay(Player play, int index) {
+	public Salvage(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(2, "Salvage", Rarity.UNCOMMON, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Heal 10. Lose 20 (15) max hp for the rest of the fight. Exhaust.";
+		flavor = "Make the most of what's left of you.";
+	}
+	
+	public CardResult prePlay(Player play, int index) {
+		tinp();
 		play.exhaustFromHand(index);
+		return CardResult.EXHAUST;
 	}
 	
 	public void play(Player play, int target) {
@@ -31,7 +43,7 @@ public class Salvage extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Salvage(dataHandler);
+		return new Salvage(dataHandler, playable, upgraded);
 	}
 
 }

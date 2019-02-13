@@ -13,6 +13,15 @@ public class Defend extends Card {
 		super(1, "Defend", Rarity.STARTER, CardType.SKILL, sdh);
 	}
 	
+	public Defend(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Defend", Rarity.STARTER, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 5 block.";
+		flavor = "Standard stuff.";
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
 		play.gainBlockFromCard(5);
@@ -24,6 +33,6 @@ public class Defend extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Defend(dataHandler);
+		return new Defend(dataHandler, playable, upgraded);
 	}
 }

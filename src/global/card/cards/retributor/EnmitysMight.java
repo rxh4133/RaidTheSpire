@@ -14,6 +14,14 @@ public class EnmitysMight extends Card {
 	public EnmitysMight(ServerDataHandler sdh) {
 		super(0, "Enmity's Might", Rarity.STARTER, CardType.SKILL, sdh);
 	}
+	public EnmitysMight(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(0, "Enmity's Might", Rarity.STARTER, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Grant an ally 2 (3) thorns.";
+		flavor = "May your loathing flow like water.";
+	}
 	
 	public void play(Player play, int target) throws CardFailException{
 		tinp();
@@ -26,7 +34,7 @@ public class EnmitysMight extends Card {
 	}
 	
 	public Card copyCard() {
-		return new EnmitysMight(dataHandler);
+		return new EnmitysMight(dataHandler, playable, upgraded);
 	}
 
 }

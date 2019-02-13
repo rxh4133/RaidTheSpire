@@ -13,6 +13,8 @@ public class Vajra extends Relic{
 
 	public Vajra() {
 		super("Vajra", Rarity.COMMON);
+		description = "Start each combat with an extra Strength.";
+		flavor = "It's so heavy, you use it as a deadlift weight.";
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

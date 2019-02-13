@@ -18,6 +18,11 @@ public class FreshMinorWound extends Card{
 		return CardResult.EXHAUST;
 	}
 	
+	public void setTextStuff() {
+		description = "Heal 2. Exhaust. If you end your turn with this in your hand, exhaust it and add a Minor Wound to your draw pile.";
+		flavor = "A quick stitch or 2 and you'll be right as blood rain.";
+	}
+	
 	public void play(Player play, int target) {
 		play.heal(2);
 	}

@@ -15,6 +15,15 @@ public class PowerBlow extends Card {
 		super(1, "Power Blow", Rarity.COMMON, CardType.ATTACK, sdh);
 	}
 	
+	public PowerBlow(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Power Blow", Rarity.COMMON, CardType.ATTACK, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Deal 7 (11) damage. Apply 2 Vulnerable.";
+		flavor = "Knock 'em off balance, then laugh as your friends beat 'em up!";
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
 		Enemy te = getETarget(target);
@@ -32,7 +41,7 @@ public class PowerBlow extends Card {
 	}
 	
 	public Card copyCard() {
-		return new PowerBlow(dataHandler);
+		return new PowerBlow(dataHandler, playable, upgraded);
 	}
 
 }

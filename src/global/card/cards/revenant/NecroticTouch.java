@@ -17,6 +17,15 @@ public class NecroticTouch extends Card {
 		super(2, "Necrotic Touch", Rarity.RARE, CardType.POWER, sdh);
 	}
 	
+	public NecroticTouch(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(2, "Necrotic Touch", Rarity.RARE, CardType.POWER, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Apply 1 Necrotic and 10 (14) Poision.";
+		flavor = "Your mere touch inspires rot.";
+	}
+	
 	public CardResult prePlay(Player play, int index) {
 		play.removeCardFromHand(index);
 		return CardResult.REMOVE;
@@ -29,7 +38,14 @@ public class NecroticTouch extends Card {
 		e.addSE(new Poison(10));
 	}
 	
+	public void playUpgraded(Player play, int target) {
+		tinp();
+		Enemy e = getETarget(target);
+		e.addSE(new Necrotic(1));
+		e.addSE(new Poison(14));
+	}
+	
 	public Card copyCard() {
-		return new NecroticTouch(dataHandler);
+		return new NecroticTouch(dataHandler, playable, upgraded);
 	}
 }

@@ -14,6 +14,8 @@ public class PenNibba extends Relic{
 	
 	public PenNibba() {
 		super("Pen Nibba", Rarity.UNCOMMON);
+		description = "Every 10th attack deals double damage.";
+		flavor = "If it's real nibba hours, deal quadruple damage.";
 	}
 	
 	public Relic onAdd(Player p, ServerDataHandler sdh) {

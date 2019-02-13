@@ -16,6 +16,15 @@ public class Brace extends Card {
 	public Brace(ServerDataHandler sdh) {
 		super(1, "Brace", Rarity.COMMON, CardType.SKILL, sdh);
 	}
+	
+	public Brace(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Brace", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 7 block. If you lose it all before the start of your next turn, draw 1 (2) extra cards at the start of your turn.";
+		flavor = "INCOMING! oh wait it actually wasn't that bad";
+	}
 
 	public void play(Player play, int target) {
 		tinp();
@@ -30,7 +39,7 @@ public class Brace extends Card {
 	}
 
 	public Card copyCard() {
-		return new Brace(dataHandler);
+		return new Brace(dataHandler, playable, upgraded);
 	}
 
 	private class BEL extends StatusEffect{

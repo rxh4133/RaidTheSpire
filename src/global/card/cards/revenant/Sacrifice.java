@@ -15,6 +15,15 @@ public class Sacrifice extends Card {
 		super(1, "Sacrifice", Rarity.COMMON, CardType.SKILL, sdh);
 	}
 	
+	public Sacrifice(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Sacrifice", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 14 (20) block. Take 5 damage. Add a Fresh Wound to your draw pile. Exhaust.";
+		flavor = "Is your finger bleeding too much? Just cut it off!";
+	}
+	
 	public CardResult prePlay(Player play, int index) {
 		play.exhaustFromHand(index);
 		return CardResult.EXHAUST;
@@ -35,6 +44,6 @@ public class Sacrifice extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Sacrifice(dataHandler);
+		return new Sacrifice(dataHandler, playable, upgraded);
 	}
 }

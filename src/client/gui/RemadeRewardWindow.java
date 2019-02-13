@@ -75,6 +75,7 @@ public class RemadeRewardWindow extends JPanel {
 				rc.choice7Index = rrps.get(1).rewardChoice;
 
 				dataHandler.submitChoice(rc);
+				submitButton.setEnabled(false);
 			}
 			
 		});
@@ -94,16 +95,22 @@ public class RemadeRewardWindow extends JPanel {
 			JPanel choicePanel = new JPanel(new GridLayout(1,relics.size() + 1));
 			this.setLayout(new BorderLayout());
 			for(int i = 0; i < relics.size(); i++) {
-				JButton cardChoice = new JButton(relics.get(i).toString());
-				cardChoice.addActionListener(new RCL(i));
-				choicePanel.add(cardChoice);
+				JButton relicChoice = new JButton(relics.get(i).toString());
+				relicChoice.addActionListener(new RCL(i));
+				relicChoice.setBackground(Color.DARK_GRAY);
+				relicChoice.setForeground(Color.WHITE);
+				relicChoice.setToolTipText(relics.get(i).getDesc());
+				choicePanel.add(relicChoice);
 			}
 			JButton skipChoice = new JButton("Skip");
 			skipChoice.addActionListener(new RCL(-1));
+			skipChoice.setBackground(Color.GRAY);
 			choicePanel.add(skipChoice);
 			
 			displayChoice = new JTextField();
 			displayChoice.setEditable(false);
+			displayChoice.setBackground(RemadeFightWindow.DARK_ORANGE);
+			displayChoice.setForeground(Color.WHITE);
 			displayChoice.setText("Skipping");
 			this.add(choicePanel, BorderLayout.CENTER);
 			this.add(displayChoice, BorderLayout.SOUTH);
@@ -143,7 +150,9 @@ public class RemadeRewardWindow extends JPanel {
 			for(int i = 0; i < cards.size(); i++) {
 				JButton cardChoice = new JButton(cards.get(i).toString());
 				cardChoice.setBackground(Color.DARK_GRAY);
+				cardChoice.setForeground(Color.WHITE);
 				cardChoice.addActionListener(new RCL(i));
+				cardChoice.setToolTipText(cards.get(i).getDesc());
 				choicePanel.add(cardChoice);
 			}
 			JButton skipChoice = new JButton("Skip");

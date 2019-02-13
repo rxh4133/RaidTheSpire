@@ -13,6 +13,15 @@ public class Probe extends Card {
 	public Probe(ServerDataHandler sdh) {
 		super(1, "Probe", Rarity.RARE, CardType.ATTACK, sdh);
 	}
+	
+	public Probe(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Probe", Rarity.RARE, CardType.ATTACK, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Deal 6 (3) damage. If it deals none, gain 3 (4) Strength.";
+		flavor = "Judge your opponent's defense, look for an opening.";
+	}
 
 	public void play(Player play, int target) {
 		int dealt = getETarget(target).takeAttackDamage(6, play);
@@ -31,6 +40,6 @@ public class Probe extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Probe(dataHandler);
+		return new Probe(dataHandler, playable, upgraded);
 	}
 }

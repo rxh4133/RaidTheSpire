@@ -14,6 +14,15 @@ public class HealthyRespect extends Card {
 		super(1, "Healthy Respect", Rarity.UNCOMMON, CardType.POWER, sdh);
 	}
 	
+	public HealthyRespect(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Healthy Respect", Rarity.UNCOMMON, CardType.POWER, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Whenever your thorns deal damage, gain that much block at the start of your next turn.";
+		flavor = "With every attack, you know your enemy that much better.";
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
 		play.addSE(new Respect());
@@ -25,7 +34,7 @@ public class HealthyRespect extends Card {
 	}
 	
 	public Card copyCard() {
-		return new HealthyRespect(dataHandler);
+		return new HealthyRespect(dataHandler, playable, upgraded);
 	}
 
 }

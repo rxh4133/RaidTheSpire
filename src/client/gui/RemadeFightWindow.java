@@ -13,12 +13,14 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import client.ClientDataHandler;
 import global.Enemy;
@@ -44,6 +46,8 @@ public class RemadeFightWindow extends JPanel{
 	public static final Color DARK_YELLOW = new Color(63, 63, 21);
 	public static final Color DARK_ORANGE = new Color(63, 48, 28);
 	public static final Color DARK_RED = new Color(66, 26, 23);
+	public static final Color DARK_BLUE = new Color(30, 35, 86);
+	public static final Color PURPLE = new Color(91, 39, 94);
 
 	private ClientDataHandler dataHandler;
 
@@ -107,7 +111,7 @@ public class RemadeFightWindow extends JPanel{
 			if(player.get(i).getName().equals(dataHandler.playerName)) {
 				cardPanel.removeAll();
 				for(int j = 0; j < player.get(i).getHand().size(); j++) {
-					cardPanel.add(new CardPanel(player.get(i).getHand().get(j), j));
+					cardPanel.add(new CardPanel(player.get(i).getHand().get(j), j, getWidth()/15, getHeight()/5));
 				}
 			}
 		}
@@ -157,9 +161,22 @@ public class RemadeFightWindow extends JPanel{
 	private class CardPanel extends JPanel{
 		private static final long serialVersionUID = 1L;
 
-		public CardPanel(Card c, int index) {
+		public CardPanel(Card c, int index, int w, int h) {
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			this.add(new JLabel(c.cost + " " + c.name));
+			this.setBackground(PURPLE);
+			
+			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			
+			JTextArea nameLabel = new JTextArea();
+			nameLabel.setText(c.name + "\n" + c.cost + " - " + c.getCardType().getDT());
+			nameLabel.setLineWrap(true);
+			nameLabel.setEditable(false);
+			nameLabel.setBackground(PURPLE);
+			nameLabel.setForeground(Color.white);
+			this.add(nameLabel);
+			nameLabel.setMaximumSize(new Dimension(5000,5000));
+			
+			
 			JButton playButton = new JButton("Play");
 			playButton.addActionListener(new ActionListener() {
 				@Override
@@ -167,10 +184,15 @@ public class RemadeFightWindow extends JPanel{
 					dataHandler.playCard(index, target);
 				}
 			});
+			playButton.setAlignmentX(CENTER_ALIGNMENT);
+			playButton.setBackground(DARK_BLUE);
+			playButton.setForeground(Color.WHITE);
 			this.add(playButton);
 
 			JButton targetButton = new JButton("Target");
 			targetButton.setAlignmentX(CENTER_ALIGNMENT);
+			targetButton.setBackground(DARK_BLUE);
+			targetButton.setForeground(Color.WHITE);
 			targetButton.addActionListener(new ActionListener() {
 
 				@Override
@@ -180,6 +202,16 @@ public class RemadeFightWindow extends JPanel{
 
 			});
 			this.add(targetButton);
+			
+			JTextArea descLabel = new JTextArea(c.getDesc());
+			descLabel.setToolTipText(c.getFlavor());
+			descLabel.setLineWrap(true);
+			descLabel.setEditable(false);
+			descLabel.setWrapStyleWord(true);
+			descLabel.setBackground(PURPLE);
+			descLabel.setForeground(Color.white);
+			this.add(descLabel);
+			this.setPreferredSize(new Dimension(w,h));
 		}
 	}
 

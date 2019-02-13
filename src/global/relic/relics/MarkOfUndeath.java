@@ -14,6 +14,8 @@ public class MarkOfUndeath extends Relic {
 
 	public MarkOfUndeath() {
 		super("Mark of Undeath", Rarity.STARTER);
+		description = "Whenever you take non-true damage, gain 1 Regen.";
+		flavor = "Ironic that the Mark of Undeath brings life.";
 	}
 	
 	public Relic copyRelic() {

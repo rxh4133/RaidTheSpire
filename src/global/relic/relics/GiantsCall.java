@@ -10,6 +10,8 @@ public class GiantsCall extends Relic {
 
 	public GiantsCall() {
 		super("Giant's Call", Rarity.COMMON);
+		description = "On pickup, gain 20% max hp.";
+		flavor = "What are you worth?";
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

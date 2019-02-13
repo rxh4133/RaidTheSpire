@@ -300,4 +300,10 @@ public class Player extends Entity{
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
+
+	public ArrayList<Card> getDeck() {
+		ArrayList<Card> retDeck = new ArrayList<Card>();
+		retDeck.addAll(deck);
+		return retDeck;
+	}
 }

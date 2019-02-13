@@ -13,6 +13,10 @@ public class MountingHate extends Card {
 	public MountingHate(ServerDataHandler sdh) {
 		super(2, "Mounting Hate", Rarity.RARE, CardType.POWER, sdh);
 	}
+	
+	public MountingHate(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(2, "Mounting Hate", Rarity.RARE, CardType.POWER, play, upgr, sdh);
+	}
 
 	public void play(Player play, int target) {
 		tinp();
@@ -25,6 +29,6 @@ public class MountingHate extends Card {
 	}
 	
 	public Card copyCard() {
-		return new MountingHate(dataHandler);
+		return new MountingHate(dataHandler, playable, upgraded);
 	}
 }

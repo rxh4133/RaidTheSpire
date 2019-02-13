@@ -10,9 +10,17 @@ public class Cannibalize extends Card{
 
 	private static final long serialVersionUID = 1L;
 
-
 	public Cannibalize(ServerDataHandler sdh) {
 		super(1, "Cannibalize", Rarity.RARE, CardType.ATTACK, sdh);
+	}
+	
+	public Cannibalize(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Cannibalize", Rarity.RARE, CardType.ATTACK, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 5 max hp. Deal 4 (8) damage.";
+		flavor = "HUNGRY.";
 	}
 
 	public void play(Player play, int target) {
@@ -28,6 +36,6 @@ public class Cannibalize extends Card{
 	}
 	
 	public Card copyCard() {
-		return new Cannibalize(dataHandler);
+		return new Cannibalize(dataHandler, playable, upgraded);
 	}
 }

@@ -13,6 +13,8 @@ public class SmoothStone extends Relic{
 
 	public SmoothStone() {
 		super("Smooth Stone", Rarity.COMMON);
+		description = "Start every fight with an extra dexterity.";
+		flavor = "If you can dodge a stone, you can dodge a strike.";
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

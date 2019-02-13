@@ -12,6 +12,8 @@ public class ArtistsPencil extends Relic{
 
 	public ArtistsPencil() {
 		super("Artist's Pencil", Rarity.RARE);
+		description = "At the start of your turn, draw a card.";
+		flavor = "It helps you draw!";
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

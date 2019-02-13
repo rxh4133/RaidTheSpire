@@ -13,6 +13,11 @@ public class MinorWound extends Card {
 		super(0, "Minor Wound", Rarity.STATUS, CardType.STATUS, null);
 	}
 	
+	public void setTextStuff() {
+		description = "Do nothing. Exhaust.";
+		flavor = "Anyone got a band-aid?";
+	}
+	
 	public CardResult prePlay(Player play, int index) {
 		play.exhaustFromHand(index);
 		return CardResult.EXHAUST;

@@ -13,6 +13,15 @@ public class DualStrike extends Card{
 		super(1, "Dual Strike", Rarity.COMMON, CardType.ATTACK, sdh);
 	}
 	
+	public DualStrike(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Dual Strike", Rarity.COMMON, CardType.ATTACK, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Do 3 (4) damage twice, then draw a card.";
+		flavor = "It's not stealing if it's rightfully yours.";
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
 		int dealt = getETarget(target).takeAttackDamage(3, play);
@@ -32,6 +41,6 @@ public class DualStrike extends Card{
 	}
 	
 	public Card copyCard() {
-		return new DualStrike(dataHandler);
+		return new DualStrike(dataHandler, playable, upgraded);
 	}
 }

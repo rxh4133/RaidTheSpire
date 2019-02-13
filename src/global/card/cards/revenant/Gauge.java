@@ -14,6 +14,15 @@ public class Gauge extends Card {
 		super(1, "Gauge", Rarity.UNCOMMON, CardType.ATTACK, sdh);
 	}
 	
+	public Gauge(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(1, "Gauge", Rarity.UNCOMMON, CardType.ATTACK, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 2 (5) block. If you still have block remaining at the start of your next turn, gain 3 dexterity.";
+		flavor = "Compliment your opponent on his technique. When he tries it again, bash his skull in.";
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
 		play.gainBlock(2);
@@ -27,7 +36,7 @@ public class Gauge extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Gauge(dataHandler);
+		return new Gauge(dataHandler, playable, upgraded);
 	}
 
 }

@@ -17,11 +17,27 @@ public class Card implements Serializable{
 	public Rarity rarity;
 	private CardType type;
 	
+	protected String description;
+	protected String flavor;
+	
 	protected transient ServerDataHandler dataHandler;
-	private boolean upgraded;
+	public boolean upgraded;
 	public boolean playable;
 	public boolean retain;
 
+	public Card(int defCost, String name, Rarity rarity, CardType ct, boolean playable, boolean upgraded, ServerDataHandler sdh) {
+		defaultCost = defCost;
+		cost = defCost;
+		this.rarity = rarity;
+		this.name = name;
+		type = ct;
+		dataHandler = sdh;
+		this.playable = playable;
+		retain = false;
+		this.upgraded = upgraded;
+		setTextStuff();
+	}
+	
 	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
 		defaultCost = defCost;
 		cost = defCost;
@@ -29,12 +45,29 @@ public class Card implements Serializable{
 		this.name = name;
 		type = ct;
 		dataHandler = sdh;
-		playable = true;
+		this.playable = true;
 		retain = false;
 		upgraded = false;
+		setTextStuff();
+	}
+	
+	public String getDesc() {
+		return description;
+	}
+	
+	public String getFlavor() {
+		return flavor;
+	}
+	
+	public void setTextStuff() {
+		
 	}
 	
 	public void onAddToDeck(Player p) {
+		
+	}
+	
+	public void onUpgrade() {
 		
 	}
 	
@@ -92,7 +125,7 @@ public class Card implements Serializable{
 	
 	public Card copyCard() {
 		System.out.println("OVERRIDE COPYCARD YOU DENSE IDIOT");
-		return new Card(defaultCost, name, rarity, type, dataHandler);
+		return new Card(defaultCost, name, rarity, type, playable, upgraded, dataHandler);
 	}
 	
 	public CardType getCardType() {

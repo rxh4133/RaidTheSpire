@@ -14,6 +14,15 @@ public class Remember extends Card {
 		super(2, "Remember", Rarity.RARE, CardType.SKILL, sdh);
 	}
 	
+	public Remember(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(2, "Remember", Rarity.RARE, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Discard your hand. Draw 3 (4) cards, and gain 2 (3) energy.";
+		flavor = "And then clarity, cutting through the horriying fog like a beacon...";
+	}
+	
 	public CardResult prePlay(Player play, int index) {
 		play.exhaustFromHand(index);
 		return CardResult.EXHAUST;
@@ -34,7 +43,7 @@ public class Remember extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Remember(dataHandler);
+		return new Remember(dataHandler, playable, upgraded);
 	}
 
 }

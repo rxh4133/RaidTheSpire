@@ -14,6 +14,15 @@ public class Evade extends Card {
 		super(2, "Evade", Rarity.UNCOMMON, CardType.SKILL, sdh);
 	}
 	
+	public Evade(ServerDataHandler sdh, boolean play, boolean upgr) {
+		super(2, "Evade", Rarity.UNCOMMON, CardType.SKILL, play, upgr, sdh);
+	}
+	
+	public void setTextStuff() {
+		description = "Gain 1 Evasion. (The next attack against you this turn will instead hit one of your allies)";
+		flavor = "You don't have to outrun the bear, you just have to outrun your friend.";
+	}
+	
 	public void play(Player p, int target) {
 		tinp();
 		p.addSE(new Evasion(1, dataHandler, p));
@@ -25,7 +34,7 @@ public class Evade extends Card {
 	}
 	
 	public Card copyCard() {
-		return new Evade(dataHandler);
+		return new Evade(dataHandler, playable, upgraded);
 	}
 
 }

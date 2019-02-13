@@ -14,12 +14,16 @@ public class Relic implements Serializable, EntityListener{
 	
 	private String name;
 	private Rarity rarity;
+	protected String description;
+	protected String flavor;
 	
 	protected transient ServerDataHandler dataHandler;
 	
 	public Relic(String name, Rarity rarity) {
 		this.name = name;
 		this.rarity = rarity;
+		description = "This is a relic.";
+		flavor = "Somewhere, someone forgot to do something.";
 	}
 
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
@@ -33,6 +37,14 @@ public class Relic implements Serializable, EntityListener{
 	
 	public String toString() {
 		return name;
+	}
+	
+	public String getDesc() {
+		return description;
+	}
+	
+	public String getFlavor() {
+		return flavor;
 	}
 	
 	public Relic copyRelic() {

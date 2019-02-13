@@ -94,7 +94,6 @@ public class CardManager{
 			starterDeck.add(getCard(PlayerClass.ALL, "Defend"));
 		}
 		starterDeck.add(getCard(PlayerClass.REVENANT, "Fel Fyre"));
-		starterDeck.add(getCard(PlayerClass.REVENANT, "Power Blow"));
 		return starterDeck;
 	}
 
