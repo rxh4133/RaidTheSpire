@@ -78,6 +78,17 @@ public class Entity implements Serializable{
 			effects.remove(se);
 		}
 	}
+	
+
+	public void subtractSE(StatusEffect se) {
+		int index = effects.indexOf(se);
+		if(index >= 0) {
+			StatusEffect have = effects.get(index);
+			have.value += se.value;
+		}else {
+			effects.add(se);
+		}
+	}
 
 	public void reduceSE(StatusEffect se, int reduce) {
 		int index = effects.indexOf(se);

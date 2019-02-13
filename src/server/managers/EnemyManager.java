@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import global.Enemy;
+import global.enemies.Apparitionist;
 import global.enemies.BasicEnemy;
 import global.enemies.WrithingMass;
 import server.ServerDataHandler;
@@ -22,8 +23,10 @@ public class EnemyManager implements Serializable{
 		ArrayList<Enemy> fight = new ArrayList<Enemy>();
 		if(fightnum == 0) {
 			fight.add(new BasicEnemy(dataHandler));
-		}else {
+		}else if(fightnum == 1){
 			fight.add(new WrithingMass(dataHandler));
+		}else {
+			fight.add(new Apparitionist(dataHandler));
 		}
 		return fight;
 	}

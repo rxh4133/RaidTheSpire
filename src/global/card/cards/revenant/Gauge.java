@@ -25,13 +25,13 @@ public class Gauge extends Card {
 	
 	public void play(Player play, int target) {
 		tinp();
-		play.gainBlock(2);
+		play.gainBlockFromCard(2);
 		play.addSE(new Gauging(1));
 	}
 	
 	public void playUpgraded(Player play, int target) {
 		tinp();
-		play.gainBlock(5);
+		play.gainBlockFromCard(5);
 		play.addSE(new Gauging(1));
 	}
 	

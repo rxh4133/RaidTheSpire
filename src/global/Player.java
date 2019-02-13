@@ -86,12 +86,6 @@ public class Player extends Entity{
 		setCurEnergy(getMaxEnergy());
 	}
 
-	public void heal(int heal) {
-		curHealth += heal;
-		if(curHealth > maxHealth) {
-			curHealth = maxHealth;
-		}
-	}
 	public void addEnergy(int e) {
 		setCurEnergy(getCurEnergy() + e);
 	}
@@ -164,7 +158,29 @@ public class Player extends Entity{
 			}
 		}
 	}
+	
+	public int getDrawSize() {
+		return draw.size();
+	}
 
+	public int getDiscardSize() {
+		return discard.size();
+	}
+	
+	public int getHandSize() {
+		return hand.size();
+	}
+	
+	public void exhaustRandomCardFromDraw() {
+		exhausted.add(draw.remove((int) (Math.random() * draw.size())));
+	}
+	public void exhaustRandomCardFromDiscard() {
+		exhausted.add(discard.remove((int) (Math.random() * discard.size())));
+	}
+	public void exhaustRandomCardFromHand() {
+		exhausted.add(hand.remove((int) (Math.random() * hand.size())));
+	}
+	
 	public void exhaustFromHand(int index) {
 		exhausted.add(getHand().get(index));
 		getHand().remove(index);

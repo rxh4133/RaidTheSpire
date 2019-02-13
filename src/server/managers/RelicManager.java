@@ -12,6 +12,7 @@ import global.relic.relics.OogitsYoYo;
 import global.relic.relics.PenNibba;
 import global.relic.relics.SmoothStone;
 import global.relic.relics.SolarHat;
+import global.relic.relics.TheGauntlet;
 import global.relic.relics.Vajra;
 import global.relic.relics.WildBloom;
 
@@ -54,6 +55,16 @@ public class RelicManager {
 			}
 		}
 	}
+	
+	public void returnRelic(Relic relic) {
+		if(relic.getRarity().equals(Rarity.RARE)) {
+			workingRareRelics.add(relic);
+		}else if(relic.getRarity().equals(Rarity.UNCOMMON)) {
+			workingUnRelics.add(relic);
+		}else if(relic.getRarity().equals(Rarity.COMMON)) {
+			workingComRelics.add(relic);
+		}
+	}
 
 	public void generateRelics() {
 		comRelics = new ArrayList<Relic>();
@@ -69,12 +80,23 @@ public class RelicManager {
 		comRelics.add(new SmoothStone());
 		comRelics.add(new CorrugatedShipper());
 		
+		comRelics.add(new GiantsCall());
+		comRelics.add(new Vajra());
+		comRelics.add(new SmoothStone());
+		comRelics.add(new CorrugatedShipper());
+		
+		comRelics.add(new GiantsCall());
+		comRelics.add(new Vajra());
+		comRelics.add(new SmoothStone());
+		comRelics.add(new CorrugatedShipper());
+		
 		unRelics.add(new WildBloom());
 		unRelics.add(new PenNibba());
 		unRelics.add(new OogitsYoYo());
 		
 		rareRelics.add(new ArtistsPencil());
 		rareRelics.add(new SolarHat());
+		rareRelics.add(new TheGauntlet());
 		
 		workingComRelics.addAll(comRelics);
 		workingUnRelics.addAll(unRelics);
