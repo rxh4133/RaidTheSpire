@@ -223,8 +223,9 @@ public class ServerDataHandler implements EntityListener {
 	
 	public void addRelic(int selection, ArrayList<Relic> relics, Player player) {
 		if(selection >= 0 && selection <= 1) {
-			player.addRelic(relics.remove(selection));
-			relics.get(selection).onAdd(player, this);
+			Relic rel = relics.remove(selection);
+			player.addRelic(rel);
+			rel.onAdd(player, this);
 			for(Relic r: relics) {
 				relicManager.returnRelic(r);
 			}

@@ -25,6 +25,11 @@ public class Revenge extends Card {
 		super(2, "Revenge", Rarity.COMMON, CardType.ATTACK, sdh);
 		dam = nd;
 	}
+	
+	public void setTextStuff() {
+		description = "Deal damage equal to the damage you took last turn times 2 (3).";
+		flavor = "At one point a bug made this scale with damage done last turn. Super broken.";
+	}
 
 	public void onAddToDeck(Player p) {
 		dam = new REL();
@@ -40,7 +45,7 @@ public class Revenge extends Card {
 
 	public void playUpgraded(Player p, int target) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(2 * dam.damageDealt, p);
+		int dealt = getETarget(target).takeAttackDamage(3 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 

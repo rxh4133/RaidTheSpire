@@ -6,6 +6,8 @@ import java.util.Collections;
 import global.card.CardResult;
 import global.relic.Relic;
 import global.card.Card;
+import server.ActionInteruptException;
+import server.CardFailException;
 import server.S2CCommunicator;
 
 public class Player extends Entity{
@@ -228,7 +230,7 @@ public class Player extends Entity{
 					return new Message("pcok", null);
 				}
 			}
-		} catch (Exception e) {
+		} catch (CardFailException e) {
 			e.printStackTrace();
 			if(result != null) {
 				if(result.equals(CardResult.EXHAUST)) {
@@ -242,6 +244,8 @@ public class Player extends Entity{
 			if(energyUsed) {
 				setCurEnergy(getCurEnergy() + hand.get(index).cost);
 			}
+		} catch (ActionInteruptException aie) {
+			aie.printStackTrace();
 		}
 		return new Message("pkfail", null);
 	}

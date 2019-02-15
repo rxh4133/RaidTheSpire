@@ -1,6 +1,7 @@
 package global.card.cards.retributor;
 
 import global.card.Card;
+import global.card.CardResult;
 import global.Player;
 import global.Rarity;
 import global.card.CardType;
@@ -23,9 +24,14 @@ public class HealthyRespect extends Card {
 		flavor = "With every attack, you know your enemy that much better.";
 	}
 	
+	public CardResult prePlay(Player play, int index) {
+		play.removeCardFromHand(index);
+		return CardResult.REMOVE;
+	}
+	
 	public void play(Player play, int target) {
 		tinp();
-		play.addSE(new Respect());
+		play.effects.add(new Respect());
 	}
 	
 	public void playUpgraded(Player play, int target) {

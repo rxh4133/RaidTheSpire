@@ -17,7 +17,7 @@ public class Entity implements Serializable{
 	protected int maxHealth;
 	protected int curHealth;
 
-	protected ELList<StatusEffect> effects;
+	public ELList<StatusEffect> effects;
 
 	protected transient ELList<EntityListener> listeners;
 

@@ -7,6 +7,7 @@ import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
 import global.Player;
+import global.statuseffect.StatusEffect;
 import global.statuseffect.statuseffects.Dexterity;
 import global.statuseffect.statuseffects.Intangible;
 import global.statuseffect.statuseffects.Metallicize;
@@ -24,7 +25,7 @@ public class Apparitionist extends Enemy{
 	public Apparitionist(ServerDataHandler sdh) {
 		super(sdh, 100, "Apparitionist");
 		this.addSE(new Metallicize(20));
-		this.addListener(new AEL(this));
+		this.addSE(new AEL(this));
 	}
 
 	public ArrayList<EnemyAction> decideAction() {
@@ -47,6 +48,7 @@ public class Apparitionist extends Enemy{
 
 	public void spawnApparition() {
 		Apparition e = new Apparition(dataHandler, this.getSE("Metallicize").value + 1);
+		e.decideAction();
 		dataHandler.enemies.add(e);
 		e.addListener(dataHandler);
 		e.addListener(new AAEL(this));
@@ -125,12 +127,12 @@ public class Apparitionist extends Enemy{
 		}
 	}
 
-	private class AEL implements EntityListener{
-
+	private class AEL extends StatusEffect{
+		private static final long serialVersionUID = 1L;
 		private Apparitionist a;
-		private boolean firstDam = true;
 
 		public AEL(Apparitionist a) {
+			super("Illusory",1);
 			this.a = a;
 		}
 
@@ -139,14 +141,14 @@ public class Apparitionist extends Enemy{
 			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
 				Object[] pay = (Object[]) data;
 				if((int)pay[0] > 0) {
-					if(firstDam) {
-						firstDam = false;
+					if(value == 1) {
+						value = 0;
 						a.spawnApparition();
 						a.addSE(new Intangible(1));
 					}
 				}
 			}else if(message.is(ELM.TURN_START)) {
-				firstDam = true;
+				value = 1;
 			}else if(message.is(ELM.ATTACKED)) {
 				Object[] pay = (Object[]) data;
 				a.secLastAtt = a.lastAtt;
