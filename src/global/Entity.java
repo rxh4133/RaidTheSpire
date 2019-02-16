@@ -239,7 +239,19 @@ public class Entity implements Serializable{
 	}
 	
 	private void notify(Entity el, ELM message, Object data) {
-		listeners.notifyAll(el, message, data);
-		effects.notifyAll(el, message, data);
+		int mod = 0;
+		try {
+			listeners.notifyAll(el, message, data);
+		} catch (ModifyValueException mve) {
+			mod = mve.modifier;
+		}
+		try {
+			effects.notifyAll(el, message, data);
+		} catch (ModifyValueException mve) {
+			mod += mve.modifier;
+		}
+		if(mod != 0) {
+			throw new ModifyValueException(mod);
+		}
 	}
 }

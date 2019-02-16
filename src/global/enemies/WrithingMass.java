@@ -17,7 +17,7 @@ public class WrithingMass extends Enemy {
 
 	public WrithingMass(ServerDataHandler sdh) {
 		super(sdh, 120, "Writhing Mass");
-		this.addSE(new MSEL(7));
+		this.addSE(new MSEL(7, dataHandler));
 	}
 
 	public ArrayList<EnemyAction> decideAction() {
@@ -37,20 +37,23 @@ public class WrithingMass extends Enemy {
 	private class MSEL extends StatusEffect{
 		private static final long serialVersionUID = 1L;
 
-		public MSEL(int v) {
+		private transient ServerDataHandler sdh;
+		
+		public MSEL(int v, ServerDataHandler sdh) {
 			super("Writhing", v);
+			this.sdh = sdh;
 		}
 
 		@Override
 		public void notify(Entity entity, ELM message, Object data) {
 			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
 				if(value > 0 && (int) (((Object[]) data)[0]) > 0) {
-					WrithingWorm wm = new WrithingWorm(dataHandler);
+					WrithingWorm wm = new WrithingWorm(sdh);
 					wm.decideAction();
 					wm.takeDamage((int) (((Object[]) data)[0]));
 					if(!wm.isDead()) {
-						dataHandler.enemies.add(wm);
-						wm.addListener(dataHandler);
+						sdh.enemies.add(wm);
+						wm.addListener(sdh);
 					}
 					value--;
 				}
@@ -120,7 +123,7 @@ public class WrithingMass extends Enemy {
 		}
 
 		public void doAction() {
-			enemy.addSE(new MSEL(1));
+			enemy.addSE(new MSEL(1, dataHandler));
 			enemy.removeSE(enemy.getSE("Regen"));
 			enemy.addSE(new Regen(5));
 		}
