@@ -66,6 +66,7 @@ public class ClientWindow {
 	
 	public void switchToReward() {
 		frame.remove(fightWindow);
+		remadeRewardWindow = new RemadeRewardWindow(clientDataHandler);
 		frame.add(remadeRewardWindow);
 		frame.revalidate();
 		frame.repaint();
