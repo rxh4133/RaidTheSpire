@@ -8,7 +8,7 @@ public class Respect extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
 	public Respect() {
-		super("Respect", 0);
+		super("Respect", 0, false, true);
 	}
 
 	public void notify(Entity e, ELM message, Object data) {

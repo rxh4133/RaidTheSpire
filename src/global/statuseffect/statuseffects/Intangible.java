@@ -9,7 +9,7 @@ public class Intangible extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
 	public Intangible(int v) {
-		super("Intangible", v);
+		super("Intangible", v, false, true);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

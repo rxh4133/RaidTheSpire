@@ -9,7 +9,7 @@ public class Vulnerable extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
 	public Vulnerable(int v, Entity appliedTo) {
-		super("Vulnerable", v);
+		super("Vulnerable", v, true, false);
 	}
 
 	public void preTurn(Entity e) {

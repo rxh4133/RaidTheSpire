@@ -8,7 +8,7 @@ public class Thorns extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
 	public Thorns(int v) {
-		super("Thorns", v);
+		super("Thorns", v, false, true);
 	}
 
 	public void notify(Entity entity, ELM message, Object data) {

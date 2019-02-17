@@ -3,6 +3,7 @@ package global.card.cards.retributor;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TextProvider;
 import global.card.CardType;
 import server.ServerDataHandler;
 
@@ -10,16 +11,7 @@ public class DualStrike extends Card{
 	private static final long serialVersionUID = 1L;
 
 	public DualStrike(ServerDataHandler sdh) {
-		super(1, "Dual Strike", Rarity.COMMON, CardType.ATTACK, sdh);
-	}
-	
-	public DualStrike(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Dual Strike", Rarity.COMMON, CardType.ATTACK, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Do 3 (4) damage twice, then draw a card.";
-		flavor = "It's not stealing if it's rightfully yours.";
+		super(1, TextProvider.CARD_RET_DUALSTRIKE_NAME, TextProvider.CARD_RET_DUALSTRIKE_DESC, TextProvider.CARD_RET_DUALSTRIKE_FLAV, Rarity.COMMON, CardType.ATTACK, true, false, false, sdh);
 	}
 	
 	public void play(Player play, int target) {
@@ -38,9 +30,5 @@ public class DualStrike extends Card{
 		dealt = getETarget(target).takeAttackDamage(4, play);
 		play.damageDealtOut(dealt, name);
 		play.drawCards(1);
-	}
-	
-	public Card copyCard() {
-		return new DualStrike(dataHandler, playable, upgraded);
 	}
 }

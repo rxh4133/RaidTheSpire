@@ -8,7 +8,7 @@ public class Gauging extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public Gauging(int v) {
-		super("Gauging", v);
+		super("Gauging", v, false, true);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

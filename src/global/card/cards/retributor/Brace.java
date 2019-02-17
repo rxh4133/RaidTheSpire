@@ -5,6 +5,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TextProvider;
 import global.statuseffect.StatusEffect;
 import global.card.CardType;
 import global.statuseffect.statuseffects.StartDraw;
@@ -14,16 +15,7 @@ public class Brace extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Brace(ServerDataHandler sdh) {
-		super(1, "Brace", Rarity.COMMON, CardType.SKILL, sdh);
-	}
-	
-	public Brace(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Brace", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Gain 7 block. If you lose it all before the start of your next turn, draw 1 (2) extra cards at the start of your turn.";
-		flavor = "INCOMING! oh wait it actually wasn't that bad";
+		super(1, TextProvider.CARD_RET_BRACE_NAME, TextProvider.CARD_RET_BRACE_DESC, TextProvider.CARD_RET_BRACE_FLAV, Rarity.COMMON, CardType.SKILL, true, false, false, sdh);
 	}
 
 	public void play(Player play, int target) {
@@ -36,10 +28,6 @@ public class Brace extends Card {
 		tinp();
 		play.gainBlockFromCard(7);
 		play.addSE(new BEL(play, 2));
-	}
-
-	public Card copyCard() {
-		return new Brace(dataHandler, playable, upgraded);
 	}
 
 	private class BEL extends StatusEffect{

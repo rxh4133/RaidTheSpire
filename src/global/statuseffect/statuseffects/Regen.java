@@ -8,7 +8,7 @@ public class Regen extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public Regen(int v) {
-		super("Regen", v);
+		super("Regen", v, false, true);
 	}
 
 	public void notify(Entity e, ELM m, Object o) {

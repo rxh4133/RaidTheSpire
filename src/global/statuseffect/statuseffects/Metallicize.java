@@ -8,7 +8,7 @@ public class Metallicize extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
 	public Metallicize(int v) {
-		super("Metallicize", v);
+		super("Metallicize", v, false, true);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

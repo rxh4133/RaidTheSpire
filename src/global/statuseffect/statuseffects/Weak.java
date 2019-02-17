@@ -9,7 +9,7 @@ public class Weak extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public Weak(int v) {
-		super("Weak", v);
+		super("Weak", v, true, false);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

@@ -8,8 +8,8 @@ import server.ModifyValueException;
 public class Frail extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
-	public Frail(int v, Entity appliedTo) {
-		super("Frail", v);
+	public Frail(int v) {
+		super("Frail", v, true, false);
 	}
 
 	@Override

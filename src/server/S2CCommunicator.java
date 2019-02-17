@@ -77,7 +77,6 @@ public class S2CCommunicator {
 	
 	public void send(Message mess) {
 		try {
-			System.out.println(oos + " " + mess);
 			oos.writeObject(mess);
 			oos.flush();
 			oos.reset();

@@ -102,6 +102,9 @@ public class Player extends Entity{
 	public void removeCardFromHand(int index) {
 		if(index >= 0 && index < getHand().size()) {
 			removed.add(hand.remove(index));
+			System.out.println("Card removed!");
+		}else {
+			System.out.println("Card was not removed of index: " + index);
 		}
 	}
 

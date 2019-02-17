@@ -17,7 +17,7 @@ public class Evasion extends StatusEffect {
 	private transient ServerDataHandler dataHandler;
 
 	public Evasion(int v, ServerDataHandler sdh, Entity appliedTo) {
-		super("Evasion", v);
+		super("Evasion", v, false, true);
 		dataHandler = sdh;
 	}
 

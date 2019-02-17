@@ -8,7 +8,7 @@ public class StrengthDown extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
 	public StrengthDown(int v) {
-		super("Strength Down", v);
+		super("Strength Down", v, true, false);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

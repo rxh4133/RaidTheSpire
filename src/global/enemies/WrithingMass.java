@@ -60,6 +60,8 @@ public class WrithingMass extends Enemy {
 			}
 		}
 	}
+	
+	
 
 	private class Bite extends EnemyAction {
 		private static final long serialVersionUID = 1L;

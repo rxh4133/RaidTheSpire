@@ -9,7 +9,7 @@ public class StartDraw extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public StartDraw(int v) {
-		super("Start Draw", v);
+		super("Start Draw", v, false, true);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

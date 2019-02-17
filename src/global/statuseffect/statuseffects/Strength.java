@@ -11,6 +11,14 @@ public class Strength extends StatusEffect{
 	public Strength(int v) {
 		super("Strength", v);
 	}
+	
+	public boolean isDebuff() {
+		return value < 0;
+	}
+	
+	public boolean isBuff() {
+		return value > 0;
+	}
 
 	public void notify(Entity e, ELM m, Object o) {
 		if(m.is(ELM.ATTACKING)) {

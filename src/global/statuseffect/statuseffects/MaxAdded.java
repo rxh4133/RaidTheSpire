@@ -8,7 +8,7 @@ public class MaxAdded extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public MaxAdded(int v, Entity appliedTo) {
-		super("Max Added", v);
+		super("Max Added", v, false, true);
 		appliedTo.addMaxHealth(v);
 	}
 

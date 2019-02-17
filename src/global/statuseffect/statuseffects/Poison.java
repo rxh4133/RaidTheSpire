@@ -8,7 +8,7 @@ public class Poison extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public Poison(int v) {
-		super("Poison", v);
+		super("Poison", v, true, false);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

@@ -9,6 +9,8 @@ import global.Rarity;
 import global.card.*;
 import global.card.cards.Defend;
 import global.card.cards.Strike;
+import global.card.cards.resipiscent.Hug;
+import global.card.cards.resipiscent.Weave;
 import global.card.cards.retributor.*;
 import global.card.cards.revenant.*;
 import server.CardStorage;
@@ -51,6 +53,9 @@ public class CardManager{
 		cards.put(new Cannibalize(sdh), PlayerClass.REVENANT);
 		cards.put(new NecroticTouch(sdh), PlayerClass.REVENANT);
 		cards.put(new Recycle(sdh), PlayerClass.REVENANT);
+		
+		cards.put(new Hug(sdh), PlayerClass.RESIPISCENT);
+		cards.put(new Weave(sdh), PlayerClass.RESIPISCENT);
 	}
 
 	public Card getRandomCard(PlayerClass player) {
@@ -79,6 +84,8 @@ public class CardManager{
 			return getRetStartingDeck();
 		}else if(pc.equals(PlayerClass.REVENANT)) {
 			return getRevStartingDeck();
+		}else if(pc.equals(PlayerClass.RESIPISCENT)){
+			return getResStartingDeck();
 		}else if(pc.equals(PlayerClass.ALL)) {
 			ArrayList<Card> fug = new ArrayList<Card>();
 			fug.add(new Card(4, "Haha very funny, no you're not all the classes", Rarity.STARTER, CardType.CURSE, sdh));
@@ -104,6 +111,18 @@ public class CardManager{
 			starterDeck.add(getCard(PlayerClass.ALL, "Defend"));
 		}
 		starterDeck.add(getCard(PlayerClass.RETRIBUTOR, "Enmity's Might"));
+		starterDeck.add(getCard(PlayerClass.RETRIBUTOR, "Healthy Respect"));
+		return starterDeck;
+	}
+	
+	public ArrayList<Card> getResStartingDeck(){
+		ArrayList<Card> starterDeck = new ArrayList<Card>();
+		for(int i = 0; i < 5; i++) {
+			starterDeck.add(getCard(PlayerClass.ALL, "Strike"));
+			starterDeck.add(getCard(PlayerClass.ALL, "Defend"));
+		}
+		starterDeck.add(getCard(PlayerClass.RESIPISCENT, "Hug"));
+		starterDeck.add(getCard(PlayerClass.RESIPISCENT, "Weave"));
 		return starterDeck;
 	}
 }

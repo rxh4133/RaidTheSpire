@@ -8,7 +8,7 @@ import global.Rarity;
 import server.CardFailException;
 import server.ServerDataHandler;
 
-public class Card implements Serializable{
+public class Card implements Serializable, Cloneable{
 	private static final long serialVersionUID = 1L;
 	public int cost;
 	public final int defaultCost;
@@ -25,7 +25,7 @@ public class Card implements Serializable{
 	public boolean playable;
 	public boolean retain;
 
-	public Card(int defCost, String name, Rarity rarity, CardType ct, boolean playable, boolean upgraded, ServerDataHandler sdh) {
+	public Card(int defCost, String name, String desc, String flav, Rarity rarity, CardType ct, boolean playable, boolean upgraded, boolean retains, ServerDataHandler sdh) {
 		defaultCost = defCost;
 		cost = defCost;
 		this.rarity = rarity;
@@ -33,22 +33,10 @@ public class Card implements Serializable{
 		type = ct;
 		dataHandler = sdh;
 		this.playable = playable;
-		retain = false;
+		retain = retains;
 		this.upgraded = upgraded;
-		setTextStuff();
-	}
-	
-	public Card(int defCost, String name, Rarity rarity, CardType ct, ServerDataHandler sdh) {
-		defaultCost = defCost;
-		cost = defCost;
-		this.rarity = rarity;
-		this.name = name;
-		type = ct;
-		dataHandler = sdh;
-		this.playable = true;
-		retain = false;
-		upgraded = false;
-		setTextStuff();
+		description = desc;
+		flavor = flav;
 	}
 	
 	public String getDesc() {
@@ -123,9 +111,13 @@ public class Card implements Serializable{
 		return obj instanceof Card && ((Card) obj).name.equals(name) && ((Card) obj).cost == cost && ((Card) obj).upgraded == upgraded;
 	}
 	
-	public Card copyCard() {
-		System.out.println("OVERRIDE COPYCARD YOU DENSE IDIOT");
-		return new Card(defaultCost, name, rarity, type, playable, upgraded, dataHandler);
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return new Card(-1, "Something fucked up and this didn't get cloned right", "","", Rarity.STATUS, CardType.STATUS, false,false,false,dataHandler);
 	}
 	
 	public CardType getCardType() {

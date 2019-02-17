@@ -8,7 +8,7 @@ public class ThornsDown extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public ThornsDown(int v) {
-		super("Thorns Down", v);
+		super("Thorns Down", v, true, false);
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

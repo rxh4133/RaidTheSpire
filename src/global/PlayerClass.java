@@ -9,7 +9,7 @@ import global.relic.relics.MarkOfUndeath;
 public enum PlayerClass implements Serializable{
 	RETRIBUTOR(60, new AvengingEye()),
 	REVENANT(80, new MarkOfUndeath()),
-	RESIPISCENT(50, null),
+	RESIPISCENT(50, new MarkOfUndeath()),
 	ALL(0,new Relic("Ah fuck you", Rarity.MYTHIC) {
 		private static final long serialVersionUID = 1L;
 

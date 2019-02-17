@@ -9,7 +9,7 @@ public class Necrotic extends StatusEffect {
 	private static final long serialVersionUID = 1L;
 
 	public Necrotic(int v) {
-		super("Necrotic", v);
+		super("Necrotic", v, true, false);
 	}
 
 	public void notify(Entity e, ELM message, Object data) {
