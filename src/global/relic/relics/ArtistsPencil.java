@@ -4,6 +4,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import server.ServerDataHandler;
 
@@ -11,18 +12,12 @@ public class ArtistsPencil extends Relic{
 	private static final long serialVersionUID = 1L;
 
 	public ArtistsPencil() {
-		super("Artist's Pencil", Rarity.RARE);
-		description = "At the start of your turn, draw a card.";
-		flavor = "It helps you draw!";
+		super(TP.R_ALL_ARTISTSPENCIL_N, TP.R_ALL_ARTISTSPENCIL_D, TP.R_ALL_ARTISTSPENCIL_F, Rarity.RARE);
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
 		owner.addListener(this);
 		return this;
-	}
-	
-	public Relic copyRelic() {
-		return new ArtistsPencil();
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

@@ -39,10 +39,12 @@ public class S2CCommunicator {
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 						dataHandler.removePlayer(player);
+						dataHandler.sendMessageToAll(new Message("players", dataHandler.players));
 						done = true;
 					} catch (IOException e) {
 						e.printStackTrace();
 						dataHandler.removePlayer(player);
+						dataHandler.sendMessageToAll(new Message("players", dataHandler.players));
 						done = true;
 					}
 				}

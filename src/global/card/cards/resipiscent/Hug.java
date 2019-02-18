@@ -15,7 +15,7 @@ import server.ServerDataHandler;
 public class Hug extends Card {
 	private static final long serialVersionUID = 1L;
 	
-	public Hug(ServerDataHandler sdh, boolean play, boolean upgr) {
+	public Hug(ServerDataHandler sdh) {
 		super(2, TP.C_S_HUG_N, TP.C_S_HUG_D, TP.C_S_HUG_F, Rarity.STARTER, CardType.SKILL, true, false, sdh);
 	}
 	

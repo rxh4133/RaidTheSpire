@@ -10,13 +10,7 @@ public enum PlayerClass implements Serializable{
 	RETRIBUTOR(60, new AvengingEye()),
 	REVENANT(80, new MarkOfUndeath()),
 	RESIPISCENT(50, new MarkOfUndeath()),
-	ALL(0,new Relic("Ah fuck you", Rarity.MYTHIC) {
-		private static final long serialVersionUID = 1L;
-
-		public Relic copyRelic() {
-			return this;
-		}
-	});
+	ALL(0,new Relic("Ah fuck you", "","", Rarity.MYTHIC));
 	
 	private int maxHealth;
 	private Relic startingRelic;
@@ -32,7 +26,7 @@ public enum PlayerClass implements Serializable{
 	
 	public Relic getStartingRelic() {
 		if(startingRelic != null) {
-			return startingRelic.copyRelic();
+			return startingRelic.clone();
 		}
 		return null;
 	}

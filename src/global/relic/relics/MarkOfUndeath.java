@@ -4,6 +4,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import global.statuseffect.statuseffects.Regen;
 import server.EntityListener;
@@ -13,13 +14,7 @@ public class MarkOfUndeath extends Relic {
 	private static final long serialVersionUID = 1L;
 
 	public MarkOfUndeath() {
-		super("Mark of Undeath", Rarity.STARTER);
-		description = "Whenever you take non-true damage, gain 1 Regen.";
-		flavor = "Ironic that the Mark of Undeath brings life.";
-	}
-	
-	public Relic copyRelic() {
-		return new MarkOfUndeath();
+		super(TP.R_V_MARKOFUNDEATH_N, TP.R_V_MARKOFUNDEATH_D, TP.R_V_MARKOFUNDEATH_F, Rarity.STARTER);
 	}
 	
 	@Override

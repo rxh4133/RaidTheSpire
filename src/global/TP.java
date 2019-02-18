@@ -113,19 +113,91 @@ public class TP {
 	public static final String C_ALL_FRESHMINORWOUND_D = "Heal 2. Exhaust. If you end your turn with this in your hand, exhaust it and add a Minor Wound to your draw pile.";
 	public static final String C_ALL_FRESHMINORWOUND_F = "A quick stitch or 2 and you'll be right as blood rain.";
 	
-	public static final String 
-	public static final String 
-	public static final String 
+	public static final String C_ALL_FRESHWOUND_N = "Fresh Wound";
+	public static final String C_ALL_FRESHWOUND_D = "Heal 4 hp. Exhaust. If you end your turn with this in your hand, exhaust it and shuffle a Wound into your draw pile.";
+	public static final String C_ALL_FRESHWOUND_F = "That's a bit worrying, but nothing a couple staples won't handle.";
 	
-	public static final String 
-	public static final String 
-	public static final String 
+	public static final String C_ALL_MINORWOUND_N = "Minor Wound";
+	public static final String C_ALL_MINORWOUND_D = "Do nothing. Exhaust.";
+	public static final String C_ALL_MINORWOUND_F = "Anyone got a band-aid?";
 	
-	public static final String 
-	public static final String 
-	public static final String 
+	public static final String C_ALL_SHIPLOADOFSTRIKES_N = "Ship Load of Strikes";
+	public static final String C_ALL_SHIPLOADOFSTRIKES_D = "Deal the damage of 6 attacks at once. That's 36 (54).";
+	public static final String C_ALL_SHIPLOADOFSTRIKES_F = "Excuse me, enemy, could you wait a second? I just have to pop all this bubble wrap!";
 	
-	public static final String 
-	public static final String 
-	public static final String 
+	public static final String C_ALL_STRIKE_N = "Strike";
+	public static final String C_ALL_STRIKE_D = "Do 6 (9) damage.";
+	public static final String C_ALL_STRIKE_F = "bap";
+	
+	public static final String C_ALL_WOUND_N = "Wound";
+	public static final String C_ALL_WOUND_D = "Literally unplayable.";
+	public static final String C_ALL_WOUND_F = "Your arm's off!";
+	
+	public static final String R_ALL_ARTISTSPENCIL_N = "Artist's Pencil";
+	public static final String R_ALL_ARTISTSPENCIL_D = "At the start of your turn, draw a card.";
+	public static final String R_ALL_ARTISTSPENCIL_F = "It helps you draw!";
+	
+	public static final String R_T_AVENGINGEYE_N = "Avenging Eye";
+	public static final String R_T_AVENGINGEYE_D = "For the duration of your turn, gain strength equal to the number of instances of damage an ally took last turn.";
+	public static final String R_T_AVENGINGEYE_F = "The eye you took in return for yours. (There's no player images right now, but the retributor is missing an eye)";
+	
+	public static final String R_ALL_CORRUGATEDSHIPPER_N = "Corrugated Shipper";
+	public static final String R_ALL_CORRUGATEDSHIPPER_D = "All strikes are now unplayable. Add a Ship Load of Strikes to your deck.";
+	public static final String R_ALL_CORRUGATEDSHIPPER_F = "Wait, can you send that back? We accidentally shipped you one too many!";
+	
+	public static final String R_ALL_GIANTSCALL_N = "Giant's Call";
+	public static final String R_ALL_GIANTSCALL_D = "On pickup, gain 20% max hp.";
+	public static final String R_ALL_GIANTSCALL_F = "What are you worth?";
+	
+	public static final String R_V_MARKOFUNDEATH_N = "Mark of Undeath";
+	public static final String R_V_MARKOFUNDEATH_D = "Whenever you take non-true damage, gain 1 Regen.";
+	public static final String R_V_MARKOFUNDEATH_F = "Ironic that the Mark of Undeath brings life.";
+	
+	public static final String R_ALL_OOGITSYOYO_N = "Oogit's Yoyo";
+	public static final String R_ALL_OOGITSYOYO_D = "At the start of your turn, take 5 true damage or heal 7 health, alternating.";
+	public static final String R_ALL_OOGITSYOYO_F = "Oogit only knew one trick, but he was very proud of it.";
+	
+	public static final String R_ALL_PENNIBBA_N = "Pen Nibba";
+	public static final String R_ALL_PENNIBBA_D = "Every 10th attack deals double damage.";
+	public static final String R_ALL_PENNIBBA_F = "If it's real nibba hours, deal quadruple damage.";
+	
+	public static final String R_ALL_SMOOTHSTONE_N = "Smooth Stone";
+	public static final String R_ALL_SMOOTHSTONE_D = "Start every fight with an extra dexterity.";
+	public static final String R_ALL_SMOOTHSTONE_F = "If you can dodge a stone, you can dodge a strike.";
+	
+	public static final String R_ALL_SOLARHAT_N = "Solar Hat";
+	public static final String R_ALL_SOLARHAT_D = "Gain 1 extra max energy. At the start of your turn, take 1 true damage.";
+	public static final String R_ALL_SOLARHAT_F = "The creator's soldering skills weren't very good, you've got a short.";
+	
+	public static final String R_ALL_THEGAUNTLET_N = "The Gauntlet";
+	public static final String R_ALL_THEGAUNTLET_D = "On pickup, remove half of your deck at random. Upgrade the other half.";
+	public static final String R_ALL_THEGAUNTLET_F = "With a snap of my fingers, I decide the fate of your deck.";
+	
+	public static final String R_ALL_VAJRA_N = "Vajra";
+	public static final String R_ALL_VAJRA_D = "Start each combat with an extra Strength.";
+	public static final String R_ALL_VAJRA_F = "It's so heavy, you use it as a deadlift weight.";
+	
+	public static final String R_ALL_WILDBLOOM_N = "Wild Bloom";
+	public static final String R_ALL_WILDBLOOM_D = "All healing is increased 50%.";
+	public static final String R_ALL_WILDBLOOM_F = "Flower power!";
+	
+//	public static final String 
+//	public static final String 
+//	public static final String 
+//	
+//	public static final String 
+//	public static final String 
+//	public static final String 
+//	
+//	public static final String 
+//	public static final String 
+//	public static final String 
+//	
+//	public static final String 
+//	public static final String 
+//	public static final String 
+//	
+//	public static final String 
+//	public static final String 
+//	public static final String 
 }

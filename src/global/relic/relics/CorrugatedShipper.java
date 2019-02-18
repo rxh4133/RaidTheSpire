@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.Card;
 import global.card.cards.ShipLoadOfStrikes;
 import global.card.cards.Strike;
@@ -14,13 +15,7 @@ public class CorrugatedShipper extends Relic{
 	private static final long serialVersionUID = 1L;
 
 	public CorrugatedShipper() {
-		super("Corrugated Shipper", Rarity.RARE);
-		description = "All strikes are now unplayable. Add a Ship Load of Strikes to your deck.";
-		flavor = "Wait, can you send that back? We accidentally shipped you one too many!";
-	}
-	
-	public Relic copyRelic() {
-		return new CorrugatedShipper();
+		super(TP.R_ALL_CORRUGATEDSHIPPER_N, TP.R_ALL_CORRUGATEDSHIPPER_D, TP.R_ALL_CORRUGATEDSHIPPER_F, Rarity.RARE);
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

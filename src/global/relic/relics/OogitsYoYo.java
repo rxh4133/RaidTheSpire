@@ -4,6 +4,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import server.ServerDataHandler;
 
@@ -13,13 +14,7 @@ public class OogitsYoYo extends Relic{
 	private boolean justGained = false;
 	
 	public OogitsYoYo() {
-		super("Oogit's YoYo", Rarity.UNCOMMON);
-		description = "At the start of your turn, take 5 true damage or heal 7 health, alternating.";
-		flavor = "Oogit only knew one trick, but he was very proud of it.";
-	}
-	
-	public Relic copyRelic() {
-		return new OogitsYoYo();
+		super(TP.R_ALL_OOGITSYOYO_N, TP.R_ALL_OOGITSYOYO_D, TP.R_ALL_OOGITSYOYO_F, Rarity.UNCOMMON);
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {

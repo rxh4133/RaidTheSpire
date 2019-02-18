@@ -146,7 +146,7 @@ public class Player extends Entity{
 	public void shuffleCardsFromDeck() {
 		draw.removeAll(draw);
 		for(int i = 0; i < deck.size(); i++) {
-			draw.add(deck.get(i).copyCard());
+			draw.add(deck.get(i).clone());
 		}
 		Collections.shuffle(draw);
 	}
@@ -229,7 +229,11 @@ public class Player extends Entity{
 					result = card.prePlay(this, index);
 					energyUsed = true;
 					setCurEnergy(getCurEnergy() - card.cost);
-					card.play(this, target);
+					if(!card.upgraded) {
+						card.play(this, target);
+					}else {
+						card.playUpgraded(this, target);
+					}
 					return new Message("pcok", null);
 				}
 			}

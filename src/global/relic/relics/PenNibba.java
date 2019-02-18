@@ -4,6 +4,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import server.ModifyValueException;
 import server.ServerDataHandler;
@@ -13,18 +14,12 @@ public class PenNibba extends Relic{
 	private int attacks;
 	
 	public PenNibba() {
-		super("Pen Nibba", Rarity.UNCOMMON);
-		description = "Every 10th attack deals double damage.";
-		flavor = "If it's real nibba hours, deal quadruple damage.";
+		super(TP.R_ALL_PENNIBBA_N, TP.R_ALL_PENNIBBA_D, TP.R_ALL_PENNIBBA_F, Rarity.UNCOMMON);
 	}
 	
 	public Relic onAdd(Player p, ServerDataHandler sdh) {
 		p.addListener(this);
 		return this;
-	}
-	
-	public Relic copyRelic() {
-		return new PenNibba();
 	}
 	
 	public void notify(Entity e, ELM m, Object o) {

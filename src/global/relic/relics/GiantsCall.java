@@ -2,6 +2,7 @@ package global.relic.relics;
 
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import server.ServerDataHandler;
 
@@ -9,9 +10,7 @@ public class GiantsCall extends Relic {
 	private static final long serialVersionUID = 1L;
 
 	public GiantsCall() {
-		super("Giant's Call", Rarity.COMMON);
-		description = "On pickup, gain 20% max hp.";
-		flavor = "What are you worth?";
+		super(TP.R_ALL_GIANTSCALL_N, TP.R_ALL_GIANTSCALL_D, TP.R_ALL_GIANTSCALL_F, Rarity.COMMON);
 	}
 	
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
@@ -19,9 +18,4 @@ public class GiantsCall extends Relic {
 		owner.addMaxHealth((int) (owner.getMaxHealth() * .2));
 		return this;
 	}
-	
-	public Relic copyRelic() {
-		return new GiantsCall();
-	}
-
 }

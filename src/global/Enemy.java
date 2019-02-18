@@ -44,13 +44,4 @@ public class Enemy extends Entity{
 						+ "Actions: " + nextTurnActions + "\n\t"
 						+ "Status: " + effects;
 	}
-	
-	public Enemy copyForDisplay() {
-		Enemy e = new Enemy(dataHandler, maxHealth, name);
-		e.curHealth = curHealth;
-		e.effects = effects;
-		e.block = block;
-		return e;
-	}
-
 }

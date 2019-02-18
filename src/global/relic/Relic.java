@@ -9,7 +9,7 @@ import global.Rarity;
 import server.EntityListener;
 import server.ServerDataHandler;
 
-public class Relic implements Serializable, EntityListener{
+public class Relic implements Serializable, EntityListener, Cloneable{
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
@@ -19,11 +19,11 @@ public class Relic implements Serializable, EntityListener{
 	
 	protected transient ServerDataHandler dataHandler;
 	
-	public Relic(String name, Rarity rarity) {
+	public Relic(String name, String desc, String flav, Rarity rarity) {
 		this.name = name;
 		this.rarity = rarity;
-		description = "This is a relic.";
-		flavor = "Somewhere, someone forgot to do something.";
+		description = desc;
+		flavor = flav;
 	}
 
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
@@ -47,8 +47,15 @@ public class Relic implements Serializable, EntityListener{
 		return flavor;
 	}
 	
-	public Relic copyRelic() {
-		throw new RuntimeException("You must override copyRelic");
+	public Relic clone() {
+		try {
+			return (Relic) super.clone();
+		}catch(CloneNotSupportedException cnse) {
+			cnse.printStackTrace();
+		}catch(ClassCastException cce) {
+			cce.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

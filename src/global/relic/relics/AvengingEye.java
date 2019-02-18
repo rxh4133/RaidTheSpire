@@ -6,6 +6,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import global.statuseffect.statuseffects.Strength;
 import global.statuseffect.statuseffects.StrengthDown;
@@ -16,9 +17,7 @@ public class AvengingEye extends Relic{
 	private static final long serialVersionUID = 1L;
 
 	public AvengingEye() {
-		super("Avenging Eye", Rarity.STARTER);
-		description = "For the duration of your turn, gain strength equal to the number of instances of damage an ally took last turn.";
-		flavor = "The eye you took in return for yours. (There's no player images right now, but the retributor is missing an eye)";
+		super(TP.R_T_AVENGINGEYE_N, TP.R_T_AVENGINGEYE_D, TP.R_T_AVENGINGEYE_F, Rarity.STARTER);
 	}
 
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
@@ -28,10 +27,6 @@ public class AvengingEye extends Relic{
 			p.addListener(ael);
 		}
 		return this;
-	}
-
-	public Relic copyRelic() {
-		return new AvengingEye();
 	}
 
 	private class AEL implements EntityListener, Serializable{

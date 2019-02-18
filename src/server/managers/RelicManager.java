@@ -39,19 +39,19 @@ public class RelicManager {
 			if(workingRareRelics.size() > 0) {
 				return workingRareRelics.remove(0);
 			}else {
-				return new Relic("PlaceholderRareRelic", Rarity.RARE);
+				return new Relic("PlaceholderRareRelic", "", "", Rarity.RARE);
 			}
 		}else if(rand < 50) {
 			if(workingUnRelics.size() > 0) {
 				return workingUnRelics.remove(0);
 			}else {
-				return new Relic("PlaceholderUncommonRelic", Rarity.UNCOMMON);
+				return new Relic("PlaceholderUncommonRelic", "", "", Rarity.UNCOMMON);
 			}
 		}else {
 			if(workingComRelics.size() > 0) {
 				return workingComRelics.remove(0);
 			}else {
-				return new Relic("PlaceholderCommonRelic", Rarity.COMMON);
+				return new Relic("PlaceholderCommonRelic", "", "", Rarity.COMMON);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.relic.Relic;
 import server.ModifyValueException;
 import server.ServerDataHandler;
@@ -12,9 +13,7 @@ public class WildBloom extends Relic {
 	private static final long serialVersionUID = 1L;
 
 	public WildBloom() {
-		super("Wild Bloom", Rarity.UNCOMMON);
-		description = "All healing is increased 50%.";
-		flavor = "Flower power!";
+		super(TP.R_ALL_WILDBLOOM_N, TP.R_ALL_WILDBLOOM_D, TP.R_ALL_WILDBLOOM_F, Rarity.UNCOMMON);
 	}
 	
 	public Relic onAdd(Player p, ServerDataHandler sdh) {
@@ -26,9 +25,5 @@ public class WildBloom extends Relic {
 		if(m.is(ELM.HEALED)) {
 			throw new ModifyValueException((int) ((int) o * .5));
 		}
-	}
-	
-	public Relic copyRelic() {
-		return new WildBloom();
 	}
 }
