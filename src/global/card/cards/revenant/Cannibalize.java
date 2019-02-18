@@ -3,24 +3,15 @@ package global.card.cards.revenant;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import server.ServerDataHandler;
 
 public class Cannibalize extends Card{
-
 	private static final long serialVersionUID = 1L;
 
 	public Cannibalize(ServerDataHandler sdh) {
-		super(1, "Cannibalize", Rarity.RARE, CardType.ATTACK, sdh);
-	}
-	
-	public Cannibalize(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Cannibalize", Rarity.RARE, CardType.ATTACK, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Gain 5 max hp. Deal 4 (8) damage.";
-		flavor = "HUNGRY.";
+		super(1, TP.C_V_CANNIBALIZE_N, TP.C_V_CANNIBALIZE_D, TP.C_V_CANNIBALIZE_F, Rarity.RARE, CardType.ATTACK, true, false, sdh);
 	}
 
 	public void play(Player play, int target) {
@@ -33,9 +24,5 @@ public class Cannibalize extends Card{
 		play.addMaxHealth(5);
 		int dealt = getETarget(target).takeAttackDamage(8, play);
 		play.damageDealtOut(dealt, name);
-	}
-	
-	public Card copyCard() {
-		return new Cannibalize(dataHandler, playable, upgraded);
 	}
 }

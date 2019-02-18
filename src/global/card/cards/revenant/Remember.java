@@ -4,6 +4,7 @@ import global.card.Card;
 import global.card.CardResult;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import server.ServerDataHandler;
 
@@ -11,16 +12,7 @@ public class Remember extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Remember(ServerDataHandler sdh) {
-		super(2, "Remember", Rarity.RARE, CardType.SKILL, sdh);
-	}
-	
-	public Remember(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(2, "Remember", Rarity.RARE, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Discard your hand. Draw 3 (4) cards, and gain 2 (3) energy.";
-		flavor = "And then clarity, cutting through the horriying fog like a beacon...";
+		super(2, TP.C_V_REMEMBER_N, TP.C_V_REMEMBER_D, TP.C_V_REMEMBER_F, Rarity.RARE, CardType.SKILL, true, false, sdh);
 	}
 	
 	public CardResult prePlay(Player play, int index) {
@@ -41,9 +33,4 @@ public class Remember extends Card {
 		play.drawCards(4);
 		play.addEnergy(3);
 	}
-	
-	public Card copyCard() {
-		return new Remember(dataHandler, playable, upgraded);
-	}
-
 }

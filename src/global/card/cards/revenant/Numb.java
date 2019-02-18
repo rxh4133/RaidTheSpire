@@ -3,6 +3,7 @@ package global.card.cards.revenant;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import server.ServerDataHandler;
 
@@ -10,16 +11,7 @@ public class Numb extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Numb(ServerDataHandler sdh) {
-		super(1, "Numb", Rarity.COMMON, CardType.SKILL, sdh);
-	}
-	
-	public Numb(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Numb", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Gain 10 block. Discard 2 (1) cards.";
-		flavor = "Feeling no pain requires feeling nothing at all.";
+		super(1, TP.C_V_NUMB_N, TP.C_V_NUMB_D, TP.C_V_NUMB_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 	
 	public void play(Player play, int target) {
@@ -34,9 +26,4 @@ public class Numb extends Card {
 		play.gainBlockFromCard(10);
 		play.discardRandomCard();
 	}
-	
-	public Card copyCard() {
-		return new Numb(dataHandler, playable, upgraded);
-	}
-
 }

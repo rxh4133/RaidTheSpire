@@ -23,9 +23,8 @@ public class Card implements Serializable, Cloneable{
 	protected transient ServerDataHandler dataHandler;
 	public boolean upgraded;
 	public boolean playable;
-	public boolean retain;
 
-	public Card(int defCost, String name, String desc, String flav, Rarity rarity, CardType ct, boolean playable, boolean upgraded, boolean retains, ServerDataHandler sdh) {
+	public Card(int defCost, String name, String desc, String flav, Rarity rarity, CardType ct, boolean playable, boolean upgraded, ServerDataHandler sdh) {
 		defaultCost = defCost;
 		cost = defCost;
 		this.rarity = rarity;
@@ -33,7 +32,6 @@ public class Card implements Serializable, Cloneable{
 		type = ct;
 		dataHandler = sdh;
 		this.playable = playable;
-		retain = retains;
 		this.upgraded = upgraded;
 		description = desc;
 		flavor = flav;
@@ -66,9 +64,6 @@ public class Card implements Serializable, Cloneable{
 	}
 	
 	public CardResult onTurnEndInHand(Player p, int index) {
-		if(retain) {
-			return CardResult.RETAIN;
-		}
 		return CardResult.DISCARD;
 	}
 	
@@ -111,13 +106,15 @@ public class Card implements Serializable, Cloneable{
 		return obj instanceof Card && ((Card) obj).name.equals(name) && ((Card) obj).cost == cost && ((Card) obj).upgraded == upgraded;
 	}
 	
-	public Object clone() {
+	public Card clone() {
 		try {
-			return super.clone();
+			return (Card) super.clone();
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
+		} catch (ClassCastException cce) {
+			cce.printStackTrace();
 		}
-		return new Card(-1, "Something fucked up and this didn't get cloned right", "","", Rarity.STATUS, CardType.STATUS, false,false,false,dataHandler);
+		return new Card(-1, "Something fucked up and this didn't get cloned right", "","", Rarity.STATUS, CardType.STATUS, false,false,dataHandler);
 	}
 	
 	public CardType getCardType() {

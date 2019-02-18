@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.Card;
 import global.card.CardType;
 import global.statuseffect.StatusEffect;
@@ -13,13 +14,9 @@ import server.ServerDataHandler;
 
 public class Hug extends Card {
 	private static final long serialVersionUID = 1L;
-
-	public Hug(ServerDataHandler sdh) {
-		super(2, "Hug", Rarity.STARTER, CardType.SKILL, true, false, sdh);
-	}
 	
 	public Hug(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(2, "Hug", Rarity.STARTER, CardType.SKILL, play, upgr, sdh);
+		super(2, TP.C_S_HUG_N, TP.C_S_HUG_D, TP.C_S_HUG_F, Rarity.STARTER, CardType.SKILL, true, false, sdh);
 	}
 	
 	public void play(Player play, int target) {
@@ -44,9 +41,4 @@ public class Hug extends Card {
 	public void playUpgraded(Player play, int target) {
 		play(play, target);
 	}
-	
-	public Card copyCard() {
-		return new Hug(dataHandler, playable, upgraded);
-	}
-
 }

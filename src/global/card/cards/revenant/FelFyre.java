@@ -3,6 +3,7 @@ package global.card.cards.revenant;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import global.card.cards.FreshMinorWound;
 import server.ServerDataHandler;
@@ -11,16 +12,7 @@ public class FelFyre extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public FelFyre(ServerDataHandler sdh) {
-		super(2, "Fel Fyre", Rarity.STARTER, CardType.ATTACK, sdh);
-	}
-	
-	public FelFyre(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(2, "Fel Fyre", Rarity.STARTER, CardType.ATTACK, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Deal 16 (20) damage. Take 4 damage, and shuffle a Fresh Minor Wound into your draw pile.";
-		flavor = "The only warmth you feel is burning.";
+		super(2, TP.C_V_FELFYRE_N, TP.C_V_FELFYRE_D, TP.C_V_FELFYRE_F, Rarity.STARTER, CardType.ATTACK, true, false, sdh);
 	}
 
 	public void play(Player p, int target) {
@@ -39,9 +31,4 @@ public class FelFyre extends Card {
 		p.takeDamage(4);
 		p.addCardToDraw(new FreshMinorWound());
 	}
-
-	public Card copyCard() {
-		return new FelFyre(dataHandler, playable, upgraded);
-	}
-
 }

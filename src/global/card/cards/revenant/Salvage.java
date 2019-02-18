@@ -4,6 +4,7 @@ import global.card.Card;
 import global.card.CardResult;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import global.statuseffect.statuseffects.MaxMissing;
 import server.ServerDataHandler;
@@ -12,16 +13,7 @@ public class Salvage extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Salvage(ServerDataHandler sdh) {
-		super(2, "Salvage", Rarity.UNCOMMON, CardType.SKILL, sdh);
-	}
-	
-	public Salvage(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(2, "Salvage", Rarity.UNCOMMON, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Heal 10. Lose 20 (15) max hp for the rest of the fight. Exhaust.";
-		flavor = "Make the most of what's left of you.";
+		super(2, TP.C_V_SALVAGE_N, TP.C_V_SALVAGE_D, TP.C_V_SALVAGE_F, Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
 	}
 	
 	public CardResult prePlay(Player play, int index) {
@@ -41,9 +33,4 @@ public class Salvage extends Card {
 		play.heal(10);
 		play.addSE(new MaxMissing(15, play));
 	}
-	
-	public Card copyCard() {
-		return new Salvage(dataHandler, playable, upgraded);
-	}
-
 }

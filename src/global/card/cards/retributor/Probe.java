@@ -3,6 +3,7 @@ package global.card.cards.retributor;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import global.statuseffect.statuseffects.Strength;
 import server.ServerDataHandler;
@@ -11,16 +12,7 @@ public class Probe extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Probe(ServerDataHandler sdh) {
-		super(1, "Probe", Rarity.RARE, CardType.ATTACK, sdh);
-	}
-	
-	public Probe(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Probe", Rarity.RARE, CardType.ATTACK, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Deal 6 (3) damage. If it deals none, gain 3 (4) Strength.";
-		flavor = "Judge your opponent's defense, look for an opening.";
+		super(1, TP.C_T_PROBE_N, TP.C_T_PROBE_D, TP.C_T_PROBE_F, Rarity.RARE, CardType.ATTACK, true, false, sdh);
 	}
 
 	public void play(Player play, int target) {
@@ -37,9 +29,5 @@ public class Probe extends Card {
 		if(dealt == 0) {
 			play.addSE(new Strength(4));
 		}
-	}
-	
-	public Card copyCard() {
-		return new Probe(dataHandler, playable, upgraded);
 	}
 }

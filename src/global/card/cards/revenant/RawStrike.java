@@ -3,6 +3,7 @@ package global.card.cards.revenant;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import global.card.cards.FreshWound;
 import server.ServerDataHandler;
@@ -11,16 +12,7 @@ public class RawStrike extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public RawStrike(ServerDataHandler sdh) {
-		super(1, "Raw Strike", Rarity.COMMON, CardType.ATTACK, sdh);
-	}
-	
-	public RawStrike(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Raw Strike", Rarity.COMMON, CardType.ATTACK, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Deal 15 (20) damage. Take 7 damage. Add a Fresh Wound to your hand.";
-		flavor = "Think of their brain as your baby, and their face as the car on top of them.";
+		super(1, TP.C_V_RAWSTRIKE_N, TP.C_V_RAWSTRIKE_D, TP.C_V_RAWSTRIKE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 
 	public void play(Player play, int target) {
@@ -38,9 +30,4 @@ public class RawStrike extends Card {
 		play.takeDamage(7);
 		play.addCardToHand(new FreshWound());
 	}
-
-	public Card copyCard() {
-		return new RawStrike(dataHandler, playable, upgraded);
-	}
-
 }

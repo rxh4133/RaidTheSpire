@@ -63,20 +63,20 @@ public class CardManager{
 		if(rand < 12.5) {
 			ArrayList<Card> rareCards = cards.getCards(player, Rarity.RARE);
 			Collections.shuffle(rareCards);
-			return rareCards.get(0).copyCard();
+			return rareCards.get(0).clone();
 		}else if(rand < 50) {
 			ArrayList<Card> unCards = cards.getCards(player, Rarity.UNCOMMON);
 			Collections.shuffle(unCards);
-			return unCards.get(0).copyCard();
+			return unCards.get(0).clone();
 		}else {
 			ArrayList<Card> comCards = cards.getCards(player, Rarity.COMMON);
 			Collections.shuffle(comCards);
-			return comCards.get(0).copyCard();
+			return comCards.get(0).clone();
 		}
 	}
 
 	public Card getCard(PlayerClass pc, String name) {
-		return cards.getCard(pc, name).copyCard();
+		return cards.getCard(pc, name).clone();
 	}
 
 	public ArrayList<Card> getStartingDeck(PlayerClass pc){
@@ -88,7 +88,7 @@ public class CardManager{
 			return getResStartingDeck();
 		}else if(pc.equals(PlayerClass.ALL)) {
 			ArrayList<Card> fug = new ArrayList<Card>();
-			fug.add(new Card(4, "Haha very funny, no you're not all the classes", Rarity.STARTER, CardType.CURSE, sdh));
+			fug.add(new Card(4, "Haha very funny, no you're not all the classes", "", "", Rarity.STARTER, CardType.CURSE, false, true, sdh));
 			return fug;
 		}
 		return null;

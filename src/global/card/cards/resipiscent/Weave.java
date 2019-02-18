@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.Card;
 import global.card.CardType;
 import global.statuseffect.StatusEffect;
@@ -15,15 +16,7 @@ public class Weave extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Weave(ServerDataHandler sdh) {
-		super(2, "Weave", Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
-	}
-
-	public Weave(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(2, "Weave", Rarity.UNCOMMON, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public Card copyCard() {
-		return new Weave(dataHandler, playable, upgraded);
+		super(2, TP.C_S_WEAVE_N, TP.C_S_WEAVE_D, TP.C_S_WEAVE_F, Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
 	}
 	
 	public void play(Player play, int target) {

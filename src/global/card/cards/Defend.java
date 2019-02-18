@@ -3,18 +3,15 @@ package global.card.cards;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import server.ServerDataHandler;
 
 public class Defend extends Card {
 	private static final long serialVersionUID = 1L;
-
-	public Defend(ServerDataHandler sdh) {
-		super(1, "Defend", Rarity.STARTER, CardType.SKILL, sdh);
-	}
 	
-	public Defend(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Defend", Rarity.STARTER, CardType.SKILL, play, upgr, sdh);
+	public Defend(ServerDataHandler sdh) {
+		super(1, TP.C_ALL_DEFEND_N, TP.C_ALL_DEFEND_D, TP.C_ALL_DEFEND_F, Rarity.STARTER, CardType.SKILL, true, false, sdh);
 	}
 	
 	public void setTextStuff() {
@@ -30,9 +27,5 @@ public class Defend extends Card {
 	public void playUpgraded(Player play, int target) {
 		tinp();
 		play.gainBlockFromCard(8);
-	}
-	
-	public Card copyCard() {
-		return new Defend(dataHandler, playable, upgraded);
 	}
 }

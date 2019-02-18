@@ -4,6 +4,7 @@ import global.card.Card;
 import global.card.CardResult;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import global.card.cards.FreshWound;
 import server.ServerDataHandler;
@@ -12,16 +13,7 @@ public class Sacrifice extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Sacrifice(ServerDataHandler sdh) {
-		super(1, "Sacrifice", Rarity.COMMON, CardType.SKILL, sdh);
-	}
-	
-	public Sacrifice(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Sacrifice", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Gain 14 (20) block. Take 5 damage. Add a Fresh Wound to your draw pile. Exhaust.";
-		flavor = "Is your finger bleeding too much? Just cut it off!";
+		super(1, TP.C_V_SACRIFICE_N, TP.C_V_SACRIFICE_D, TP.C_V_SACRIFICE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 	
 	public CardResult prePlay(Player play, int index) {
@@ -41,9 +33,5 @@ public class Sacrifice extends Card {
 		play.gainBlockFromCard(20);
 		play.takeDamage(5);
 		play.addCardToDraw(new FreshWound());
-	}
-	
-	public Card copyCard() {
-		return new Sacrifice(dataHandler, playable, upgraded);
 	}
 }

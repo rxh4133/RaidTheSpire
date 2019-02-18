@@ -3,6 +3,7 @@ package global.card.cards.revenant;
 import global.Enemy;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.Card;
 import global.card.CardResult;
 import global.card.CardType;
@@ -14,16 +15,7 @@ public class NecroticTouch extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public NecroticTouch(ServerDataHandler sdh) {
-		super(2, "Necrotic Touch", Rarity.RARE, CardType.POWER, sdh);
-	}
-	
-	public NecroticTouch(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(2, "Necrotic Touch", Rarity.RARE, CardType.POWER, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Apply 1 Necrotic and 10 (14) Poision.";
-		flavor = "Your mere touch inspires rot.";
+		super(2, TP.C_V_NECROTICTOUCH_N, TP.C_V_NECROTICTOUCH_D, TP.C_V_NECROTICTOUCH_F, Rarity.RARE, CardType.POWER, true, false, sdh);
 	}
 	
 	public CardResult prePlay(Player play, int index) {
@@ -43,9 +35,5 @@ public class NecroticTouch extends Card {
 		Enemy e = getETarget(target);
 		e.addSE(new Necrotic(1));
 		e.addSE(new Poison(14));
-	}
-	
-	public Card copyCard() {
-		return new NecroticTouch(dataHandler, playable, upgraded);
 	}
 }

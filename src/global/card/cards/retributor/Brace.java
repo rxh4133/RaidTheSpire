@@ -5,7 +5,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
-import global.TextProvider;
+import global.TP;
 import global.statuseffect.StatusEffect;
 import global.card.CardType;
 import global.statuseffect.statuseffects.StartDraw;
@@ -15,7 +15,7 @@ public class Brace extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public Brace(ServerDataHandler sdh) {
-		super(1, TextProvider.CARD_RET_BRACE_NAME, TextProvider.CARD_RET_BRACE_DESC, TextProvider.CARD_RET_BRACE_FLAV, Rarity.COMMON, CardType.SKILL, true, false, false, sdh);
+		super(1, TP.C_T_BRACE_N, TP.C_T_BRACE_D, TP.C_T_BRACE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 
 	public void play(Player play, int target) {

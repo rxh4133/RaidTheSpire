@@ -3,6 +3,7 @@ package global.card.cards.revenant;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import server.ServerDataHandler;
 
@@ -10,16 +11,7 @@ public class TakeAdvantage extends Card{
 	private static final long serialVersionUID = 1L;
 
 	public TakeAdvantage(ServerDataHandler sdh) {
-		super(1, "Take Advantage", Rarity.COMMON, CardType.ATTACK, sdh);
-	}
-	
-	public TakeAdvantage(ServerDataHandler sdh, boolean play, boolean upgr) {
-		super(1, "Take Advantage", Rarity.COMMON, CardType.ATTACK, play, upgr, sdh);
-	}
-	
-	public void setTextStuff() {
-		description = "Deal 5 (7) damage. If the enemy is Frail (or Vulnerable), gain an energy and draw a card.";
-		flavor = "Is your enemy in pain? Stop and help theGO FUCKING KILL THEM";
+		super(1, TP.C_V_TAKEADVANTAGE_N, TP.C_V_TAKEADVANTAGE_D, TP.C_V_TAKEADVANTAGE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
 	public void play(Player play, int target) {
@@ -41,9 +33,5 @@ public class TakeAdvantage extends Card{
 			play.addEnergy(1);	
 			play.drawCards(1);
 		}
-	}
-	
-	public Card copyCard() {
-		return new TakeAdvantage(dataHandler, playable, upgraded);
 	}
 }

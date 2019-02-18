@@ -3,7 +3,7 @@ package global.card.cards.retributor;
 import global.card.Card;
 import global.Player;
 import global.Rarity;
-import global.TextProvider;
+import global.TP;
 import global.card.CardType;
 import server.ServerDataHandler;
 
@@ -11,7 +11,7 @@ public class DualStrike extends Card{
 	private static final long serialVersionUID = 1L;
 
 	public DualStrike(ServerDataHandler sdh) {
-		super(1, TextProvider.CARD_RET_DUALSTRIKE_NAME, TextProvider.CARD_RET_DUALSTRIKE_DESC, TextProvider.CARD_RET_DUALSTRIKE_FLAV, Rarity.COMMON, CardType.ATTACK, true, false, false, sdh);
+		super(1, TP.C_T_DUALSTRIKE_N, TP.C_T_DUALSTRIKE_D, TP.C_T_DUALSTRIKE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
 	public void play(Player play, int target) {

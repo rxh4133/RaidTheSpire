@@ -7,6 +7,7 @@ import global.ELM;
 import global.Entity;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.CardType;
 import server.ActionInteruptException;
 import server.EntityListener;
@@ -18,22 +19,11 @@ public class Revenge extends Card {
 	private transient REL dam;
 
 	public Revenge(ServerDataHandler sdh) {
-		super(2, "Revenge", Rarity.COMMON, CardType.ATTACK, sdh);
-	}
-
-	private Revenge(ServerDataHandler sdh, REL nd) {
-		super(2, "Revenge", Rarity.COMMON, CardType.ATTACK, sdh);
-		dam = nd;
-	}
-	
-	public void setTextStuff() {
-		description = "Deal damage equal to the damage you took last turn times 2 (3).";
-		flavor = "At one point a bug made this scale with damage done last turn. Super broken.";
+		super(2, TP.C_T_REVENGE_N, TP.C_T_REVENGE_D, TP.C_T_REVENGE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 
 	public void onAddToDeck(Player p) {
 		dam = new REL();
-		p.addListener(dam);
 		p.addListener(dam);
 	}
 
@@ -48,9 +38,15 @@ public class Revenge extends Card {
 		int dealt = getETarget(target).takeAttackDamage(3 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
+	
+	private void setListener(REL rel) {
+		this.dam = rel;
+	}
 
-	public Card copyCard() {
-		return new Revenge(dataHandler, dam);
+	public Card clone() {
+		Card c = super.clone();
+		((Revenge) c).setListener(dam);
+		return c;
 	}
 
 	private class REL implements EntityListener, Serializable{
@@ -69,5 +65,4 @@ public class Revenge extends Card {
 		}
 
 	}
-
 }

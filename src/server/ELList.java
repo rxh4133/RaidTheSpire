@@ -18,13 +18,13 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 		toAdd = new ArrayList<F>();
 	}
 	
-	public void notifyAll(Entity e, ELM message, Object data) {
+	public void notifyAll(Entity e, ELM mesage, Object data) {
 		notifying = true;
 		int modify = 0;
 		ActionInteruptException doot = null;
 		for(int i = 0; i < size(); i++) {
 			try {
-				get(i).notify(e, message, data);
+				get(i).notify(e, mesage, data);
 			}catch(ModifyValueException mbge) {
 				modify += mbge.modifier;
 			}catch(ActionInteruptException afe) {

@@ -3,6 +3,7 @@ package global.card.cards.resipiscent;
 import global.Enemy;
 import global.Player;
 import global.Rarity;
+import global.TP;
 import global.card.Card;
 import global.card.CardType;
 import global.statuseffect.statuseffects.Frail;
@@ -12,15 +13,7 @@ public class MindSpike extends Card {
 	private static final long serialVersionUID = 1L;
 
 	public MindSpike(ServerDataHandler sdh) {
-		super(1, "Mind Spike", Rarity.COMMON, CardType.SKILL, true, false, sdh);		
-	}
-	
-	public MindSpike(ServerDataHandler sdh, Boolean play, boolean upgr) {
-		super(1, "Mind Spike", Rarity.COMMON, CardType.SKILL, play, upgr, sdh);
-	}
-	
-	public Card CopyCard() {
-		return new MindSpike(dataHandler, playable, upgraded);
+		super(1, TP.C_S_MINDSPIKE_N, TP.C_S_MINDSPIKE_D, TP.C_S_MINDSPIKE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);		
 	}
 	
 	public void play(Player play, int target) {
