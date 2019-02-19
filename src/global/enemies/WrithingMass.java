@@ -6,6 +6,7 @@ import global.ELM;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.statuseffect.StatusEffect;
 import global.statuseffect.statuseffects.Metallicize;
@@ -45,12 +46,12 @@ public class WrithingMass extends Enemy {
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) {
+		public void notify(Entity entity, ELM message, NotifyPayload data) {
 			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
-				if(value > 0 && (int) (((Object[]) data)[0]) > 0) {
+				if(value > 0 && data.n > 0) {
 					WrithingWorm wm = new WrithingWorm(sdh);
 					wm.decideAction();
-					wm.takeDamage((int) (((Object[]) data)[0]));
+					wm.takeDamage(data.n);
 					if(!wm.isDead()) {
 						sdh.enemies.add(wm);
 						wm.addListener(sdh);

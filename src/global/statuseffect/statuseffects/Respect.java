@@ -2,6 +2,7 @@ package global.statuseffect.statuseffects;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
 
 public class Respect extends StatusEffect{
@@ -11,11 +12,10 @@ public class Respect extends StatusEffect{
 		super("Respect", 0, false, true);
 	}
 
-	public void notify(Entity e, ELM message, Object data) {
+	public void notify(Entity e, ELM message, NotifyPayload data) {
 		if(message.is(ELM.DAMAGE_DEALT)) {
-			Object[] pay = (Object[]) data;
-			if(pay[1].equals("Thorns")) {
-				this.value += (int) pay[0];
+			if(data.t.equals("Thorns")) {
+				this.value += data.n;
 			}
 		}else if(message.is(ELM.TURN_START)) {
 			e.addProvBlock(value);

@@ -2,6 +2,7 @@ package global.relic.relics;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import global.TP;
@@ -21,9 +22,9 @@ public class WildBloom extends Relic {
 		return this;
 	}
 	
-	public void notify(Entity e, ELM m, Object o) {
+	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.HEALED)) {
-			throw new ModifyValueException((int) ((int) o * .5));
+			throw new ModifyValueException((int) (o.n * .5));
 		}
 	}
 }

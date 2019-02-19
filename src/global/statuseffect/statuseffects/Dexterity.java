@@ -2,6 +2,7 @@ package global.statuseffect.statuseffects;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
 import server.ModifyValueException;
 
@@ -20,7 +21,7 @@ public class Dexterity extends StatusEffect {
 		return value > 0;
 	}
 	
-	public void notify(Entity e, ELM m, Object o) {
+	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.BLOCK_GAINED_CARD)) {
 			throw new ModifyValueException(value);
 		}

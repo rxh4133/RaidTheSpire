@@ -8,6 +8,7 @@ import global.ELM;
 import global.Enemy;
 import global.Entity;
 import global.Message;
+import global.NotifyPayload;
 import global.Player;
 import global.PlayerClass;
 import global.Reward;
@@ -20,6 +21,9 @@ import server.managers.RewardManager;
 public class ServerDataHandler implements EntityListener {
 
 	public static int ENEMY_ACTION_DELAY = 2;
+	
+	public static int SDH_PRI = 40;
+	
 	public ArrayList<Player> players;
 	public ArrayList<Enemy> enemies;
 
@@ -243,7 +247,7 @@ public class ServerDataHandler implements EntityListener {
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, Object data) {
+	public void notify(Entity entity, ELM message, NotifyPayload data) {
 		if(entity instanceof Enemy) {
 			if(message.is(ELM.DIED_ATTACK_DAMAGE) || message.is(ELM.DIED_TRUE_DAMAGE) || message.is(ELM.DIED_DAMAGE)) {
 				boolean allDead = true;
@@ -264,6 +268,16 @@ public class ServerDataHandler implements EntityListener {
 				enemies.remove(entity);
 			}
 		}
+	}
+
+	@Override
+	public int compareTo(EntityListener el) {
+		return SDH_PRI - el.getPriority();
+	}
+
+	@Override
+	public int getPriority() {
+		return SDH_PRI;
 	}
 
 }

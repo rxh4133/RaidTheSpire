@@ -5,6 +5,7 @@ import java.io.Serializable;
 import global.card.Card;
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import global.TP;
@@ -54,14 +55,24 @@ public class Revenge extends Card {
 		public int damageDealt;
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) throws ActionInteruptException {
+		public void notify(Entity entity, ELM message, NotifyPayload data) throws ActionInteruptException {
 			if(message.is(ELM.TURN_END)) {
 				damageDealt = 0;
 			}else if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
-				damageDealt += (int)((Object[])data)[0];
+				damageDealt += data.n;
 			}else if(message.is(ELM.DAMAGE_TAKEN)) {
-				damageDealt += (int) data;
+				damageDealt += data.n;
 			}
+		}
+
+		@Override
+		public int compareTo(EntityListener o) {
+			return getPriority() - o.getPriority();
+		}
+
+		@Override
+		public int getPriority() {
+			return 25;
 		}
 
 	}

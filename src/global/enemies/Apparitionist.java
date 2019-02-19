@@ -6,6 +6,7 @@ import global.ELM;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.statuseffect.StatusEffect;
 import global.statuseffect.statuseffects.Dexterity;
@@ -137,10 +138,9 @@ public class Apparitionist extends Enemy{
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) {
+		public void notify(Entity entity, ELM message, NotifyPayload data) {
 			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
-				Object[] pay = (Object[]) data;
-				if((int)pay[0] > 0) {
+				if(data.n > 0) {
 					if(value == 1) {
 						value = 0;
 						a.spawnApparition();
@@ -150,9 +150,8 @@ public class Apparitionist extends Enemy{
 			}else if(message.is(ELM.TURN_START)) {
 				value = 1;
 			}else if(message.is(ELM.ATTACKED)) {
-				Object[] pay = (Object[]) data;
 				a.secLastAtt = a.lastAtt;
-				a.lastAtt = (Entity) pay[1];
+				a.lastAtt = data.e;
 			}
 		}
 	}
@@ -165,12 +164,22 @@ public class Apparitionist extends Enemy{
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) {
+		public void notify(Entity entity, ELM message, NotifyPayload data) {
 			if(message.is(ELM.DIED_ATTACK_DAMAGE)|| message.is(ELM.DIED_TRUE_DAMAGE) || message.is(ELM.DIED_DAMAGE)) {
 				a.addSE(new Strength(1));
 				a.reduceSE(a.getSE("Metallicize"), 1);
 				a.reduceSE(a.getSE("Intangible"), 1);
 			}
+		}
+
+		@Override
+		public int compareTo(EntityListener o) {
+			return getPriority() - o.getPriority();
+		}
+
+		@Override
+		public int getPriority() {
+			return 0;
 		}
 	}
 

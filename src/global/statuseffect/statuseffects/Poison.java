@@ -2,6 +2,7 @@ package global.statuseffect.statuseffects;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
 
 public class Poison extends StatusEffect {
@@ -11,7 +12,7 @@ public class Poison extends StatusEffect {
 		super("Poison", v, true, false);
 	}
 	
-	public void notify(Entity e, ELM m, Object o) {
+	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.TURN_START)) {
 			e.takeTrueDamage(value);
 			if(e.getSE("Necrotic") == null) {

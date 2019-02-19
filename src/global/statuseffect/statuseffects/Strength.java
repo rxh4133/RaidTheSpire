@@ -2,6 +2,7 @@ package global.statuseffect.statuseffects;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
 import server.ModifyValueException;
 
@@ -10,6 +11,7 @@ public class Strength extends StatusEffect{
 
 	public Strength(int v) {
 		super("Strength", v);
+		priority = 5;
 	}
 	
 	public boolean isDebuff() {
@@ -20,7 +22,7 @@ public class Strength extends StatusEffect{
 		return value > 0;
 	}
 
-	public void notify(Entity e, ELM m, Object o) {
+	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.ATTACKING)) {
 			throw new ModifyValueException(value);
 		}

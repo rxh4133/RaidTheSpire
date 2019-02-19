@@ -2,6 +2,7 @@ package global.statuseffect.statuseffects;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
 import server.ModifyValueException;
 
@@ -16,10 +17,9 @@ public class Vulnerable extends StatusEffect{
 		e.reduceSE(this, 1);
 	}
 
-	public void notify(Entity entity, ELM message, Object data) {
+	public void notify(Entity entity, ELM message, NotifyPayload data) {
 		if(message.is(ELM.ATTACKED)) {
-			Object[] payload = (Object[]) data;
-			throw new ModifyValueException((int) ((int) (payload[0]) * .5));
+			throw new ModifyValueException((int) (data.n * .5));
 		}else if(message.is(ELM.TURN_START)) {
 			entity.reduceSE(this, 1);
 		}

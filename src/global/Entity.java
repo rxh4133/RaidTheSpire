@@ -131,27 +131,27 @@ public class Entity implements Serializable{
 	public void takeTrueDamage(int damage) {
 		curHealth -= damage;
 		if(curHealth <= 0) {
-			notify(this, ELM.DIED_TRUE_DAMAGE, damage);
+			notify(this, ELM.DIED_TRUE_DAMAGE, new NotifyPayload(this, damage, "diedtruedamage"));
 		}
 	}
 
 	public void takeDamage(int damage) {
-		notify(this, ELM.DAMAGE_TAKEN, damage);
+		notify(this, ELM.DAMAGE_TAKEN, new NotifyPayload(this, damage, "damtaken"));
 		curHealth -= damage;
 		if(curHealth <= 0) {
-			notify(this, ELM.DIED_DAMAGE, damage);
+			notify(this, ELM.DIED_DAMAGE, new NotifyPayload(this, damage, "dieddamage"));
 		}
 	}
 
 	public int takeAttackDamage(int damage, Entity attacker) {
 		try {
-			attacker.notify(attacker, ELM.ATTACKING, damage);
+			attacker.notify(attacker, ELM.ATTACKING, new NotifyPayload(this, damage, "attacking"));
 		}catch(ModifyValueException mve) {
 			damage += mve.modifier;
 		}
 		
 		try {
-			notify(this, ELM.ATTACKED, new Object[] {damage, attacker});
+			notify(this, ELM.ATTACKED, new NotifyPayload(attacker, damage, "attacked"));
 		} catch(ActionInteruptException afe) {
 			return 0;
 		} catch(ModifyValueException mve) {
@@ -166,10 +166,10 @@ public class Entity implements Serializable{
 				block = 0;
 			}
 		}
-		notify(this, ELM.ATTACK_DAMAGE_TAKEN, new Object[] {damage, attacker});
+		notify(this, ELM.ATTACK_DAMAGE_TAKEN, new NotifyPayload(attacker, damage, "attdamtaken"));
 		curHealth -= damage;
 		if(curHealth <= 0) {
-			notify(this, ELM.DIED_ATTACK_DAMAGE, damage);
+			notify(this, ELM.DIED_ATTACK_DAMAGE, new NotifyPayload(attacker, damage, "diedattdam"));
 		}
 		return damage;
 	}
@@ -194,7 +194,7 @@ public class Entity implements Serializable{
 
 	public void gainBlockFromCard(int block) {
 		try {
-			notify(this, ELM.BLOCK_GAINED_CARD, block);
+			notify(this, ELM.BLOCK_GAINED_CARD, new NotifyPayload(null, block, "blockcard"));
 		}catch(ModifyValueException mbge) {
 			block = block + mbge.modifier;
 		}
@@ -203,7 +203,7 @@ public class Entity implements Serializable{
 
 	public void gainBlock(int block) {
 		try {
-			notify(this, ELM.BLOCK_GAINED, block);
+			notify(this, ELM.BLOCK_GAINED, new NotifyPayload(null, block, "block"));
 		}catch(ModifyValueException mbge) {
 			block = block + mbge.modifier;
 		}
@@ -219,11 +219,11 @@ public class Entity implements Serializable{
 	}
 
 	public void fightStartSubs() {
-		notify(this, ELM.FIGHT_START, "fightstart");
+		notify(this, ELM.FIGHT_START, new NotifyPayload(null, 0, "fightstart"));
 	}
 
 	public void fightEndSubs() {
-		notify(this, ELM.FIGHT_END, "fightend");
+		notify(this, ELM.FIGHT_END, new NotifyPayload(null, 0, "fightend"));
 	}
 
 	public void addListener(EntityListener el) {
@@ -238,7 +238,7 @@ public class Entity implements Serializable{
 		return curHealth <= 0;
 	}
 	
-	private void notify(Entity el, ELM message, Object data) {
+	private void notify(Entity el, ELM message, NotifyPayload data) {
 		int mod = 0;
 		try {
 			listeners.notifyAll(el, message, data);

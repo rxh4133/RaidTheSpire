@@ -6,6 +6,7 @@ import java.util.Collections;
 import global.ELM;
 import global.Enemy;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.statuseffect.StatusEffect;
 import server.ActionInteruptException;
@@ -22,7 +23,7 @@ public class Evasion extends StatusEffect {
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, Object data) throws ActionInteruptException {
+	public void notify(Entity entity, ELM message, NotifyPayload data) throws ActionInteruptException {
 		if(message.is(ELM.TURN_START)) {
 			entity.removeSE(this);
 		}else if(message.is(ELM.ATTACKED)) {
@@ -31,22 +32,20 @@ public class Evasion extends StatusEffect {
 					ArrayList<Player> players = new ArrayList<Player>();
 					players.addAll(dataHandler.players);
 					if(players.size() > 1) {
-						Object[] attackData = (Object[]) data;
 						players.remove(entity);
 						Collections.shuffle(players);
 						entity.reduceSE(this, 1);
-						players.get(0).takeAttackDamage((int) attackData[0], (Entity) attackData[1]);
+						players.get(0).takeAttackDamage(data.n, data.e);
 						throw new ActionInteruptException();
 					}
 				}
 				if(entity instanceof Enemy) {
 					ArrayList<Enemy> enemies = dataHandler.enemies;
 					if(enemies.size() > 1) {
-						Object[] attackData = (Object[]) data;
 						enemies.remove(entity);
 						Collections.shuffle(enemies);
 						entity.reduceSE(this, 1);
-						enemies.get(0).takeAttackDamage((int) attackData[0], (Entity) attackData[1]);
+						enemies.get(0).takeAttackDamage(data.n, data.e);
 						throw new ActionInteruptException();
 					}
 				}

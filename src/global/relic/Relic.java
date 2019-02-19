@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import server.EntityListener;
@@ -16,6 +17,7 @@ public class Relic implements Serializable, EntityListener, Cloneable{
 	private Rarity rarity;
 	protected String description;
 	protected String flavor;
+	protected int priority;
 	
 	protected transient ServerDataHandler dataHandler;
 	
@@ -24,6 +26,7 @@ public class Relic implements Serializable, EntityListener, Cloneable{
 		this.rarity = rarity;
 		description = desc;
 		flavor = flav;
+		priority = 25;
 	}
 
 	public Relic onAdd(Player owner, ServerDataHandler sdh) {
@@ -59,7 +62,17 @@ public class Relic implements Serializable, EntityListener, Cloneable{
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, Object data) {
+	public void notify(Entity entity, ELM message, NotifyPayload data) {
 		
+	}
+
+	@Override
+	public int compareTo(EntityListener o) {
+		return getPriority() - o.getPriority();
+	}
+
+	@Override
+	public int getPriority() {
+		return priority;
 	}
 }

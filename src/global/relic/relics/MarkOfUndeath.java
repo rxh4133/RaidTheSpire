@@ -2,6 +2,7 @@ package global.relic.relics;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import global.TP;
@@ -28,13 +29,23 @@ public class MarkOfUndeath extends Relic {
 	private class MUEL implements EntityListener{
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) {
-			if(message.is(ELM.DAMAGE_TAKEN) && (int) data > 0) {
+		public void notify(Entity entity, ELM message, NotifyPayload data) {
+			if(message.is(ELM.DAMAGE_TAKEN) && data.n > 0) {
 				entity.addSE(new Regen(1));
 			}
-			if(message.is(ELM.ATTACK_DAMAGE_TAKEN) && (int)((Object[]) data)[0] > 0) {
+			if(message.is(ELM.ATTACK_DAMAGE_TAKEN) && data.n > 0) {
 				entity.addSE(new Regen(1));
 			}
+		}
+
+		@Override
+		public int compareTo(EntityListener o) {
+			return getPriority() - o.getPriority();
+		}
+
+		@Override
+		public int getPriority() {
+			return 20;
 		}
 		
 	}

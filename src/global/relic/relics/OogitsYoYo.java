@@ -2,6 +2,7 @@ package global.relic.relics;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import global.TP;
@@ -22,7 +23,7 @@ public class OogitsYoYo extends Relic{
 		return this;
 	}
 	
-	public void notify(Entity e, ELM m, Object o) {
+	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.TURN_START)) {
 			if(justGained) {
 				e.takeTrueDamage(5);

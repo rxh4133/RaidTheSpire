@@ -3,6 +3,7 @@ package global.card.cards.retributor;
 import global.card.Card;
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import global.TP;
@@ -42,7 +43,7 @@ public class Brace extends Card {
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) {
+		public void notify(Entity entity, ELM message, NotifyPayload data) {
 			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
 				if(owner.getBlock() == 0) {
 					owner.addSE(new StartDraw(toDraw));

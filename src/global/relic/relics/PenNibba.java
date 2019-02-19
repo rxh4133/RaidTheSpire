@@ -2,6 +2,7 @@ package global.relic.relics;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import global.Player;
 import global.Rarity;
 import global.TP;
@@ -22,11 +23,11 @@ public class PenNibba extends Relic{
 		return this;
 	}
 	
-	public void notify(Entity e, ELM m, Object o) {
+	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.ATTACKING)) {
 			if(attacks == 9) {
 				attacks = 0;
-				throw new ModifyValueException((int) o * 2);
+				throw new ModifyValueException(o.n * 2);
 			}else {
 				attacks++;
 			}

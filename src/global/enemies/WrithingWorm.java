@@ -6,6 +6,7 @@ import global.ELM;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
+import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
 import global.enemyactions.Attack;
 import global.enemyactions.Weaken;
@@ -40,7 +41,7 @@ public class WrithingWorm extends Enemy {
 		private boolean alreadyCurledUp = false;
 
 		@Override
-		public void notify(Entity entity, ELM message, Object data) {
+		public void notify(Entity entity, ELM message, NotifyPayload data) {
 			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
 				if(!alreadyCurledUp) {
 					entity.gainBlock(value);

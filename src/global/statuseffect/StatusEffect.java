@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import global.ELM;
 import global.Entity;
+import global.NotifyPayload;
 import server.ActionInteruptException;
 import server.EntityListener;
 
@@ -16,12 +17,14 @@ public class StatusEffect implements Serializable, EntityListener, Cloneable{
 	public boolean hidden;
 	private boolean isDebuff;
 	private boolean isBuff;
+	protected int priority;
 	
 	public StatusEffect(String n, int v, boolean id, boolean ib) {
 		name = n;
 		value = v;
 		isDebuff = id;
 		isBuff = ib;
+		priority = 25;
 	}
 	
 	public StatusEffect(String n, int v) {
@@ -50,7 +53,18 @@ public class StatusEffect implements Serializable, EntityListener, Cloneable{
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, Object data) throws ActionInteruptException {
+	public void notify(Entity entity, ELM message, NotifyPayload data) throws ActionInteruptException {
 		
 	}
+
+	@Override
+	public int compareTo(EntityListener o) {
+		return getPriority() - o.getPriority();
+	}
+
+	@Override
+	public int getPriority() {
+		return priority;
+	}
+	
 }
