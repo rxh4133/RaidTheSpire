@@ -32,7 +32,7 @@ public class Entity implements Serializable{
 
 	public void heal(int health) {
 		try {
-			notify(this, ELM.HEALED, health);
+			notify(this, ELM.HEALED, new NotifyPayload(this, health, "healed"));
 		}catch(ModifyValueException mve) {
 			health += mve.modifier;
 		}
@@ -59,14 +59,14 @@ public class Entity implements Serializable{
 	}
 
 	public void preTurn() {
-		notify(this, ELM.TURN_START, this);
+		notify(this, ELM.TURN_START, new NotifyPayload(this, 0, "turnstart"));
 		removeAllBlock();
 		block += provisionalBlock;
 		provisionalBlock = 0;
 	}
 
 	public void postTurn() {
-		notify(this, ELM.TURN_END, this);
+		notify(this, ELM.TURN_END, new NotifyPayload(this, 0, "turnend"));
 	}
 
 	public void removeAllSE() {
@@ -121,7 +121,7 @@ public class Entity implements Serializable{
 	}
 
 	public void damageDealtOut(int damage, String source) {
-		notify(this, ELM.DAMAGE_DEALT, new Object[] {damage, source});
+		notify(this, ELM.DAMAGE_DEALT, new NotifyPayload(this, damage, source));
 	}
 
 	public void removeAllBlock() {
