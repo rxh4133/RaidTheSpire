@@ -7,7 +7,6 @@ import global.statuseffect.StatusEffect;
 import server.ActionInteruptException;
 import server.ELList;
 import server.EntityListener;
-import server.ModifyValueException;
 
 public class Entity implements Serializable{
 
@@ -31,12 +30,9 @@ public class Entity implements Serializable{
 	}
 
 	public void heal(int health) {
-		try {
-			notify(this, ELM.HEALED, new NotifyPayload(this, health, "healed"));
-		}catch(ModifyValueException mve) {
-			health += mve.modifier;
-		}
-		curHealth += health;
+		NotifyPayload pay = new NotifyPayload(this, health, "healed");
+		notify(this, ELM.HEALED, pay);
+		curHealth += pay.n;
 		if(curHealth > maxHealth) {
 			curHealth = maxHealth;
 		}
@@ -144,18 +140,16 @@ public class Entity implements Serializable{
 	}
 
 	public int takeAttackDamage(int damage, Entity attacker) {
-		try {
-			attacker.notify(attacker, ELM.ATTACKING, new NotifyPayload(this, damage, "attacking"));
-		}catch(ModifyValueException mve) {
-			damage += mve.modifier;
-		}
+		NotifyPayload pay = new NotifyPayload(this, damage, "attacking");
+		attacker.notify(attacker, ELM.ATTACKING, pay);
+		damage = pay.n;
 		
+		pay = new NotifyPayload(attacker, damage, "attacked");
 		try {
-			notify(this, ELM.ATTACKED, new NotifyPayload(attacker, damage, "attacked"));
+			notify(this, ELM.ATTACKED, pay);
+			damage = pay.n;
 		} catch(ActionInteruptException afe) {
 			return 0;
-		} catch(ModifyValueException mve) {
-			damage += mve.modifier;
 		}
 		if(block > 0) {
 			damage = damage - block;
@@ -166,7 +160,11 @@ public class Entity implements Serializable{
 				block = 0;
 			}
 		}
-		notify(this, ELM.ATTACK_DAMAGE_TAKEN, new NotifyPayload(attacker, damage, "attdamtaken"));
+
+		pay = new NotifyPayload(attacker, damage, "attdamtaken");
+		notify(this, ELM.ATTACK_DAMAGE_TAKEN, pay);
+		damage = pay.n;
+
 		curHealth -= damage;
 		if(curHealth <= 0) {
 			notify(this, ELM.DIED_ATTACK_DAMAGE, new NotifyPayload(attacker, damage, "diedattdam"));
@@ -193,21 +191,15 @@ public class Entity implements Serializable{
 	}
 
 	public void gainBlockFromCard(int block) {
-		try {
-			notify(this, ELM.BLOCK_GAINED_CARD, new NotifyPayload(null, block, "blockcard"));
-		}catch(ModifyValueException mbge) {
-			block = block + mbge.modifier;
-		}
-		this.block += (block);
+		NotifyPayload pay = new NotifyPayload(null, block, "blockcard");
+		notify(this, ELM.BLOCK_GAINED_CARD, pay);
+		this.block += (pay.n);
 	}
 
 	public void gainBlock(int block) {
-		try {
-			notify(this, ELM.BLOCK_GAINED, new NotifyPayload(null, block, "block"));
-		}catch(ModifyValueException mbge) {
-			block = block + mbge.modifier;
-		}
-		this.block += (block);
+		NotifyPayload pay = new NotifyPayload(null, block, "block");
+		notify(this, ELM.BLOCK_GAINED, new NotifyPayload(null, block, "block"));
+		this.block += (pay.n);
 	}
 
 	public void loseBlock(int block) {
@@ -239,19 +231,7 @@ public class Entity implements Serializable{
 	}
 	
 	private void notify(Entity el, ELM message, NotifyPayload data) {
-		int mod = 0;
-		try {
-			listeners.notifyAll(el, message, data);
-		} catch (ModifyValueException mve) {
-			mod = mve.modifier;
-		}
-		try {
-			effects.notifyAll(el, message, data);
-		} catch (ModifyValueException mve) {
-			mod += mve.modifier;
-		}
-		if(mod != 0) {
-			throw new ModifyValueException(mod);
-		}
+		listeners.notifyAll(el, message, data);
+		effects.notifyAll(el, message, data);
 	}
 }

@@ -7,7 +7,6 @@ import global.Player;
 import global.Rarity;
 import global.TP;
 import global.relic.Relic;
-import server.ModifyValueException;
 import server.ServerDataHandler;
 
 public class PenNibba extends Relic{
@@ -27,7 +26,7 @@ public class PenNibba extends Relic{
 		if(m.is(ELM.ATTACKING)) {
 			if(attacks == 9) {
 				attacks = 0;
-				throw new ModifyValueException(o.n * 2);
+				o.n *= 2;
 			}else {
 				attacks++;
 			}

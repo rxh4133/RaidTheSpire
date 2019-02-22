@@ -7,7 +7,6 @@ import global.Player;
 import global.Rarity;
 import global.TP;
 import global.relic.Relic;
-import server.ModifyValueException;
 import server.ServerDataHandler;
 
 public class WildBloom extends Relic {
@@ -24,7 +23,7 @@ public class WildBloom extends Relic {
 	
 	public void notify(Entity e, ELM m, NotifyPayload o) {
 		if(m.is(ELM.HEALED)) {
-			throw new ModifyValueException((int) (o.n * .5));
+			o.n *= 2;
 		}
 	}
 }

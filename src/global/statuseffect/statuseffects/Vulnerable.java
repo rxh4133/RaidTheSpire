@@ -4,7 +4,6 @@ import global.ELM;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
-import server.ModifyValueException;
 
 public class Vulnerable extends StatusEffect{
 	private static final long serialVersionUID = 1L;
@@ -19,7 +18,7 @@ public class Vulnerable extends StatusEffect{
 
 	public void notify(Entity entity, ELM message, NotifyPayload data) {
 		if(message.is(ELM.ATTACKED)) {
-			throw new ModifyValueException((int) (data.n * .5));
+			data.n += (int) (data.n / 2);
 		}else if(message.is(ELM.TURN_START)) {
 			entity.reduceSE(this, 1);
 		}

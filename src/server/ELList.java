@@ -23,14 +23,10 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	public void notifyAll(Entity e, ELM mesage, NotifyPayload data) {
 		notifying = true;
 		Collections.sort(this);
-		boolean modified = true;
 		ActionInteruptException doot = null;
 		for(int i = 0; i < size(); i++) {
 			try {
 				get(i).notify(e, mesage, data);
-			}catch(ModifyValueException mbge) {
-				data.n += mbge.modifier;
-				modified = true;
 			}catch(ActionInteruptException afe) {
 				doot = afe;
 			}
@@ -42,8 +38,6 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 		toAdd.removeAll(toAdd);
 		if(doot != null) {
 			throw doot;
-		}else if(modified) {
-			throw new ModifyValueException(data.n);
 		}
 	}
 	
