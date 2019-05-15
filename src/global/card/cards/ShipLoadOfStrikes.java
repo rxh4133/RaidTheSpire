@@ -15,15 +15,15 @@ public class ShipLoadOfStrikes extends Card{
 		super(1, TP.C_ALL_SHIPLOADOFSTRIKES_N, TP.C_ALL_SHIPLOADOFSTRIKES_D, TP.C_ALL_SHIPLOADOFSTRIKES_F, Rarity.MYTHIC, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player player, int target) throws CardFailException{
+	public void play(Player player, int entityTarget, int cardTarget) throws CardFailException{
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(36, player);
+		int dealt = getETarget(entityTarget).takeAttackDamage(36, player);
 		player.damageDealtOut(dealt, name);
 	}
 	
-	public void playUpgraded(Player player, int target) throws CardFailException{
+	public void playUpgraded(Player player, int entityTarget, int cardTarget) throws CardFailException{
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(54, player);
+		int dealt = getETarget(entityTarget).takeAttackDamage(54, player);
 		player.damageDealtOut(dealt, name);
 	}
 

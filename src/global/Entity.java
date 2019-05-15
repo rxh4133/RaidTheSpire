@@ -50,8 +50,12 @@ public class Entity implements Serializable{
 		return maxHealth;
 	}
 	
-	public ArrayList<StatusEffect> getEffects(){
+	public ELList<StatusEffect> getEffects(){
 		return effects;
+	}
+	
+	public void setEffects(ELList<StatusEffect> effects) {
+		this.effects = effects;
 	}
 
 	public void preTurn() {

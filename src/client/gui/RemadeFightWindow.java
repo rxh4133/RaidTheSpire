@@ -41,7 +41,8 @@ public class RemadeFightWindow extends JPanel{
 	private JPanel controlPanel;
 	private JPanel cardPanel;
 
-	private int target = 0;
+	private int entityTarget = 0;
+	private int cardTarget = 0;
 	
 	public static final Color DARK_YELLOW = new Color(63, 63, 21);
 	public static final Color DARK_ORANGE = new Color(63, 48, 28);
@@ -59,12 +60,12 @@ public class RemadeFightWindow extends JPanel{
 
 		playerPanel = new JPanel();
 		playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
-		playerPane = new JScrollPane(playerPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		playerPane = new JScrollPane(playerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		playerPanel.setBackground(DARK_RED);
 
 		enemyPanel = new JPanel();
 		enemyPanel.setLayout(new BoxLayout(enemyPanel, BoxLayout.Y_AXIS));
-		enemyPane = new JScrollPane(enemyPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		enemyPane = new JScrollPane(enemyPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		enemyPanel.setBackground(DARK_RED);
 
 		this.add(entityPanel, BorderLayout.CENTER);
@@ -181,7 +182,7 @@ public class RemadeFightWindow extends JPanel{
 			playButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					dataHandler.playCard(index, target);
+					dataHandler.playCard(index, entityTarget, cardTarget);
 				}
 			});
 			playButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -197,7 +198,7 @@ public class RemadeFightWindow extends JPanel{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					target = index;
+					cardTarget = index;
 				}
 
 			});
@@ -226,7 +227,7 @@ public class RemadeFightWindow extends JPanel{
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			JLabel eName = new JLabel(en.getName());
 			eName.setForeground(Color.WHITE);
-			eName.setAlignmentX(RemadeFightWindow.LEFT_ALIGNMENT);
+			eName.setAlignmentX(CENTER_ALIGNMENT);
 			this.add(eName);
 
 			hb = new HealthBar(en.getCurHealth(), en.getMaxHealth(), en.getBlock());
@@ -250,7 +251,7 @@ public class RemadeFightWindow extends JPanel{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					target = index;
+					entityTarget = index;
 				}
 
 			});
@@ -285,8 +286,8 @@ public class RemadeFightWindow extends JPanel{
 			this.setAlignmentX(CENTER_ALIGNMENT);
 			this.setBackground(DARK_ORANGE);
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			JLabel playerInfo = new JLabel(play.getName() + " Energy: " + play.getCurEnergy() + "/" + play.getMaxEnergy());
-			playerInfo.setAlignmentX(LEFT_ALIGNMENT);
+			JLabel playerInfo = new JLabel(play.getName() + (dataHandler.playerName.equals(play.getName()) ? " (You)" : "") + " Energy: " + play.getCurEnergy() + "/" + play.getMaxEnergy() + (play.getReadyToEndTurn() ? " (Ready!)" : " (NOT Ready)"));
+			playerInfo.setAlignmentX(CENTER_ALIGNMENT);
 			playerInfo.setForeground(Color.WHITE);
 			this.add(playerInfo);
 
@@ -312,7 +313,7 @@ public class RemadeFightWindow extends JPanel{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					target = index;
+					entityTarget = index;
 				}
 
 			});

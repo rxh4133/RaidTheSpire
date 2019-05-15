@@ -79,13 +79,13 @@ public class ServerDataHandler implements EntityListener {
 		for(Player p: players) {
 			notAllReady = notAllReady || !p.getReadyToEndTurn();
 		}
+		sendMessageToAll(new Message("players", players));
 		if(!notAllReady) {
 			for(int i = 0; i < players.size(); i++) {
 				players.get(i).setReadyToEndTurn(false);
 			}
 			doTurnCycle();
 		}
-		sendMessageToAll(new Message("players", players));
 	}
 
 	public void readyPlayerToStartGame(Player player) {
@@ -156,7 +156,7 @@ public class ServerDataHandler implements EntityListener {
 	public Message playCard(Object obj, Player play) {
 		if(obj instanceof Integer[] && playersCanPlayCard) {
 			Integer[] cardData = (Integer[]) obj;
-			Message result = play.playCard(cardData[0], cardData[1]);
+			Message result = play.playCard(cardData[0], cardData[1], cardData[2]);
 			sendMessageToAll(new Message("players", players));
 			sendMessageToAll(new Message("enemies", enemies));
 			return result;

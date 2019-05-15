@@ -16,14 +16,14 @@ public class HatredsBite extends Card {
 		super(2, TP.C_T_HATREDSBITE_N, TP.C_T_HATREDSBITE_D, TP.C_T_HATREDSBITE_F, Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
 	}
 
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.gainBlock(15);
 		play.addSE(new Thorns(5));
 		play.addSE(new ThornsDown(5));
 	}
 
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.gainBlock(20);
 		play.addSE(new Thorns(5));

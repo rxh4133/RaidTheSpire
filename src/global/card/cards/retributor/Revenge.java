@@ -28,15 +28,15 @@ public class Revenge extends Card {
 		p.addListener(dam);
 	}
 
-	public void play(Player p, int target) {
+	public void play(Player p, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(2 * dam.damageDealt, p);
+		int dealt = getETarget(entityTarget).takeAttackDamage(2 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 
-	public void playUpgraded(Player p, int target) {
+	public void playUpgraded(Player p, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(3 * dam.damageDealt, p);
+		int dealt = getETarget(entityTarget).takeAttackDamage(3 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 	

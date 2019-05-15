@@ -15,12 +15,12 @@ public class MountingHate extends Card {
 		super(2, TP.C_T_MOUNTINGHATE_N, TP.C_T_MOUNTINGHATE_D, TP.C_T_MOUNTINGHATE_F, Rarity.RARE, CardType.POWER, true, false, sdh);
 	}
 
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.addSE(new ThornsGen(2));
 	}
 
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.addSE(new ThornsGen(3));
 	}

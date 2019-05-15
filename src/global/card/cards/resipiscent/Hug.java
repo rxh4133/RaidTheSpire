@@ -19,11 +19,11 @@ public class Hug extends Card {
 		super(2, TP.C_S_HUG_N, TP.C_S_HUG_D, TP.C_S_HUG_F, Rarity.STARTER, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		int playerDex = dataHandler.players.indexOf(play);
-		if(target == playerDex + 1 || target == playerDex - 1) {
-			Player targ = getPTarget(target);
+		if(entityTarget == playerDex + 1 || entityTarget == playerDex - 1) {
+			Player targ = getPTarget(entityTarget);
 			ArrayList<StatusEffect> ses = new ArrayList<StatusEffect>();
 			ses.addAll(targ.effects);
 			Collections.shuffle(ses);
@@ -38,7 +38,7 @@ public class Hug extends Card {
 		}
 	}
 	
-	public void playUpgraded(Player play, int target) {
-		play(play, target);
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+		play(play, entityTarget, -1);
 	}
 }

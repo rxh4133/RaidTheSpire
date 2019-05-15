@@ -22,13 +22,13 @@ public class Salvage extends Card {
 		return CardResult.EXHAUST;
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.heal(10);
 		play.addSE(new MaxMissing(20, play));
 	}
 	
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.heal(10);
 		play.addSE(new MaxMissing(15, play));

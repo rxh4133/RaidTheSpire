@@ -1,7 +1,6 @@
 package global.card.cards.resipiscent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import global.Player;
 import global.Rarity;
@@ -9,7 +8,7 @@ import global.TP;
 import global.card.Card;
 import global.card.CardType;
 import global.statuseffect.StatusEffect;
-import server.CardFailException;
+import server.ELList;
 import server.ServerDataHandler;
 
 public class Weave extends Card {
@@ -19,31 +18,60 @@ public class Weave extends Card {
 		super(2, TP.C_S_WEAVE_N, TP.C_S_WEAVE_D, TP.C_S_WEAVE_F, Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Player targ = getPTarget(target);
-		if(play.equals(targ)) {
-			throw new CardFailException("Target cannot be yourself");
+		ArrayList<Player> players = dataHandler.players;
+		ELList<StatusEffect> buffsPrevious = getPlayerBuffs(players.get(0));
+		players.get(0).getEffects().removeAll(buffsPrevious);
+		ELList<StatusEffect> buffsCurrent = null;
+		for(int i = 1; i < players.size(); i++) {
+			buffsCurrent = getPlayerBuffs(players.get(i));
+			players.get(i).getEffects().removeAll(buffsCurrent);
+			players.get(i).getEffects().addAll(buffsPrevious);
+			buffsPrevious = buffsCurrent;
 		}
-		ArrayList<Player> recievers = new ArrayList<Player>();
-		recievers.addAll(dataHandler.players);
-		recievers.remove(play);
-		recievers.remove(targ);
-		if(recievers.size() == 0) {
-			throw new CardFailException("No valid random reciever");
+		players.get(0).getEffects().addAll(buffsPrevious);
+		
+		ArrayList<Player> playersReverse = new ArrayList<Player>();
+		
+		for(int i = players.size() - 1; i >= 0; i++) {
+			playersReverse.add(players.get(i));
 		}
-		Collections.shuffle(recievers);
-		for(StatusEffect se: targ.effects) {
-			if(se.isBuff()) {
-				try {
-					recievers.get(0).addSE((StatusEffect) se.clone());
-				} catch (CloneNotSupportedException e) {
-					System.out.println("A buff was non-cloneable. ???");
-					e.printStackTrace();
-				}
-			}
+		
+		ELList<StatusEffect> debuffsPrevious = getPlayerBuffs(playersReverse.get(0));
+		playersReverse.get(0).getEffects().removeAll(debuffsPrevious);
+		ELList<StatusEffect> debuffsCurrent = null;
+		for(int i = 1; i < playersReverse.size(); i++) {
+			debuffsCurrent = getPlayerDebuffs(playersReverse.get(i));
+			playersReverse.get(i).getEffects().removeAll(debuffsCurrent);
+			playersReverse.get(i).getEffects().addAll(debuffsPrevious);
+			debuffsPrevious = debuffsCurrent;
 		}
+		playersReverse.get(0).getEffects().addAll(debuffsPrevious);
 	}
 	
+	private ELList<StatusEffect> getPlayerBuffs(Player p){
+		ELList<StatusEffect> buffs = new ELList<StatusEffect>();
+		
+		for(StatusEffect se: p.getEffects()) {
+			if(se.isBuff()) {
+				buffs.add(se);
+			}
+		}
+		
+		return buffs;
+	}
+	
+	private ELList<StatusEffect> getPlayerDebuffs(Player p){
+		ELList<StatusEffect> debuffs = new ELList<StatusEffect>();
+		
+		for(StatusEffect se: p.getEffects()) {
+			if(se.isDebuff()) {
+				debuffs.add(se);
+			}
+		}
+		
+		return debuffs;
+	}
 	
 }

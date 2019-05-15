@@ -8,7 +8,7 @@ import global.statuseffect.StatusEffect;
 public class Vulnerable extends StatusEffect{
 	private static final long serialVersionUID = 1L;
 
-	public Vulnerable(int v, Entity appliedTo) {
+	public Vulnerable(int v) {
 		super("Vulnerable", v, true, false);
 	}
 
@@ -18,7 +18,7 @@ public class Vulnerable extends StatusEffect{
 
 	public void notify(Entity entity, ELM message, NotifyPayload data) {
 		if(message.is(ELM.ATTACKED)) {
-			data.n += (int) (data.n / 2);
+			data.n *= 1.5;
 		}else if(message.is(ELM.TURN_START)) {
 			entity.reduceSE(this, 1);
 		}

@@ -16,13 +16,13 @@ public class EnmitysMight extends Card {
 		super(0, TP.C_T_ENMITYSMIGHT_N, TP.C_T_ENMITYSMIGHT_D, TP.C_T_ENMITYSMIGHT_F, Rarity.STARTER, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int target) throws CardFailException{
+	public void play(Player play, int entityTarget, int cardTarget) throws CardFailException{
 		tinp();
-		getPTarget(target).addSE(new Thorns(2));
+		getPTarget(entityTarget).addSE(new Thorns(2));
 	}
 	
-	public void playUpgraded(Player play, int target) throws CardFailException{
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) throws CardFailException{
 		tinp();
-		getPTarget(target).addSE(new Thorns(3));
+		getPTarget(entityTarget).addSE(new Thorns(3));
 	}
 }

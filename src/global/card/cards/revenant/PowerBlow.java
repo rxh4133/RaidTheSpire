@@ -16,19 +16,19 @@ public class PowerBlow extends Card {
 		super(1, TP.C_V_POWERBLOW_N, TP.C_V_POWERBLOW_D, TP.C_V_POWERBLOW_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Enemy te = getETarget(target);
+		Enemy te = getETarget(entityTarget);
 		int dealt = te.takeAttackDamage(7, play);
 		play.damageDealtOut(dealt, name);
-		getETarget(target).addSE(new Vulnerable(2,te));
+		getETarget(entityTarget).addSE(new Vulnerable(2));
 	}
 	
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Enemy te = getETarget(target);
+		Enemy te = getETarget(entityTarget);
 		int dealt = te.takeAttackDamage(11, play);
 		play.damageDealtOut(dealt, name);
-		getETarget(target).addSE(new Vulnerable(2,te));
+		getETarget(entityTarget).addSE(new Vulnerable(2));
 	}
 }

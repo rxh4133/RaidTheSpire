@@ -67,11 +67,11 @@ public class Card implements Serializable, Cloneable{
 		return CardResult.DISCARD;
 	}
 	
-	public void play(Player player, int target) throws CardFailException{
+	public void play(Player player, int entityTarget, int cardTarget) throws CardFailException{
 		tinp();
 	}
 	
-	public void playUpgraded(Player player, int target) throws CardFailException{
+	public void playUpgraded(Player player, int entityTarget, int cardTarget) throws CardFailException{
 		tinp();
 	}
 	

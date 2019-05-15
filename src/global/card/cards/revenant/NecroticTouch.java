@@ -23,16 +23,16 @@ public class NecroticTouch extends Card {
 		return CardResult.REMOVE;
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Enemy e = getETarget(target);
+		Enemy e = getETarget(entityTarget);
 		e.addSE(new Necrotic(1));
 		e.addSE(new Poison(10));
 	}
 	
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Enemy e = getETarget(target);
+		Enemy e = getETarget(entityTarget);
 		e.addSE(new Necrotic(1));
 		e.addSE(new Poison(14));
 	}

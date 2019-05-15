@@ -14,9 +14,9 @@ public class TakeAdvantage extends Card{
 		super(1, TP.C_V_TAKEADVANTAGE_N, TP.C_V_TAKEADVANTAGE_D, TP.C_V_TAKEADVANTAGE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(5, play);
+		int dealt = getETarget(entityTarget).takeAttackDamage(5, play);
 		play.damageDealtOut(dealt, name);
 		if(play.getSE("Frail") != null){
 			play.addEnergy(1);	
@@ -25,9 +25,9 @@ public class TakeAdvantage extends Card{
 
 	}
 
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(7, play);
+		int dealt = getETarget(entityTarget).takeAttackDamage(7, play);
 		play.damageDealtOut(dealt, name);
 		if(play.getSE("Frail") != null || play.getSE("Vulnerable") != null){
 			play.addEnergy(1);	

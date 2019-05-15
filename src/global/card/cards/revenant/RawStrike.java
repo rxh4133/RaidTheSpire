@@ -15,17 +15,17 @@ public class RawStrike extends Card {
 		super(1, TP.C_V_RAWSTRIKE_N, TP.C_V_RAWSTRIKE_D, TP.C_V_RAWSTRIKE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(15, play);
+		int dealt = getETarget(entityTarget).takeAttackDamage(15, play);
 		play.damageDealtOut(dealt, name);
 		play.takeDamage(7);
 		play.addCardToHand(new FreshWound());
 	}
 
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(20, play);
+		int dealt = getETarget(entityTarget).takeAttackDamage(20, play);
 		play.damageDealtOut(dealt, name);
 		play.takeDamage(7);
 		play.addCardToHand(new FreshWound());

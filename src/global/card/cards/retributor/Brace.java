@@ -19,13 +19,13 @@ public class Brace extends Card {
 		super(1, TP.C_T_BRACE_N, TP.C_T_BRACE_D, TP.C_T_BRACE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.gainBlockFromCard(7);
 		play.addSE(new BEL(play, 1));
 	}
 
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.gainBlockFromCard(7);
 		play.addSE(new BEL(play, 2));

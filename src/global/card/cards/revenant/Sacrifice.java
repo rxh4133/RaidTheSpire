@@ -21,14 +21,14 @@ public class Sacrifice extends Card {
 		return CardResult.EXHAUST;
 	}
 
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.gainBlockFromCard(14);
 		play.takeDamage(5);
 		play.addCardToDraw(new FreshWound());
 	}
 	
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.gainBlockFromCard(20);
 		play.takeDamage(5);

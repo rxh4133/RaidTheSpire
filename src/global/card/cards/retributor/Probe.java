@@ -15,16 +15,16 @@ public class Probe extends Card {
 		super(1, TP.C_T_PROBE_N, TP.C_T_PROBE_D, TP.C_T_PROBE_F, Rarity.RARE, CardType.ATTACK, true, false, sdh);
 	}
 
-	public void play(Player play, int target) {
-		int dealt = getETarget(target).takeAttackDamage(6, play);
+	public void play(Player play, int entityTarget, int cardTarget) {
+		int dealt = getETarget(entityTarget).takeAttackDamage(6, play);
 		play.damageDealtOut(dealt, name);
 		if(dealt == 0) {
 			play.addSE(new Strength(3));
 		}
 	}
 	
-	public void playUpgraded(Player play, int target) {
-		int dealt = getETarget(target).takeAttackDamage(3, play);
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+		int dealt = getETarget(entityTarget).takeAttackDamage(3, play);
 		play.damageDealtOut(dealt, name);
 		if(dealt == 0) {
 			play.addSE(new Strength(4));

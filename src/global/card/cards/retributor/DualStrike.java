@@ -14,20 +14,20 @@ public class DualStrike extends Card{
 		super(1, TP.C_T_DUALSTRIKE_N, TP.C_T_DUALSTRIKE_D, TP.C_T_DUALSTRIKE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(3, play);
+		int dealt = getETarget(entityTarget).takeAttackDamage(3, play);
 		play.damageDealtOut(dealt, name);
-		dealt = getETarget(target).takeAttackDamage(3, play);
+		dealt = getETarget(entityTarget).takeAttackDamage(3, play);
 		play.damageDealtOut(dealt, name);
 		play.drawCards(1);
 	}
 
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		int dealt = getETarget(target).takeAttackDamage(4, play);
+		int dealt = getETarget(entityTarget).takeAttackDamage(4, play);
 		play.damageDealtOut(dealt, name);
-		dealt = getETarget(target).takeAttackDamage(4, play);
+		dealt = getETarget(entityTarget).takeAttackDamage(4, play);
 		play.damageDealtOut(dealt, name);
 		play.drawCards(1);
 	}

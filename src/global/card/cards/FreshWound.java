@@ -24,7 +24,7 @@ public class FreshWound extends Card {
 		return CardResult.EXHAUST;
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
 		play.heal(4);
 	}

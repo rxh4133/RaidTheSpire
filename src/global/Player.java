@@ -219,20 +219,29 @@ public class Player extends Entity{
 		getHand().removeAll(getHand());
 	}
 
-	public Message playCard(int index, int target) {
+	public Message playCard(int index, int entityTarget, int cardTarget) {
 		CardResult result = null;
-		boolean energyUsed = false;
+		int energyUsed = 0;
 		try {
 			if(index < getHand().size()) {
 				Card card = getHand().get(index);
 				if(card != null && card.cost <= getCurEnergy()) {
+					boolean isX = false;
 					result = card.prePlay(this, index);
-					energyUsed = true;
+					if(card.cost < 0) {
+						card.cost = getCurEnergy();
+						isX = true;
+					}
+					energyUsed = card.cost;
 					setCurEnergy(getCurEnergy() - card.cost);
 					if(!card.upgraded) {
-						card.play(this, target);
+						card.play(this, entityTarget, cardTarget);
 					}else {
-						card.playUpgraded(this, target);
+						card.playUpgraded(this, entityTarget, cardTarget);
+					}
+					energyUsed = 0;
+					if(isX) {
+						card.cost = -1;
 					}
 					return new Message("pcok", null);
 				}
@@ -248,8 +257,8 @@ public class Player extends Entity{
 					hand.add(index, removed.get(removed.size()-1));
 				}
 			}
-			if(energyUsed) {
-				setCurEnergy(getCurEnergy() + hand.get(index).cost);
+			if(energyUsed > 0) {
+				setCurEnergy(getCurEnergy() + energyUsed);
 			}
 		} catch (ActionInteruptException aie) {
 			aie.printStackTrace();

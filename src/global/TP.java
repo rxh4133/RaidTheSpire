@@ -90,7 +90,7 @@ public class TP {
 	public static final String C_V_TAKEADVANTAGE_F = "Is your enemy in pain? Stop and help theGO FUCKING KILL THEM";
 	
 	public static final String C_S_DESECRATE_N = "Desecrate";
-	public static final String C_S_DESECRATE_D = "Apply 3 vulnerable and 3 frail to all enemies. Exhaust.";
+	public static final String C_S_DESECRATE_D = "Apply 3 (5) vulnerable and 3 (5) frail to all enemies. Exhaust.";
 	public static final String C_S_DESECRATE_F = "Leave their mind a hellscape.";
 	
 	public static final String C_S_HUG_N = "Hug";
@@ -102,8 +102,40 @@ public class TP {
 	public static final String C_S_MINDSPIKE_F = "Leave them gibbering";
 	
 	public static final String C_S_WEAVE_N = "Weave";
-	public static final String C_S_WEAVE_D = "Grant another allies buffs to another random ally.";
-	public static final String C_S_WEAVE_F = "Thoughts, threads, woven for strength.";
+	public static final String C_S_WEAVE_D = "Moves your parties buffs down one person and your parties debuffs up one person.";
+	public static final String C_S_WEAVE_F = "Thoughts, threads, woven together.";
+	
+	public static final String C_S_SHIFT_N = "Shift";
+	public static final String C_S_SHIFT_D = "Move an allies debuffs to another ally.";
+	public static final String C_S_SHIFT_F = "Shared victory; shared pain.";
+	
+	public static final String C_S_INSPIRE_N = "Inspire";
+	public static final String C_S_INSPIRE_D = "X cost. Grant X + 1 (x + 2) energy to an ally.";
+	public static final String C_S_INSPIRE_F = "The sum of the whole is greater than the parts.";
+	
+	public static final String C_S_DARKWHISPER_N = "Dark Whisper";
+	public static final String C_S_DARKWHISPER_D = "Take 1 true damage. Gain 2 (3) energy. Add 2 copies of this to your draw pile.";
+	public static final String C_S_DARKWHISPER_F = "Answer, and tear your world apart.";
+	
+	public static final String C_S_TERRORIZE_N = "Terrorize";
+	public static final String C_S_TERRORIZE_D = "Deal 10 (15) true damage to an enemy. Apply -3 strength for the rest of the turn. Apply 3 weak.";
+	public static final String C_S_TERRORIZE_F = "They will know you, and they will fear you.";
+	
+	public static final String C_S_UNITEDPURPOSE_N = "United Purpose";
+	public static final String C_S_UNITEDPURPOSE_D = "At the start of their turns, all players draw cards equal to the number of players.";
+	public static final String C_S_UNITEDPURPOSE_F = "With gathered intent!";
+	
+	public static final String C_S_QUIETMINDHELP_N = "A Quiet Mind: Help Yourself";
+	public static final String C_S_QUIETMINDHELP_D = "Heal 1 health. Continue your journey. Exhaust.";
+	public static final String C_S_QUIETMINDHELP_F = "You must improve yourself to know yourself.";
+	
+	public static final String C_S_QUIETMINDKNOW_N = "A Quiet Mind: Know Yourself";
+	public static final String C_S_QUIETMINDKNOW_D = "Draw 5 cards. Continue your journey. Exhaust.";
+	public static final String C_S_QUIETMINDKNOW_F = "You must know your thoughts in order to center them.";
+	
+	public static final String C_S_QUIETMINDCENTER_N = "A Quiet Mind: Center Yourself";
+	public static final String C_S_QUIETMINDCENTER_D = "Remove all debuffs. Continue your journey. Exhaust.";
+	public static final String C_S_QUIETMINDCENTER_F = "To control your body, you must control your mind.";
 	
 	public static final String C_ALL_DEFEND_N = "Defend";
 	public static final String C_ALL_DEFEND_D = "Gain 5 (8) block.";

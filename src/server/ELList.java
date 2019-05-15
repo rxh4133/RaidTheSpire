@@ -10,7 +10,7 @@ import global.NotifyPayload;
 public class ELList<F extends EntityListener> extends ArrayList<F> {
 	private static final long serialVersionUID = 1L;
 	
-	private boolean notifying;
+	private boolean iterating;
 	private ArrayList<EntityListener> toRemove;
 	private ArrayList<F> toAdd;
 	
@@ -21,7 +21,7 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	}
 	
 	public void notifyAll(Entity e, ELM mesage, NotifyPayload data) {
-		notifying = true;
+		iterating = true;
 		Collections.sort(this);
 		ActionInteruptException doot = null;
 		for(int i = 0; i < size(); i++) {
@@ -31,7 +31,7 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 				doot = afe;
 			}
 		}
-		notifying = false;
+		iterating = false;
 		removeAll(toRemove);
 		toRemove.removeAll(toRemove);
 		addAll(toAdd);
@@ -41,8 +41,20 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 		}
 	}
 	
+	public void startIterating() {
+		iterating = true;
+	}
+	
+	public void stopIterating() {
+		iterating = false;
+		removeAll(toRemove);
+		toRemove.removeAll(toRemove);
+		addAll(toAdd);
+		toAdd.removeAll(toAdd);
+	}
+	
 	public F remove(int i) {
-		if(notifying) {
+		if(iterating) {
 			toRemove.add(this.get(i));
 			return null;
 		}else {
@@ -52,7 +64,7 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	
 	@Override
 	public boolean remove(Object f) {
-		if(notifying) {
+		if(iterating) {
 			if(contains(f) && f instanceof EntityListener) {
 				toRemove.add((EntityListener) f);
 			}
@@ -63,7 +75,7 @@ public class ELList<F extends EntityListener> extends ArrayList<F> {
 	}
 	
 	public boolean add(F f) {
-		if(notifying) {
+		if(iterating) {
 			toAdd.add(f);
 		}else {
 			return super.add(f);

@@ -16,18 +16,19 @@ public class MindSpike extends Card {
 		super(1, TP.C_S_MINDSPIKE_N, TP.C_S_MINDSPIKE_D, TP.C_S_MINDSPIKE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);		
 	}
 	
-	public void play(Player play, int target) {
+	public void play(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Enemy targ = getETarget(target);
+		Enemy targ = getETarget(entityTarget);
 		targ.addSE(new Frail(2));
 		targ.takeTrueDamage(7);
+		play.damageDealtOut(7, TP.C_S_MINDSPIKE_N);
 	}
 	
-	public void playUpgraded(Player play, int target) {
+	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
 		tinp();
-		Enemy targ = getETarget(target);
+		Enemy targ = getETarget(entityTarget);
 		targ.addSE(new Frail(2));
 		targ.takeTrueDamage(9);
+		play.damageDealtOut(9, TP.C_S_MINDSPIKE_N);
 	}
-
 }

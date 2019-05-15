@@ -18,5 +18,4 @@ public class StrengthDown extends StatusEffect{
 			e.reduceSE(this, value);
 		}
 	}
-
 }
