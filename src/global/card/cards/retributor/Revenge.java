@@ -3,7 +3,7 @@ package global.card.cards.retributor;
 import java.io.Serializable;
 
 import global.card.Card;
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -17,30 +17,30 @@ import server.ServerDataHandler;
 public class Revenge extends Card {
 	private static final long serialVersionUID = 1L;
 
-	private transient REL dam;
+	private transient RevengeEntityListener dam;
 
 	public Revenge(ServerDataHandler sdh) {
 		super(2, TP.C_T_REVENGE_N, TP.C_T_REVENGE_D, TP.C_T_REVENGE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 
 	public void onAddToDeck(Player p) {
-		dam = new REL();
+		dam = new RevengeEntityListener();
 		p.addListener(dam);
 	}
 
-	public void play(Player p, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player p, int entityTarget, int cardTarget) {
 		int dealt = getETarget(entityTarget).takeAttackDamage(2 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 
-	public void playUpgraded(Player p, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player p, int entityTarget, int cardTarget) {
 		int dealt = getETarget(entityTarget).takeAttackDamage(3 * dam.damageDealt, p);
 		p.damageDealtOut(dealt, name);
 	}
 	
-	private void setListener(REL rel) {
+	private void setListener(RevengeEntityListener rel) {
 		this.dam = rel;
 	}
 
@@ -50,17 +50,17 @@ public class Revenge extends Card {
 		return c;
 	}
 
-	private class REL implements EntityListener, Serializable{
+	private class RevengeEntityListener implements EntityListener, Serializable{
 		private static final long serialVersionUID = 1L;
 		public int damageDealt;
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) throws ActionInteruptException {
-			if(message.is(ELM.TURN_END)) {
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) throws ActionInteruptException {
+			if(message.is(EntityListenerMessage.TURN_END)) {
 				damageDealt = 0;
-			}else if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
+			}else if(message.is(EntityListenerMessage.ATTACK_DAMAGE_TAKEN)){
 				damageDealt += data.n;
-			}else if(message.is(ELM.DAMAGE_TAKEN)) {
+			}else if(message.is(EntityListenerMessage.DAMAGE_TAKEN)) {
 				damageDealt += data.n;
 			}
 		}

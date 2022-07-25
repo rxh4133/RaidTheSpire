@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -12,8 +12,8 @@ public class Thorns extends StatusEffect{
 		super("Thorns", v, false, true);
 	}
 
-	public void notify(Entity entity, ELM message, NotifyPayload data) {
-		if(message.is(ELM.ATTACKED)) {
+	public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+		if(message.is(EntityListenerMessage.ATTACKED)) {
 			Entity reflect = data.e;
 			reflect.takeTrueDamage(this.value);
 			entity.damageDealtOut(this.value, name);

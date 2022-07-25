@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -12,10 +12,10 @@ public class Weak extends StatusEffect {
 		super("Weak", v, true, false);
 	}
 	
-	public void notify(Entity e, ELM m, NotifyPayload o) {
-		if(m.is(ELM.ATTACKING)) {
+	public void notify(Entity e, EntityListenerMessage m, NotifyPayload o) {
+		if(m.is(EntityListenerMessage.ATTACKING)) {
 			o.n *= .75;
-		}else if(m.is(ELM.TURN_START)) {
+		}else if(m.is(EntityListenerMessage.TURN_START)) {
 			e.reduceSE(this, 1);
 		}
 	}

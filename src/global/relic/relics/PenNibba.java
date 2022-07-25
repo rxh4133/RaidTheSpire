@@ -1,6 +1,6 @@
 package global.relic.relics;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -22,8 +22,8 @@ public class PenNibba extends Relic{
 		return this;
 	}
 	
-	public void notify(Entity e, ELM m, NotifyPayload o) {
-		if(m.is(ELM.ATTACKING)) {
+	public void notify(Entity e, EntityListenerMessage m, NotifyPayload o) {
+		if(m.is(EntityListenerMessage.ATTACKING)) {
 			if(attacks == 9) {
 				attacks = 0;
 				o.n *= 2;

@@ -23,16 +23,16 @@ public class Desecrate extends Card {
 		return CardResult.EXHAUST;
 	}
 
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		for(Enemy e: dataHandler.enemies) {
 			e.addSE(new Vulnerable(3));
 			e.addSE(new Frail(3));
 		}
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		for(Enemy e: dataHandler.enemies) {
 			e.addSE(new Vulnerable(5));
 			e.addSE(new Frail(5));

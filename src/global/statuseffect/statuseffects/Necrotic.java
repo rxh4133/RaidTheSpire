@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -12,8 +12,8 @@ public class Necrotic extends StatusEffect {
 		super("Necrotic", v, true, false);
 	}
 
-	public void notify(Entity e, ELM message, NotifyPayload data) {
-		if(message.is(ELM.HEALED)) {
+	public void notify(Entity e, EntityListenerMessage message, NotifyPayload data) {
+		if(message.is(EntityListenerMessage.HEALED)) {
 			data.n -= (int) (data.n / 2);
 		}
 	}

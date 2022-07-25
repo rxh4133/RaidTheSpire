@@ -14,14 +14,14 @@ public class Inspire extends Card {
 		super(-1, TP.C_S_INSPIRE_N, TP.C_S_INSPIRE_D, TP.C_S_INSPIRE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		Player targ = getPTarget(entityTarget);
 		targ.addEnergy(cost + 1);
 	}
 
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		Player targ = getPTarget(entityTarget);
 		targ.addEnergy(cost + 2);
 	}

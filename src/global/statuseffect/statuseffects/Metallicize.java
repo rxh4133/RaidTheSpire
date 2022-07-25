@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -12,8 +12,8 @@ public class Metallicize extends StatusEffect{
 		super("Metallicize", v, false, true);
 	}
 	
-	public void notify(Entity e, ELM m, NotifyPayload o) {
-		if(m.is(ELM.TURN_END)) {
+	public void notify(Entity e, EntityListenerMessage m, NotifyPayload o) {
+		if(m.is(EntityListenerMessage.TURN_END)) {
 			e.gainBlock(value);
 		}
 	}

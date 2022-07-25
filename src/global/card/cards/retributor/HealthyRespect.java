@@ -21,13 +21,13 @@ public class HealthyRespect extends Card {
 		return CardResult.REMOVE;
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.effects.add(new Respect());
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.addSE(new Respect());
 	}
 }

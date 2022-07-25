@@ -15,13 +15,13 @@ public class Evade extends Card {
 		super(2, TP.C_T_EVADE_N, TP.C_T_EVADE_N, TP.C_T_EVADE_F, Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player p, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player p, int entityTarget, int cardTarget) {
 		p.addSE(new Evasion(1, dataHandler, p));
 	}
 	
-	public void playUpgraded(Player p, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player p, int entityTarget, int cardTarget) {
 		p.addSE(new Evasion(2, dataHandler, p));
 	}
 }

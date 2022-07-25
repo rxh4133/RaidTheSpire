@@ -1,6 +1,6 @@
 package global;
 
-public enum ELM {
+public enum EntityListenerMessage {
 	ATTACKED,
 	ATTACKING,
 	DAMAGE_TAKEN,
@@ -19,7 +19,7 @@ public enum ELM {
 	
 	
 	
-	public boolean is(ELM elm) {
+	public boolean is(EntityListenerMessage elm) {
 		return this.equals(elm);
 	}
 }

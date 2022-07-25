@@ -7,6 +7,7 @@ import global.Rarity;
 import global.TP;
 import global.card.CardType;
 import global.statuseffect.statuseffects.MaxMissing;
+import server.CardFailException;
 import server.ServerDataHandler;
 
 public class Salvage extends Card {
@@ -17,19 +18,21 @@ public class Salvage extends Card {
 	}
 	
 	public CardResult prePlay(Player play, int index) {
-		tinp();
+		if(!playable) {
+			throw new CardFailException("Tried to play card that's unplayable");
+		}
 		play.exhaustFromHand(index);
 		return CardResult.EXHAUST;
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.heal(10);
 		play.addSE(new MaxMissing(20, play));
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.heal(10);
 		play.addSE(new MaxMissing(15, play));
 	}

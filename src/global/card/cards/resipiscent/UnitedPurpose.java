@@ -7,6 +7,7 @@ import global.card.Card;
 import global.card.CardResult;
 import global.card.CardType;
 import global.statuseffect.statuseffects.United;
+import server.CardFailException;
 import server.ServerDataHandler;
 
 public class UnitedPurpose extends Card {
@@ -17,19 +18,22 @@ public class UnitedPurpose extends Card {
 	}
 	
 	public CardResult prePlay(Player player, int index) {
-		tinp();
+		if(!playable) {
+			throw new CardFailException("Tried to play an unplayable card");
+		}
 		player.removeCardFromHand(index);
 		return CardResult.REMOVE;
 	}
 
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		for(Player p: dataHandler.players) {
 			p.addSE(new United(dataHandler.players.size()));
 		}
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play(play, entityTarget, -1);
 	}
 }

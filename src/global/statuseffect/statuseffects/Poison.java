@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -12,8 +12,8 @@ public class Poison extends StatusEffect {
 		super("Poison", v, true, false);
 	}
 	
-	public void notify(Entity e, ELM m, NotifyPayload o) {
-		if(m.is(ELM.TURN_START)) {
+	public void notify(Entity e, EntityListenerMessage m, NotifyPayload o) {
+		if(m.is(EntityListenerMessage.TURN_START)) {
 			e.takeTrueDamage(value);
 			if(e.getSE("Necrotic") == null) {
 				e.reduceSE(this, 1);

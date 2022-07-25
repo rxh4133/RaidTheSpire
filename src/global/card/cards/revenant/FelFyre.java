@@ -15,8 +15,8 @@ public class FelFyre extends Card {
 		super(2, TP.C_V_FELFYRE_N, TP.C_V_FELFYRE_D, TP.C_V_FELFYRE_F, Rarity.STARTER, CardType.ATTACK, true, false, sdh);
 	}
 
-	public void play(Player p, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player p, int entityTarget, int cardTarget) {
 		int dealt = getETarget(entityTarget).takeAttackDamage(16, p);
 		p.damageDealtOut(dealt, name);
 		p.takeDamage(4);
@@ -24,8 +24,8 @@ public class FelFyre extends Card {
 
 	}
 
-	public void playUpgraded(Player p, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player p, int entityTarget, int cardTarget) {
 		int dealt = getETarget(entityTarget).takeAttackDamage(20, p);
 		p.damageDealtOut(dealt, name);
 		p.takeDamage(4);

@@ -18,8 +18,8 @@ public class Shift extends Card {
 		super(1, TP.C_S_SHIFT_N, TP.C_S_SHIFT_D, TP.C_S_SHIFT_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player player, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player player, int entityTarget, int cardTarget) {
 		Player targ = getPTarget(entityTarget);
 		ArrayList<Player> recievers = new ArrayList<Player>();
 		recievers.addAll(dataHandler.players);
@@ -37,7 +37,8 @@ public class Shift extends Card {
 		}
 	}
 	
-	public void playUpgraded(Player player, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player player, int entityTarget, int cardTarget) {
 		play(player, entityTarget, -1);
 	}
 

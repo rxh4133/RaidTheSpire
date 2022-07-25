@@ -1,7 +1,7 @@
 package global.card.cards.retributor;
 
 import global.card.Card;
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -19,14 +19,14 @@ public class Brace extends Card {
 		super(1, TP.C_T_BRACE_N, TP.C_T_BRACE_D, TP.C_T_BRACE_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(7);
 		play.addSE(new BEL(play, 1));
 	}
 
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(7);
 		play.addSE(new BEL(play, 2));
 	}
@@ -43,13 +43,13 @@ public class Brace extends Card {
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) {
-			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+			if(message.is(EntityListenerMessage.ATTACK_DAMAGE_TAKEN)) {
 				if(owner.getBlock() == 0) {
 					owner.addSE(new StartDraw(toDraw));
 					owner.removeSE(this);
 				}
-			}else if(message.is(ELM.TURN_START)){
+			}else if(message.is(EntityListenerMessage.TURN_START)){
 				owner.removeSE(this);
 			}
 		}

@@ -18,7 +18,8 @@ public class Terrorize extends Card{
 		super(2, TP.C_S_TERRORIZE_N, TP.C_S_TERRORIZE_D, TP.C_S_TERRORIZE_F, Rarity.UNCOMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		Enemy targ = getETarget(entityTarget);
 		targ.takeTrueDamage(10);
 		play.damageDealtOut(10, name);
@@ -27,7 +28,8 @@ public class Terrorize extends Card{
 		targ.addSE(new Weak(3));
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		Enemy targ = getETarget(entityTarget);
 		targ.takeTrueDamage(15);
 		play.damageDealtOut(15, name);

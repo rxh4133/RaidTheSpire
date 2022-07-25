@@ -3,7 +3,7 @@ package global.statuseffect.statuseffects;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Enemy;
 import global.Entity;
 import global.NotifyPayload;
@@ -23,10 +23,10 @@ public class Evasion extends StatusEffect {
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, NotifyPayload data) throws ActionInteruptException {
-		if(message.is(ELM.TURN_START)) {
+	public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) throws ActionInteruptException {
+		if(message.is(EntityListenerMessage.TURN_START)) {
 			entity.removeSE(this);
-		}else if(message.is(ELM.ATTACKED)) {
+		}else if(message.is(EntityListenerMessage.ATTACKED)) {
 			if(value > 0) {
 				if(entity instanceof Player) {
 					ArrayList<Player> players = new ArrayList<Player>();

@@ -19,11 +19,13 @@ public class FreshMinorWound extends Card{
 		return CardResult.EXHAUST;
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.heal(2);
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play(play, entityTarget, -1);
 	}
 	

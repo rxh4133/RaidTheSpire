@@ -20,15 +20,15 @@ public class Remember extends Card {
 		return CardResult.EXHAUST;
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.discardHand();
 		play.drawCards(3);
 		play.addEnergy(2);
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.discardHand();
 		play.drawCards(4);
 		play.addEnergy(3);

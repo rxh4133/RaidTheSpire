@@ -14,16 +14,16 @@ public class DarkWhisper extends Card {
 		super(0, TP.C_S_DARKWHISPER_N, TP.C_S_DARKWHISPER_D, TP.C_S_DARKWHISPER_F, Rarity.RARE, CardType.SKILL, true, false, sdh);
 	}
 
-	public void play(Player player, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player player, int entityTarget, int cardTarget) {
 		player.takeTrueDamage(1);
 		player.addEnergy(2);
 		player.addCardToDraw(this.clone());
 		player.addCardToDraw(this.clone());
 	}
 	
-	public void playUpgraded(Player player, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player player, int entityTarget, int cardTarget) {
 		player.takeTrueDamage(1);
 		player.addEnergy(3);
 		player.addCardToDraw(this.clone());	

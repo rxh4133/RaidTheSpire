@@ -2,7 +2,7 @@ package global.relic;
 
 import java.io.Serializable;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -62,7 +62,7 @@ public class Relic implements Serializable, EntityListener, Cloneable{
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, NotifyPayload data) {
+	public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
 		
 	}
 

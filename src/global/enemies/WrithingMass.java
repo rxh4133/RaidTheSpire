@@ -2,7 +2,7 @@ package global.enemies;
 
 import java.util.ArrayList;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
@@ -46,8 +46,8 @@ public class WrithingMass extends Enemy {
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) {
-			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+			if(message.is(EntityListenerMessage.ATTACK_DAMAGE_TAKEN)){
 				if(value > 0 && data.n > 0) {
 					WrithingWorm wm = new WrithingWorm(sdh);
 					wm.decideAction();

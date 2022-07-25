@@ -234,11 +234,9 @@ public class Player extends Entity{
 					}
 					energyUsed = card.cost;
 					setCurEnergy(getCurEnergy() - card.cost);
-					if(!card.upgraded) {
-						card.play(this, entityTarget, cardTarget);
-					}else {
-						card.playUpgraded(this, entityTarget, cardTarget);
-					}
+					
+					card.play(this, entityTarget, cardTarget);
+					
 					energyUsed = 0;
 					if(isX) {
 						card.cost = -1;

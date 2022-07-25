@@ -2,7 +2,7 @@ package global.relic.relics;
 
 import java.io.Serializable;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -39,14 +39,14 @@ public class AvengingEye extends Relic{
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) {
-			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)){
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+			if(message.is(EntityListenerMessage.ATTACK_DAMAGE_TAKEN)){
 				if(data.n > 0) {
 					owner.addSE(new Strength(1));
 					owner.addSE(new StrengthDown(1));
 				}
 			}
-			if(message.is(ELM.DAMAGE_TAKEN)) {
+			if(message.is(EntityListenerMessage.DAMAGE_TAKEN)) {
 				if(data.n > 0) {
 					owner.addSE(new Strength(1));
 					owner.addSE(new StrengthDown(1));

@@ -58,7 +58,9 @@ public class Card implements Serializable, Cloneable{
 	}
 	
 	public CardResult prePlay(Player p, int index) {
-		tinp();
+		if(!playable) {
+			throw new CardFailException("Tried to play unplayable card");
+		}
 		p.discardCard(index);
 		return CardResult.DISCARD;
 	}
@@ -67,17 +69,22 @@ public class Card implements Serializable, Cloneable{
 		return CardResult.DISCARD;
 	}
 	
-	public void play(Player player, int entityTarget, int cardTarget) throws CardFailException{
-		tinp();
+	protected void playLogic(Player player, int entityTarget, int cardTarget) throws CardFailException{
+		
 	}
 	
-	public void playUpgraded(Player player, int entityTarget, int cardTarget) throws CardFailException{
-		tinp();
+	protected void playUpgradedLogic(Player player, int entityTarget, int cardTarget) throws CardFailException{
+		playLogic(player, entityTarget, cardTarget);
 	}
 	
-	protected void tinp() {
+	public void play(Player player, int entityTarget, int cardTarget) {
 		if(!playable) {
 			throw new CardFailException("Tried to play unplayable card");
+		}
+		if(upgraded) {
+			playUpgradedLogic(player, entityTarget, cardTarget);
+		}else {
+			playLogic(player, entityTarget, cardTarget);
 		}
 	}
 	

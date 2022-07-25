@@ -3,24 +3,30 @@ package server;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 
-public class ELList<F extends EntityListener> extends ArrayList<F> {
+/**
+ * This implementation of a list allows you to remove entity listeners while iterating over it. Listeners removed this way won't actually be removed until after iteration has stopped.
+ * @author Ryan
+ *
+ * @param <F>
+ */
+public class EntityListenerList<F extends EntityListener> extends ArrayList<F> {
 	private static final long serialVersionUID = 1L;
 	
 	private boolean iterating;
 	private ArrayList<EntityListener> toRemove;
 	private ArrayList<F> toAdd;
 	
-	public ELList() {
+	public EntityListenerList() {
 		super();
 		toRemove = new ArrayList<EntityListener>();
 		toAdd = new ArrayList<F>();
 	}
 	
-	public void notifyAll(Entity e, ELM mesage, NotifyPayload data) {
+	public void notifyAll(Entity e, EntityListenerMessage mesage, NotifyPayload data) {
 		iterating = true;
 		Collections.sort(this);
 		ActionInteruptException doot = null;

@@ -19,8 +19,8 @@ public class Hug extends Card {
 		super(2, TP.C_S_HUG_N, TP.C_S_HUG_D, TP.C_S_HUG_F, Rarity.STARTER, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		int playerDex = dataHandler.players.indexOf(play);
 		if(entityTarget == playerDex + 1 || entityTarget == playerDex - 1) {
 			Player targ = getPTarget(entityTarget);
@@ -38,7 +38,8 @@ public class Hug extends Card {
 		}
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play(play, entityTarget, -1);
 	}
 }

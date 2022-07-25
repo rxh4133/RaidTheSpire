@@ -2,7 +2,7 @@ package global.statuseffect;
 
 import java.io.Serializable;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import server.ActionInteruptException;
@@ -53,7 +53,7 @@ public class StatusEffect implements Serializable, EntityListener, Cloneable{
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, NotifyPayload data) throws ActionInteruptException {
+	public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) throws ActionInteruptException {
 		
 	}
 

@@ -1,6 +1,6 @@
 package global.relic.relics;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -29,11 +29,11 @@ public class MarkOfUndeath extends Relic {
 	private class MUEL implements EntityListener{
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) {
-			if(message.is(ELM.DAMAGE_TAKEN) && data.n > 0) {
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+			if(message.is(EntityListenerMessage.DAMAGE_TAKEN) && data.n > 0) {
 				entity.addSE(new Regen(1));
 			}
-			if(message.is(ELM.ATTACK_DAMAGE_TAKEN) && data.n > 0) {
+			if(message.is(EntityListenerMessage.ATTACK_DAMAGE_TAKEN) && data.n > 0) {
 				entity.addSE(new Regen(1));
 			}
 		}

@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -12,12 +12,12 @@ public class Respect extends StatusEffect{
 		super("Respect", 0, false, true);
 	}
 
-	public void notify(Entity e, ELM message, NotifyPayload data) {
-		if(message.is(ELM.DAMAGE_DEALT)) {
+	public void notify(Entity e, EntityListenerMessage message, NotifyPayload data) {
+		if(message.is(EntityListenerMessage.DAMAGE_DEALT)) {
 			if(data.t.equals("Thorns")) {
 				this.value += data.n;
 			}
-		}else if(message.is(ELM.TURN_START)) {
+		}else if(message.is(EntityListenerMessage.TURN_START)) {
 			e.addProvBlock(value);
 			value = 0;
 		}

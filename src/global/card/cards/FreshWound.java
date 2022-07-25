@@ -24,8 +24,8 @@ public class FreshWound extends Card {
 		return CardResult.EXHAUST;
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.heal(4);
 	}
 }

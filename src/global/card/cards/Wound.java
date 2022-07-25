@@ -15,11 +15,13 @@ public class Wound extends Card {
 		playable = false;
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		throw new CardFailException("Wounds are unplayable");
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		throw new CardFailException("Wounds are unplayable, and how the hell did you manage to upgrade this?");
 	}
 }

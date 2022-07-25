@@ -1,10 +1,10 @@
 package server;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 
 public interface EntityListener extends Comparable<EntityListener>{
-	public void notify(Entity entity, ELM message, NotifyPayload data);
+	public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data);
 	public int getPriority();
 }

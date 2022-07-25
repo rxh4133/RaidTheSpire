@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.Player;
@@ -13,8 +13,8 @@ public class United extends StatusEffect {
 		super("United", v);
 	}
 	
-	public void notify(Entity e, ELM m, NotifyPayload np) {
-		if(m.is(ELM.TURN_START)) {
+	public void notify(Entity e, EntityListenerMessage m, NotifyPayload np) {
+		if(m.is(EntityListenerMessage.TURN_START)) {
 			if(e instanceof Player) {
 				((Player) e).drawCards(value);
 			}

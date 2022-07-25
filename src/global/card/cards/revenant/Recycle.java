@@ -16,7 +16,8 @@ public class Recycle extends Card {
 		super(0, TP.C_V_RECYCLE_N, TP.C_V_RECYCLE_D, TP.C_V_RECYCLE_F, Rarity.RARE, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		for(int i = 0; i < entityTarget; i++) {
 			play.drawCards(1);
 			play.gainBlockFromCard(1);
@@ -25,7 +26,8 @@ public class Recycle extends Card {
 		}
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		for(int i = 0; i < entityTarget; i++) {
 			play.drawCards(1);
 			play.gainBlockFromCard(1);

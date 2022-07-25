@@ -14,15 +14,15 @@ public class Numb extends Card {
 		super(1, TP.C_V_NUMB_N, TP.C_V_NUMB_D, TP.C_V_NUMB_F, Rarity.COMMON, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(10);
 		play.discardRandomCard();
 		play.discardRandomCard();
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(10);
 		play.discardRandomCard();
 	}

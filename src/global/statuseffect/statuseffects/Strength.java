@@ -1,6 +1,6 @@
 package global.statuseffect.statuseffects;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Entity;
 import global.NotifyPayload;
 import global.statuseffect.StatusEffect;
@@ -21,8 +21,8 @@ public class Strength extends StatusEffect{
 		return value > 0;
 	}
 
-	public void notify(Entity e, ELM m, NotifyPayload o) {
-		if(m.is(ELM.ATTACKING)) {
+	public void notify(Entity e, EntityListenerMessage m, NotifyPayload o) {
+		if(m.is(EntityListenerMessage.ATTACKING)) {
 			o.n += value;
 		}
 	}

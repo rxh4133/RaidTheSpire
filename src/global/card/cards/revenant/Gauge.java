@@ -15,14 +15,14 @@ public class Gauge extends Card {
 		super(1, TP.C_V_GAUGE_N, TP.C_V_GAUGE_D, TP.C_V_GAUGE_F, Rarity.UNCOMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(2);
 		play.addSE(new Gauging(1));
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(5);
 		play.addSE(new Gauging(1));
 	}

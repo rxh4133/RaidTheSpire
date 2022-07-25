@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import global.card.Card;
 import global.relic.Relic;
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Enemy;
 import global.Entity;
 import global.Message;
@@ -170,6 +170,9 @@ public class ServerDataHandler implements EntityListener {
 		}
 	}
 
+	/**
+	 * The main game logic loop. Starts after the players turn ends.
+	 */
 	public void doTurnCycle() {
 		for(Player p: players) {
 			p.postTurn();
@@ -247,9 +250,9 @@ public class ServerDataHandler implements EntityListener {
 	}
 
 	@Override
-	public void notify(Entity entity, ELM message, NotifyPayload data) {
+	public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
 		if(entity instanceof Enemy) {
-			if(message.is(ELM.DIED_ATTACK_DAMAGE) || message.is(ELM.DIED_TRUE_DAMAGE) || message.is(ELM.DIED_DAMAGE)) {
+			if(message.is(EntityListenerMessage.DIED_ATTACK_DAMAGE) || message.is(EntityListenerMessage.DIED_TRUE_DAMAGE) || message.is(EntityListenerMessage.DIED_DAMAGE)) {
 				boolean allDead = true;
 				for(Enemy e: enemies) {
 					if(!e.isDead()) {

@@ -16,8 +16,8 @@ public class HateSpike extends Card{
 		super(1, TP.C_T_HATESPIKE_N, TP.C_T_HATESPIKE_D, TP.C_T_HATESPIKE_F, Rarity.COMMON, CardType.ATTACK, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		Player p = this.getPTarget(entityTarget);
 		
 		StatusEffect thorns = p.getSE("Thorns");
@@ -29,8 +29,8 @@ public class HateSpike extends Card{
 		}
 	}
 	
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		Player p = this.getPTarget(entityTarget);
 		
 		StatusEffect thorns = p.getSE("Thorns");

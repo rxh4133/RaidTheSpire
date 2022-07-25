@@ -15,14 +15,14 @@ public class Strike extends Card{
 		super(1, TP.C_ALL_STRIKE_N, TP.C_ALL_STRIKE_D, TP.C_ALL_STRIKE_F, Rarity.STARTER, CardType.ATTACK, true, false, sdh);
 	}
 
-	public void play(Player play, int entityTarget, int cardTarget) throws CardFailException {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) throws CardFailException {
 		int dealt = getETarget(entityTarget).takeAttackDamage(6, play);
 		play.damageDealtOut(dealt, name);
 	}
 
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) throws CardFailException {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) throws CardFailException {
 		int dealt = getETarget(entityTarget).takeAttackDamage(9, play);
 		play.damageDealtOut(dealt, name);
 	}

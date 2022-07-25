@@ -19,13 +19,13 @@ public class Defend extends Card {
 		flavor = "Standard stuff.";
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(5);
 	}
 
-	public void playUpgraded(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playUpgradedLogic(Player play, int entityTarget, int cardTarget) {
 		play.gainBlockFromCard(8);
 	}
 }

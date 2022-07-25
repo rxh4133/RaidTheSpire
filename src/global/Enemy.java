@@ -24,6 +24,9 @@ public class Enemy extends Entity{
 		return name;
 	}
 	
+	/**
+	 * Execute the actions that this enemy is intending to take.
+	 */
 	public void takeAction() {
 		for(EnemyAction ea: nextTurnActions) {
 			ea.doAction();
@@ -34,6 +37,10 @@ public class Enemy extends Entity{
 		return nextTurnActions;
 	}
 	
+	/**
+	 * Determine the next actions this enemy will take.
+	 * @return
+	 */
 	public ArrayList<EnemyAction> decideAction() {
 		return null;//bb
 	}

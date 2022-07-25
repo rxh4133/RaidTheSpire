@@ -8,7 +8,7 @@ import global.TP;
 import global.card.Card;
 import global.card.CardType;
 import global.statuseffect.StatusEffect;
-import server.ELList;
+import server.EntityListenerList;
 import server.ServerDataHandler;
 
 public class Weave extends Card {
@@ -18,12 +18,12 @@ public class Weave extends Card {
 		super(2, TP.C_S_WEAVE_N, TP.C_S_WEAVE_D, TP.C_S_WEAVE_F, Rarity.UNCOMMON, CardType.SKILL, true, false, sdh);
 	}
 	
-	public void play(Player play, int entityTarget, int cardTarget) {
-		tinp();
+	@Override
+	protected void playLogic(Player play, int entityTarget, int cardTarget) {
 		ArrayList<Player> players = dataHandler.players;
-		ELList<StatusEffect> buffsPrevious = getPlayerBuffs(players.get(0));
+		EntityListenerList<StatusEffect> buffsPrevious = getPlayerBuffs(players.get(0));
 		players.get(0).getEffects().removeAll(buffsPrevious);
-		ELList<StatusEffect> buffsCurrent = null;
+		EntityListenerList<StatusEffect> buffsCurrent = null;
 		for(int i = 1; i < players.size(); i++) {
 			buffsCurrent = getPlayerBuffs(players.get(i));
 			players.get(i).getEffects().removeAll(buffsCurrent);
@@ -38,9 +38,9 @@ public class Weave extends Card {
 			playersReverse.add(players.get(i));
 		}
 		
-		ELList<StatusEffect> debuffsPrevious = getPlayerBuffs(playersReverse.get(0));
+		EntityListenerList<StatusEffect> debuffsPrevious = getPlayerBuffs(playersReverse.get(0));
 		playersReverse.get(0).getEffects().removeAll(debuffsPrevious);
-		ELList<StatusEffect> debuffsCurrent = null;
+		EntityListenerList<StatusEffect> debuffsCurrent = null;
 		for(int i = 1; i < playersReverse.size(); i++) {
 			debuffsCurrent = getPlayerDebuffs(playersReverse.get(i));
 			playersReverse.get(i).getEffects().removeAll(debuffsCurrent);
@@ -50,8 +50,8 @@ public class Weave extends Card {
 		playersReverse.get(0).getEffects().addAll(debuffsPrevious);
 	}
 	
-	private ELList<StatusEffect> getPlayerBuffs(Player p){
-		ELList<StatusEffect> buffs = new ELList<StatusEffect>();
+	private EntityListenerList<StatusEffect> getPlayerBuffs(Player p){
+		EntityListenerList<StatusEffect> buffs = new EntityListenerList<StatusEffect>();
 		
 		for(StatusEffect se: p.getEffects()) {
 			if(se.isBuff()) {
@@ -62,8 +62,8 @@ public class Weave extends Card {
 		return buffs;
 	}
 	
-	private ELList<StatusEffect> getPlayerDebuffs(Player p){
-		ELList<StatusEffect> debuffs = new ELList<StatusEffect>();
+	private EntityListenerList<StatusEffect> getPlayerDebuffs(Player p){
+		EntityListenerList<StatusEffect> debuffs = new EntityListenerList<StatusEffect>();
 		
 		for(StatusEffect se: p.getEffects()) {
 			if(se.isDebuff()) {

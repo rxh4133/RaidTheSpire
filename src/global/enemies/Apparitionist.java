@@ -2,7 +2,7 @@ package global.enemies;
 
 import java.util.ArrayList;
 
-import global.ELM;
+import global.EntityListenerMessage;
 import global.Enemy;
 import global.EnemyAction;
 import global.Entity;
@@ -138,8 +138,8 @@ public class Apparitionist extends Enemy{
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) {
-			if(message.is(ELM.ATTACK_DAMAGE_TAKEN)) {
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+			if(message.is(EntityListenerMessage.ATTACK_DAMAGE_TAKEN)) {
 				if(data.n > 0) {
 					if(value == 1) {
 						value = 0;
@@ -147,9 +147,9 @@ public class Apparitionist extends Enemy{
 						a.addSE(new Intangible(1));
 					}
 				}
-			}else if(message.is(ELM.TURN_START)) {
+			}else if(message.is(EntityListenerMessage.TURN_START)) {
 				value = 1;
-			}else if(message.is(ELM.ATTACKED)) {
+			}else if(message.is(EntityListenerMessage.ATTACKED)) {
 				a.secLastAtt = a.lastAtt;
 				a.lastAtt = data.e;
 			}
@@ -164,8 +164,8 @@ public class Apparitionist extends Enemy{
 		}
 
 		@Override
-		public void notify(Entity entity, ELM message, NotifyPayload data) {
-			if(message.is(ELM.DIED_ATTACK_DAMAGE)|| message.is(ELM.DIED_TRUE_DAMAGE) || message.is(ELM.DIED_DAMAGE)) {
+		public void notify(Entity entity, EntityListenerMessage message, NotifyPayload data) {
+			if(message.is(EntityListenerMessage.DIED_ATTACK_DAMAGE)|| message.is(EntityListenerMessage.DIED_TRUE_DAMAGE) || message.is(EntityListenerMessage.DIED_DAMAGE)) {
 				a.addSE(new Strength(1));
 				a.reduceSE(a.getSE("Metallicize"), 1);
 				a.reduceSE(a.getSE("Intangible"), 1);
